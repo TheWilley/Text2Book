@@ -1,0 +1,88 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+@media (min-width: 1200px) {
+    .container{
+        max-width: 1500px;
+    }
+}
+
+.container {
+    padding: 20px;
+}
+
+#text_content {
+    width: 100%;
+    height: 100%;
+}
+
+#generate_step_1, #generate_step_2 {
+    display: none;
+    opacity: 0;
+}
+
+#generate_step_2 li {
+    font-weight: bolder;
+    font-size: large;
+}
+
+.generated_command_copy_button {
+    transition: opacity 0.3s;
+}
+
+.generated_command_copy_button:hover {
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.generated_command_copy_button_icon {
+    color: black;
+    max-width: 20px;
+    transition: opacity 0.3s;
+}
+
+.move-in-animation {
+    display: block !important;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation-name: slide-in;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.move-out-animation {
+    opacity: 0;
+    transform: translateY(0px);
+    animation-name: slide-out;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slide-in {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-out {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}

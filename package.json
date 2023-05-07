@@ -1,0 +1,22 @@
+{
+  "name": "text2book",
+  "version": "1.0.0",
+  "description": "Generate large amount of text to Minecraft books!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=production",
+    "dev": "tsc -w --sourceMap"
+  },
+  "author": "TheWilley",
+  "license": "MIT",
+  "devDependencies": {
+    "css-loader": "^6.7.3",
+    "html-webpack-plugin": "^5.5.1",
+    "style-loader": "^3.3.2",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.4",
+    "webpack": "^5.82.0",
+    "webpack-cli": "^5.1.0"
+  }
+}

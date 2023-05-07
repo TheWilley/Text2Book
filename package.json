@@ -6,12 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=production",
-    "dev": "tsc -w --sourceMap"
+    "dev": "tsc -w --sourceMap",
+    "deploy": "gh-pages -d dist"
   },
   "author": "TheWilley",
   "license": "MIT",
   "devDependencies": {
     "css-loader": "^6.7.3",
+    "gh-pages": "^5.0.0",
     "html-webpack-plugin": "^5.5.1",
     "style-loader": "^3.3.2",
     "ts-loader": "^9.4.2",

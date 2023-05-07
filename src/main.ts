@@ -139,6 +139,8 @@ class Lines {
         new MinecraftChar("/", 5),
         new MinecraftChar(" ", 3),
         new MinecraftChar("`", 2),
+        new MinecraftChar("“", 4),
+        new MinecraftChar("”", 4),
     ]
 
     constructor(text: string) {

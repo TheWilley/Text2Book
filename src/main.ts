@@ -353,8 +353,6 @@ class App {
         // Wait 0.5 seconds, this is to make the button alert the user that the command is being generated, even though it is instant
         await new Promise(r => setTimeout(r, 500));
 
-        console.log(this._lines)
-
         // Go trough each line
         for (let i = 0; i <= this._lines.length; i++) {
             amount_of_lines++;
@@ -449,7 +447,6 @@ class App {
             // Add the line to the lines string
             lines += line + " ";
             
-            console.log(lines)
             // If the index is divisible by 14, return the page string
             if ((index + 1) % 14 === 0) {
                 const pageString = `'{"text":"${lines}"}'`;

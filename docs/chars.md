@@ -83,7 +83,7 @@ These are the supported characters:
 | `]`            |   3  |
 | `{`            |   3  |
 | `}`            |   3  |
-| `|`            |   1  |
+| <code>\|</code>|   1  |
 | `"`            |   3  |
 | `:`            |   1  |
 | `;`            |   1  |

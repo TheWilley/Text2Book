@@ -5,6 +5,7 @@
     "module": "es6",
     "target": "es5",
     "jsx": "react",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "typeRoots": ["src/@types", "node_modules/@types"]
   }
 }

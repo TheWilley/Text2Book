@@ -6,9 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=production",
-    "dev": "tsc -w --sourceMap",
+    "dev": "webpack serve --mode=development",
     "deploy": "gh-pages -d dist"
   },
+  "typings": "main.d.ts",
   "author": "TheWilley",
   "license": "MIT",
   "devDependencies": {
@@ -19,6 +20,7 @@
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.4",
     "webpack": "^5.82.0",
-    "webpack-cli": "^5.1.0"
+    "webpack-cli": "^5.1.0",
+    "webpack-dev-server": "^4.15.0"
   }
 }

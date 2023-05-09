@@ -152,20 +152,17 @@ class Lines {
      * @param word The word to calculate the letters of
      * @returns The lines and the sum of the dots
      */
-    calculateLetters(word: string): [string[], number] {
-        let sum: number = 0, lines: string[] = [], stored_index: number = 0, substringed_word: string = "";
+    calculateLetters(word: string): LineType {
+        let sum: number = 0, lines: LineType = [], substringed_word: string = "";
         const ms: number = 114
 
         // Go trough each letter
         for (let i = 0; i < word.length; i++) {
-            // Store the index
-            stored_index = i;
-
             // Get the character
             let mcChar = this._allChars.find((c) => c.letter == word.charAt(i));
 
             // If the character is not found, return
-            if (!mcChar) return [[], 0];
+            if (!mcChar) return;
 
             // Add the dots
             sum += mcChar.dots;
@@ -174,9 +171,9 @@ class Lines {
             substringed_word = word.substring(0, i);
 
             // Check if the sum is bigger than the max sum
-            if (sum + substringed_word.length + 1 > ms) {
+            if (sum + substringed_word.length + 4 >= ms) {
                 // Add the word to the array
-                lines.push(substringed_word);
+                lines.push({"word": substringed_word, "value": sum + substringed_word.length + 4});
 
                 // Remove the word from the string
                 word = word.substring(i);
@@ -187,10 +184,10 @@ class Lines {
         }
 
         // Add the last word
-        lines.push(word);
+        lines.push({"word": word, "value": sum + substringed_word.length + 4});
 
         // Return the lines, the rest of the word and the sum + the length of the rest of the word + 4 to account for the spaces
-        return [lines, sum + substringed_word.length + 4]
+        return lines
     }
 
     /**
@@ -198,30 +195,28 @@ class Lines {
      * @returns The lines as a string array
      */
     getLines() {
-        let words: string[] = [], rows: string[] = [], lines: string[] = [], rest: string = "", sum = 0, temp_sum = 0, new_rows = [], i2 = 0, text = this._text;
-
+        let words: string[] = [], rows: string[] = [], lines: LineType = [], rest: string = "", sum = 0, new_rows = [], text = this._text;
         // Split the string into words
-        words = text.split(" ");
+        words = text.split(/\s+/);
 
         // Go trough each word
         for (let i = 0; i < words.length; i++) {
             // Get the letters
-            [lines, temp_sum] = this.calculateLetters(words[i]);
+            lines = this.calculateLetters(words[i]);
 
             for (let e = 0; e < lines.length; e++) {
                 // Add the sum
-                sum += this.calculateLetters(lines[e])[1];
+                sum += lines[e].value;
 
                 // If the sum is bigger than 114, reset the sum to the word which wrapped
-                if (sum > 114) {
-                    sum = temp_sum;
+                if (sum > 114 || i == words.length - 1) {
+                    sum = lines[e].value;
                     new_rows.push(rows.join(" "));
                     rows = [];
-                    i2 = i;
                 }
 
                 // Add the letters to the rows
-                rows.push(lines[e]);
+                rows.push(lines[e].word);
             }
         }
 
@@ -346,8 +341,6 @@ class App {
         // Create copy to not modify the original
         let copy_of_lines = [...this._lines]
 
-        console.log(this._lines)
-
         // Counter for the amount of lines
         let amount_of_lines = 0;
 
@@ -359,15 +352,17 @@ class App {
 
         // Wait 0.5 seconds, this is to make the button alert the user that the command is being generated, even though it is instant
         await new Promise(r => setTimeout(r, 500));
-        
+
+        console.log(this._lines)
+
         // Go trough each line
         for (let i = 0; i <= this._lines.length; i++) {
             amount_of_lines++;
-            
+
             // If the amount of lines is 1400, or the index is the length of the lines array, create the command
             if (amount_of_lines == 1400 || i == this._lines.length) {
                 // Create the command
-                let command = this.createCommand(copy_of_lines.splice(0, amount_of_lines), this._GLOBALS.author.value == "" ? "Author": this._GLOBALS.author.value, `${this._GLOBALS.title.value == "" ? "Book": this._GLOBALS.title.value} [${amount_of_books}]`);
+                let command = this.createCommand(copy_of_lines.splice(0, amount_of_lines), this._GLOBALS.author.value == "" ? "Author" : this._GLOBALS.author.value, `${this._GLOBALS.title.value == "" ? "Book" : this._GLOBALS.title.value} [${amount_of_books}]`);
 
                 // Reset the amount of lines
                 amount_of_lines = 0;
@@ -445,14 +440,16 @@ class App {
      * @param title The prefix title of the book (the book number will be added to the end, for example: Book [1])
      * @returns The command
      */
-    createCommand(book: string[], author: string, title:string): string {
+    createCommand(book: string[], author: string, title: string): string {
         // Create an array of page JSON strings, containing 14 lines each
         let lines = '';
 
         const pageStrings = book.map((line, index) => {
+            
             // Add the line to the lines string
             lines += line + " ";
-
+            
+            console.log(lines)
             // If the index is divisible by 14, return the page string
             if ((index + 1) % 14 === 0) {
                 const pageString = `'{"text":"${lines}"}'`;

@@ -1,0 +1,1 @@
+declare type LineType = {"word": string, "value": number}[]

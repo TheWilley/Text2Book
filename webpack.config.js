@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path")
 
 module.exports = {
   entry: './src/app.ts',
@@ -26,6 +27,13 @@ module.exports = {
         type: 'asset/resource',
       },
     ]
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
+    compress: true,
+    port: 9000,
   },
   plugins: [new HtmlWebpackPlugin({
     template: 'src/index.html'

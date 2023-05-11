@@ -1,5 +1,5 @@
 # Supported Characters
-These are the supported characters, The following data comes from [wiki.vg](https://wiki.vg/Chat#Font). The width of each character is the amount of pixels it takes up in the Minecraft font. This is used to calculate the width of a book page. Any characters not listed are remove during the book generation process.
+These are the supported characters. The following data comes from [wiki.vg](https://wiki.vg/Chat#Font). The width of each character is the amount of pixels it takes up in the Minecraft font. This is used to calculate the width of a book page. Any characters not listed are remove during the book generation process.
 
 |Char|Width|
 |---|---|

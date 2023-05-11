@@ -17,5 +17,5 @@ npm run build
 
 Open `index.html` in the dist folder.
 
-## Report missing characters
-Minecraft books work by using a font where each character is `x` amount of "dots" long. Because the amount of dots have to be manually defined for a given character, only the main ascii characters are supported (for now)
+## Which characters are supported?
+All main ascii characters are supported, and a complete list can be seen in [chars.md](docs/chars.md)

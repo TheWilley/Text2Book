@@ -42,139 +42,252 @@ class MinecraftChar {
 class Lines {
     private _text: string;
     private _allChars: MinecraftChar[] = [
-        new MinecraftChar("A", 5),
-        new MinecraftChar("B", 5),
-        new MinecraftChar("C", 5),
-        new MinecraftChar("D", 5),
-        new MinecraftChar("E", 5),
-        new MinecraftChar("F", 5),
-        new MinecraftChar("G", 5),
-        new MinecraftChar("H", 5),
-        new MinecraftChar("I", 3),
-        new MinecraftChar("J", 5),
-        new MinecraftChar("K", 5),
-        new MinecraftChar("L", 5),
-        new MinecraftChar("M", 5),
-        new MinecraftChar("N", 5),
-        new MinecraftChar("O", 5),
-        new MinecraftChar("P", 5),
-        new MinecraftChar("Q", 5),
-        new MinecraftChar("R", 5),
-        new MinecraftChar("S", 5),
-        new MinecraftChar("T", 5),
-        new MinecraftChar("U", 5),
-        new MinecraftChar("V", 5),
-        new MinecraftChar("W", 5),
-        new MinecraftChar("X", 5),
-        new MinecraftChar("Y", 5),
-        new MinecraftChar("Z", 5),
-        new MinecraftChar("a", 5),
-        new MinecraftChar("b", 5),
-        new MinecraftChar("c", 5),
-        new MinecraftChar("d", 5),
-        new MinecraftChar("e", 5),
-        new MinecraftChar("f", 4),
-        new MinecraftChar("g", 5),
-        new MinecraftChar("h", 5),
-        new MinecraftChar("i", 1),
-        new MinecraftChar("j", 5),
-        new MinecraftChar("k", 4),
-        new MinecraftChar("l", 2),
-        new MinecraftChar("m", 5),
-        new MinecraftChar("n", 5),
-        new MinecraftChar("o", 5),
-        new MinecraftChar("p", 5),
-        new MinecraftChar("q", 5),
-        new MinecraftChar("r", 5),
-        new MinecraftChar("s", 5),
-        new MinecraftChar("t", 3),
-        new MinecraftChar("u", 5),
-        new MinecraftChar("v", 5),
-        new MinecraftChar("w", 5),
-        new MinecraftChar("x", 5),
-        new MinecraftChar("y", 5),
-        new MinecraftChar("z", 5),
-        new MinecraftChar("0", 5),
-        new MinecraftChar("1", 5),
-        new MinecraftChar("2", 5),
-        new MinecraftChar("3", 5),
-        new MinecraftChar("4", 5),
-        new MinecraftChar("5", 5),
-        new MinecraftChar("6", 5),
-        new MinecraftChar("7", 5),
-        new MinecraftChar("8", 5),
-        new MinecraftChar("9", 5),
-        new MinecraftChar("!", 1),
-        new MinecraftChar("@", 6),
-        new MinecraftChar("#", 5),
-        new MinecraftChar("$", 5),
-        new MinecraftChar("£", 5),
-        new MinecraftChar("%", 5),
-        new MinecraftChar("^", 5),
-        new MinecraftChar("&", 5),
-        new MinecraftChar("*", 3),
-        new MinecraftChar("(", 3),
-        new MinecraftChar(")", 3),
-        new MinecraftChar("_", 5),
-        new MinecraftChar("-", 5),
-        new MinecraftChar("+", 5),
-        new MinecraftChar("=", 5),
-        new MinecraftChar("~", 6),
-        new MinecraftChar("[", 3),
-        new MinecraftChar("]", 3),
-        new MinecraftChar("{", 3),
-        new MinecraftChar("}", 3),
-        new MinecraftChar("|", 1),
+        new MinecraftChar("À", 6),
+        new MinecraftChar("Á", 6),
+        new MinecraftChar("Â", 6),
+        new MinecraftChar("È", 6),
+        new MinecraftChar("Ê", 6),
+        new MinecraftChar("Ë", 6),
+        new MinecraftChar("Í", 4),
+        new MinecraftChar("Ó", 6),
+        new MinecraftChar("Ô", 6),
+        new MinecraftChar("Õ", 6),
+        new MinecraftChar("Ú", 6),
+        new MinecraftChar("ß", 6),
+        new MinecraftChar("ã", 6),
+        new MinecraftChar("õ", 6),
+        new MinecraftChar("ğ", 6),
+        new MinecraftChar("İ", 4),
+        new MinecraftChar("ı", 4),
+        new MinecraftChar("Œ", 6),
+        new MinecraftChar("œ", 7),
+        new MinecraftChar("Ş", 6),
+        new MinecraftChar("ş", 6),
+        new MinecraftChar("Ŵ", 6),
+        new MinecraftChar("ŵ", 6),
+        new MinecraftChar("ž", 6),
+        new MinecraftChar("ȇ", 6),
+        new MinecraftChar("!", 2),
         new MinecraftChar("\"", 5),
-        new MinecraftChar(":", 1),
-        new MinecraftChar(";", 1),
-        new MinecraftChar("'", 1),
-        new MinecraftChar('"', 3),
-        new MinecraftChar(",", 1),
-        new MinecraftChar(".", 1),
-        new MinecraftChar("<", 4),
-        new MinecraftChar(">", 4),
-        new MinecraftChar(".", 1),
-        new MinecraftChar("?", 5),
-        new MinecraftChar("/", 5),
-        new MinecraftChar(" ", 3),
-        new MinecraftChar("`", 2),
-        new MinecraftChar("“", 4),
-        new MinecraftChar("”", 4),
-        new MinecraftChar("^", 5),
-        new MinecraftChar("_", 5),
-        new MinecraftChar("£", 5),
-        new MinecraftChar("ƒ", 5),
-        new MinecraftChar("∅", 7),
-        new MinecraftChar("∈", 5),
-        new MinecraftChar("≡", 6),
-        new MinecraftChar("≤", 5),
-        new MinecraftChar("≥", 5),
-        new MinecraftChar("±", 5),
-        new MinecraftChar("⌠", 4),
-        new MinecraftChar("⌡", 4),
-        new MinecraftChar("÷", 5),
-        new MinecraftChar("≈", 6),
-        new MinecraftChar("°", 4),
-        new MinecraftChar("√", 6),
-        new MinecraftChar("ⁿ", 4),
-        new MinecraftChar("²", 4),
-        new MinecraftChar("■", 5),
-        new MinecraftChar("ª", 4),
-        new MinecraftChar("º", 4),
-        new MinecraftChar("¬", 5),
-        new MinecraftChar("«", 5),
-        new MinecraftChar("»", 5),
+        new MinecraftChar("#", 6),
+        new MinecraftChar("$", 6),
+        new MinecraftChar("%", 6),
+        new MinecraftChar("&", 6),
+        new MinecraftChar("'", 3),
+        new MinecraftChar("(", 5),
+        new MinecraftChar(")", 5),
+        new MinecraftChar("*", 5),
+        new MinecraftChar("+", 6),
+        new MinecraftChar(",", 2),
+        new MinecraftChar("-", 6),
+        new MinecraftChar(".", 2),
+        new MinecraftChar("/", 6),
+        new MinecraftChar("0", 6),
+        new MinecraftChar("1", 6),
+        new MinecraftChar("2", 6),
+        new MinecraftChar("3", 6),
+        new MinecraftChar("4", 6),
+        new MinecraftChar("5", 6),
+        new MinecraftChar("6", 6),
+        new MinecraftChar("7", 6),
+        new MinecraftChar("8", 6),
+        new MinecraftChar("9", 6),
+        new MinecraftChar(":", 2),
+        new MinecraftChar(";", 2),
+        new MinecraftChar("<", 5),
+        new MinecraftChar("=", 6),
+        new MinecraftChar(">", 5),
+        new MinecraftChar("?", 6),
+        new MinecraftChar("@", 7),
+        new MinecraftChar("A", 6),
+        new MinecraftChar("B", 6),
+        new MinecraftChar("C", 6),
+        new MinecraftChar("D", 6),
+        new MinecraftChar("E", 6),
+        new MinecraftChar("F", 6),
+        new MinecraftChar("G", 6),
+        new MinecraftChar("H", 6),
+        new MinecraftChar("I", 4),
+        new MinecraftChar("J", 6),
+        new MinecraftChar("K", 6),
+        new MinecraftChar("L", 6),
+        new MinecraftChar("M", 6),
+        new MinecraftChar("N", 6),
+        new MinecraftChar("O", 6),
+        new MinecraftChar("P", 6),
+        new MinecraftChar("Q", 6),
+        new MinecraftChar("R", 6),
+        new MinecraftChar("S", 6),
+        new MinecraftChar("T", 6),
+        new MinecraftChar("U", 6),
+        new MinecraftChar("V", 6),
+        new MinecraftChar("W", 6),
+        new MinecraftChar("X", 6),
+        new MinecraftChar("Y", 6),
+        new MinecraftChar("Z", 6),
+        new MinecraftChar("[", 4),
+        new MinecraftChar("]", 4),
+        new MinecraftChar("^", 6),
+        new MinecraftChar("_", 6),
+        new MinecraftChar("`", 3),
+        new MinecraftChar("a", 6),
+        new MinecraftChar("b", 6),
+        new MinecraftChar("c", 6),
+        new MinecraftChar("d", 6),
+        new MinecraftChar("e", 6),
+        new MinecraftChar("f", 5),
+        new MinecraftChar("g", 6),
+        new MinecraftChar("h", 6),
+        new MinecraftChar("i", 2),
+        new MinecraftChar("j", 6),
+        new MinecraftChar("k", 5),
+        new MinecraftChar("l", 3),
+        new MinecraftChar("m", 6),
+        new MinecraftChar("n", 6),
+        new MinecraftChar("o", 6),
+        new MinecraftChar("p", 6),
+        new MinecraftChar("q", 6),
+        new MinecraftChar("r", 6),
+        new MinecraftChar("s", 6),
+        new MinecraftChar("t", 4),
+        new MinecraftChar("u", 6),
+        new MinecraftChar("v", 6),
+        new MinecraftChar("w", 6),
+        new MinecraftChar("x", 6),
+        new MinecraftChar("y", 6),
+        new MinecraftChar("z", 6),
+        new MinecraftChar("{", 5),
+        new MinecraftChar("|", 2),
+        new MinecraftChar("}", 5),
+        new MinecraftChar("~", 7),
+        new MinecraftChar("Ç", 6),
+        new MinecraftChar("ü", 6),
+        new MinecraftChar("é", 6),
+        new MinecraftChar("â", 6),
+        new MinecraftChar("ä", 6),
+        new MinecraftChar("à", 6),
+        new MinecraftChar("å", 6),
+        new MinecraftChar("ç", 6),
+        new MinecraftChar("ê", 6),
+        new MinecraftChar("ë", 6),
+        new MinecraftChar("è", 6),
+        new MinecraftChar("ï", 4),
+        new MinecraftChar("î", 6),
+        new MinecraftChar("ì", 3),
+        new MinecraftChar("Ä", 6),
+        new MinecraftChar("Å", 6),
+        new MinecraftChar("É", 6),
+        new MinecraftChar("æ", 6),
+        new MinecraftChar("Æ", 6),
+        new MinecraftChar("ô", 6),
+        new MinecraftChar("ö", 6),
+        new MinecraftChar("ò", 6),
+        new MinecraftChar("û", 6),
+        new MinecraftChar("ù", 6),
+        new MinecraftChar("ÿ", 6),
+        new MinecraftChar("Ö", 6),
+        new MinecraftChar("Ü", 6),
+        new MinecraftChar("ø", 6),
+        new MinecraftChar("£", 6),
+        new MinecraftChar("Ø", 6),
+        new MinecraftChar("×", 4),
+        new MinecraftChar("ƒ", 6),
+        new MinecraftChar("á", 6),
+        new MinecraftChar("í", 3),
+        new MinecraftChar("ó", 6),
+        new MinecraftChar("ú", 6),
+        new MinecraftChar("ñ", 6),
+        new MinecraftChar("Ñ", 6),
+        new MinecraftChar("ª", 6),
+        new MinecraftChar("º", 6),
+        new MinecraftChar("¿", 6),
+        new MinecraftChar("®", 7),
+        new MinecraftChar("¬", 6),
+        new MinecraftChar("½", 6),
+        new MinecraftChar("¼", 6),
+        new MinecraftChar("¡", 2),
+        new MinecraftChar("«", 6),
+        new MinecraftChar("»", 6),
         new MinecraftChar("░", 8),
-        new MinecraftChar("▒", 8),
-        new MinecraftChar("▓", 8),
-        new MinecraftChar("│", 3),
-        new MinecraftChar("┤", 5),
-        new MinecraftChar("╡", 5),
-        new MinecraftChar("╢", 7),
-        new MinecraftChar("╖", 7),
-        new MinecraftChar("╕", 7),
-        new MinecraftChar("╣", 7),
+        new MinecraftChar("▒", 9),
+        new MinecraftChar("▓", 9),
+        new MinecraftChar("│", 6),
+        new MinecraftChar("┤", 6),
+        new MinecraftChar("╡", 6),
+        new MinecraftChar("╢", 8),
+        new MinecraftChar("╖", 8),
+        new MinecraftChar("╕", 6),
+        new MinecraftChar("╣", 8),
+        new MinecraftChar("║", 8),
+        new MinecraftChar("╗", 8),
+        new MinecraftChar("╝", 8),
+        new MinecraftChar("╜", 8),
+        new MinecraftChar("╛", 6),
+        new MinecraftChar("┐", 6),
+        new MinecraftChar("└", 9),
+        new MinecraftChar("┴", 9),
+        new MinecraftChar("┬", 9),
+        new MinecraftChar("├", 9),
+        new MinecraftChar("─", 9),
+        new MinecraftChar("┼", 9),
+        new MinecraftChar("╞", 9),
+        new MinecraftChar("╟", 9),
+        new MinecraftChar("╚", 9),
+        new MinecraftChar("╔", 9),
+        new MinecraftChar("╩", 9),
+        new MinecraftChar("╦", 9),
+        new MinecraftChar("╠", 9),
+        new MinecraftChar("═", 9),
+        new MinecraftChar("╬", 9),
+        new MinecraftChar("╧", 9),
+        new MinecraftChar("╨", 9),
+        new MinecraftChar("╤", 9),
+        new MinecraftChar("╥", 9),
+        new MinecraftChar("╙", 9),
+        new MinecraftChar("╘", 9),
+        new MinecraftChar("╒", 9),
+        new MinecraftChar("╓", 9),
+        new MinecraftChar("╫", 9),
+        new MinecraftChar("╪", 9),
+        new MinecraftChar("┘", 6),
+        new MinecraftChar("┌", 9),
+        new MinecraftChar("█", 9),
+        new MinecraftChar("▄", 9),
+        new MinecraftChar("▌", 5),
+        new MinecraftChar("▐", 9),
+        new MinecraftChar("▀", 9),
+        new MinecraftChar("α", 8),
+        new MinecraftChar("β", 7),
+        new MinecraftChar("Γ", 7),
+        new MinecraftChar("π", 8),
+        new MinecraftChar("Σ", 7),
+        new MinecraftChar("σ", 8),
+        new MinecraftChar("μ", 8),
+        new MinecraftChar("τ", 8),
+        new MinecraftChar("Φ", 7),
+        new MinecraftChar("Θ", 8),
+        new MinecraftChar("Ω", 8),
+        new MinecraftChar("δ", 7),
+        new MinecraftChar("∞", 9),
+        new MinecraftChar("∅", 9),
+        new MinecraftChar("∈", 6),
+        new MinecraftChar("∩", 7),
+        new MinecraftChar("≡", 7),
+        new MinecraftChar("±", 7),
+        new MinecraftChar("≥", 7),
+        new MinecraftChar("≤", 7),
+        new MinecraftChar("⌠", 9),
+        new MinecraftChar("⌡", 6),
+        new MinecraftChar("÷", 7),
+        new MinecraftChar("≈", 8),
+        new MinecraftChar("°", 7),
+        new MinecraftChar("∙", 6),
+        new MinecraftChar("·", 6),
+        new MinecraftChar("√", 9),
+        new MinecraftChar("ⁿ", 7),
+        new MinecraftChar("²", 6),
+        new MinecraftChar("■", 7),
+        new MinecraftChar(" ", 4),
     ]
 
     constructor(text: string) {
@@ -191,12 +304,15 @@ class Lines {
         const ms: number = 114
 
         // Go trough each letter
-        for (let i = 0; i < word.length; i++) {
+        for (let i = 1; i < word.length; i++) {
             // Get the character
             let mcChar = this._allChars.find((c) => c.letter == word.charAt(i));
 
-            // If the character is not found, return
-            if (!mcChar) return;
+            // If the character is not found, remove it and break the loop
+            if (!mcChar) {
+                word = word.substring(0, i) + word.substring(i + 1);
+                break
+            }
 
             // Add the dots
             sum += mcChar.dots;
@@ -205,20 +321,26 @@ class Lines {
             substringed_word = word.substring(0, i);
 
             // Check if the sum is bigger than the max sum
-            if (sum + substringed_word.length + 4 >= ms) {
-                // Add the word to the array
-                lines.push({"word": substringed_word, "value": sum + substringed_word.length + 4});
+            if (sum >= ms) {
+                // Set the substringed word to include the last letter
+                substringed_word = word.substring(0, i - 1);
 
-                // Remove the word from the string
-                word = word.substring(i);
+                // Add the word to the array
+                lines.push({ "word": substringed_word, "value": sum });
+
+                // Remove the word from the string including the last letter
+                word = word.substring(i - 1);
 
                 // Reset the index and sum
                 i = sum = 0
             }
         }
 
+        // Replace all "'" with "\'" to escape the character
+        word = word.replace(/'/g, "\\'");
+
         // Add the last word
-        lines.push({"word": word, "value": sum + substringed_word.length + 4});
+        lines.push({ "word": word, "value": sum });
 
         // Return the lines, the rest of the word and the sum + the length of the rest of the word + 4 to account for the spaces
         return lines
@@ -239,11 +361,11 @@ class Lines {
             lines = this.calculateLetters(words[i]);
 
             for (let e = 0; e < lines.length; e++) {
-                // Add the sum
-                sum += lines[e].value;
+                // Add the sum of the letters and the spaces
+                sum += lines[e].value + 3;
 
                 // If the sum is bigger than 114, reset the sum to the word which wrapped
-                if (sum > 114 || i == words.length - 1) {
+                if (sum >= 114 || i == words.length - 1) {
                     sum = lines[e].value;
                     new_rows.push(rows.join(" "));
                     rows = [];
@@ -477,10 +599,10 @@ class App {
         let lines = '';
 
         const pageStrings = book.map((line, index) => {
-            
+
             // Add the line to the lines string
             lines += line + " ";
-            
+
             // If the index is divisible by 14, return the page string
             if ((index + 1) % 14 === 0) {
                 const pageString = `'{"text":"${lines}"}'`;
@@ -506,7 +628,7 @@ class App {
         };
 
         // Convert the book item to a command string
-        const command = `/give @p ${bookItem.id}{pages:[${bookItem.pages}], title: "${bookItem.title}", author: "${bookItem.author}"}`.replace(/\\/g, '');
+        const command = `/give @p ${bookItem.id}{pages:[${bookItem.pages}], title: "${bookItem.title}", author: "${bookItem.author}"}`
 
         // Return the command string
         return command;

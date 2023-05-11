@@ -18,4 +18,4 @@ npm run build
 Open `index.html` in the dist folder.
 
 ## Which characters are supported?
-All main ascii characters are supported, and a complete list can be seen in [chars.md](docs/chars.md)
+All main ascii characters are supported in the English language, and a complete list can be seen in [chars.md](docs/chars.md)

@@ -1,5 +1,6 @@
 // @ts-ignore
-import copy_icon from "./content/copy-icon.png";
+import copy_icon from "./assets/copy-icon.png";
+import crel from 'crel'
 
 /**
  * @param {string} letter
@@ -455,43 +456,37 @@ class App {
      * Creates the command elements
      */
     async createCommandElements() {
+        // Create helper for crel
+        crel.attrMap['on'] = (element: HTMLElement, value: any) => {
+            for (let eventName in value) {
+                element.addEventListener(eventName, value[eventName]);
+            }
+        };
+
+        // Create crel element
         let create_elements = (output_value: string, button_event_handler: Function) => {
+            // Defined here as it's used later
+            let input_element = crel("input", { "type": "text", "class": "form-control", "value": output_value })
+
             // Create list item
-            let li = document.createElement("li")
-
-            // Create container
-            let container = document.createElement("div");
-            container.classList.add("input-group", "mb-3", "mt-3");
-
-            // Create input group
-            let input_group = document.createElement("div");
-            input_group.classList.add("input-group-prepend");
-
-            // Create copy button icon
-            let copy_button_icon = document.createElement("img");
-            copy_button_icon.setAttribute("src", copy_icon);
-            copy_button_icon.setAttribute("class", "generated_command_copy_button_icon");
-
-            // Create command output
-            let command_output = document.createElement("input");
-            command_output.setAttribute("type", "text");
-            command_output.classList.add("form-control");
-            command_output.value = output_value;
-
-            // Create copy button
-            let copy_button = document.createElement("span");
-            copy_button.classList.add("input-group-text", "generated_command_copy_button");
-            copy_button.addEventListener("click", () => button_event_handler(command_output))
-
-            // Comnbine elements
-            copy_button.appendChild(copy_button_icon);
-            input_group.appendChild(copy_button);
-            container.appendChild(input_group);
-            container.appendChild(command_output);
-            li.appendChild(container)
+            let list_element = crel("li",
+                crel("div", { "class": "input-group mb-3 mt-3" },
+                    crel("div", { "class": "input-group-prepend" },
+                        crel("span", {
+                            on: {
+                                click: () => {
+                                    button_event_handler(input_element)
+                                }
+                            },
+                            "class": "input-group-text generated_command_copy_button"
+                        }, crel("img", { "src": copy_icon, "class": "generated_command_copy_button_icon" }))
+                    ),
+                    input_element
+                )
+            ) as HTMLElement
 
             // Return the command element
-            return li;
+            return list_element;
         }
 
         // Create copy to not modify the original

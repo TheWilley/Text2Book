@@ -49,6 +49,7 @@ function Form(props: { callback: (text: string, author: string, title: string) =
                         className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300"
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
+                        maxLength={50}
                         required
                     />
                 </div>
@@ -63,6 +64,7 @@ function Form(props: { callback: (text: string, author: string, title: string) =
                         className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        maxLength={15}
                         required
                     />
                 </div>

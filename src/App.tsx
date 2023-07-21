@@ -5,6 +5,7 @@ import styles from './css/fadein.module.css';
 import Form from './components/Form';
 import { ToastContainer } from 'react-toastify';
 import Results from './components/Results';
+import Footer from './components/Footer';
 
 // TODO: Seperate code into components and files, this is MESSY
 function App() {
@@ -34,13 +35,22 @@ function App() {
     />
   );
 
-  return (
-    <div className="flex flex-col items-center bg-white">
-      <Toast />
-      <div>
-        <h1 className='text-5xl font-mono mb-3'> text2book </h1>
-        <p className='mb-3 text-md'> Text to Minecraft book generator </p>
-      </div>
+  // Create title
+  const Title = () => {
+    return (
+      <>
+        <Toast />
+        <div>
+          <h1 className='text-5xl font-mono mb-3'> text2book </h1>
+          <p className='mb-3 text-md'> Text to Minecraft book generator </p>
+        </div>
+      </>
+    );
+  };
+
+  // Create editor
+  const Editor = () => {
+    return (
       <div className='max-w-3xl w-full bg-gray-100 p-6 rounded-lg shadow-md'>
         <Form callback={callback} />
         <div className='mt-3'>
@@ -53,7 +63,17 @@ function App() {
           </ol>
         </div>
       </div>
-    </div>
+    );
+  };
+
+  return (
+    <>
+      <div className="flex flex-col items-center bg-white">
+        <Title />
+        <Editor />
+      </div>
+      <Footer />
+    </>
   );
 }
 

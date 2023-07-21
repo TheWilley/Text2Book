@@ -2,6 +2,8 @@
 
 <img src='text2book.png' alt='text2book' width=200 /> 
 
+Go to the official page by clicking [this link](https://thewilley.github.io/text2book/)!
+
 ## Table of Contents
 
 - [Introduction](#introduction)

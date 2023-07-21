@@ -89,11 +89,17 @@ function getLines(text: string) {
 
         for (let e = 0; e < lines.length; e++) {
             // Add the sum of the letters and the spaces
-            sum += lines[e].value + 3;
+            // This will sometimes fail, because the last word might NOT contain any spaces afterwards
+            // Thus we check beforehand if the sum already is larger, as we dont need to add uneeded space
+            if (sum + lines[e].value >= 114) {
+                sum += lines[e].value;
+            } else {
+                sum += lines[e].value + 4;
+            }
 
-            // If the sum is bigger than 114, reset the sum to the word which wrapped
-            if (sum >= 114 || i == words.length - 1) {
-                sum = lines[e].value;
+            // If the sum is bigger than 114, reset the sum to the word which caused the overflow
+            if (sum > 114) {
+                sum = lines[e].value + 4;
 
                 new_rows.push(rows.join(' '));
                 rows = [];
@@ -102,6 +108,7 @@ function getLines(text: string) {
             // Add the letters to the rows
             rows.push(lines[e].word);
         }
+
     }
 
     // Add the rest of the words to the rows
@@ -109,6 +116,7 @@ function getLines(text: string) {
 
     // Return the rows and remove empty rows
     return new_rows.filter((r) => r != '');
+
 }
 
 /**
@@ -144,8 +152,6 @@ function getCommands(lines: string[], author: string, title: string) {
                 title: `${title == '' ? 'Book' : title} [${amount_of_books}]`
             };
 
-            console.log(lines);
-
             // Create the command
             const command = createCommand(params.lines, params.author, params.title);
 
@@ -174,7 +180,7 @@ function getCommands(lines: string[], author: string, title: string) {
 function createCommand(book: string[], author: string, title: string): string {
     // Create an array of page JSON strings, containing 14 lines each
     let lines = '';
-    let counter = 1;
+    let counter = 0;
 
     const pageStrings = book.map((line) => {
         // Add the line to the lines string
@@ -182,7 +188,7 @@ function createCommand(book: string[], author: string, title: string): string {
 
         // Increase coonter
         counter++;
-        
+
         // If the index is divisible by 14, return the page string
         if (counter == 14) {
             // Create text string

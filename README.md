@@ -2,7 +2,7 @@
 
 <img src='text2book.png' alt='text2book' width=200 /> 
 
-Go to the official page by clicking [this link](https://thewilley.github.io/text2book/)!
+Go to the official page by clicking [this link](https://thewilley.github.io/Text2Book/)!
 
 ## Table of Contents
 
@@ -37,13 +37,15 @@ Text2Book is a React-based web application that allows users to convert text int
 
 To run Text2Book locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/thewilley/text2book.git`
+1. Clone the repository: `git clone https://github.com/thewilley/Text2Book.git`
 2. Navigate to the project directory: `cd text2book`
 3. Install dependencies: `npm install`
 
 ## Usage
 
-To start the development server and use the application, run: `npm run dev`
+To run the application without any installation, go to [this link](https://thewilley.github.io/Text2Book/).
+
+To run the the development server after installation, run: `npm run dev`
 
 
 This will launch the Text2Book application in your default web browser. You can now access it at `http://localhost:3000` and begin converting text into Minecraft books.

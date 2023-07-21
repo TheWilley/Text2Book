@@ -43,7 +43,7 @@ To run Text2Book locally, follow these steps:
 
 ## Usage
 
-To start the development server and use the application, run: `npm start`
+To start the development server and use the application, run: `npm run dev`
 
 
 This will launch the Text2Book application in your default web browser. You can now access it at `http://localhost:3000` and begin converting text into Minecraft books.

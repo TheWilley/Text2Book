@@ -1,29 +1,32 @@
 {
   "name": "text2book",
-  "version": "1.0.0",
-  "description": "Generate large amount of text to Minecraft books!",
-  "main": "index.js",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode=production",
-    "dev": "webpack serve --mode=development",
-    "deploy": "gh-pages -d dist"
-  },
-  "typings": "main.d.ts",
-  "author": "TheWilley",
-  "license": "MIT",
-  "devDependencies": {
-    "css-loader": "^6.7.3",
-    "gh-pages": "^5.0.0",
-    "html-webpack-plugin": "^5.5.1",
-    "style-loader": "^3.3.2",
-    "ts-loader": "^9.4.2",
-    "typescript": "^5.0.4",
-    "webpack": "^5.82.0",
-    "webpack-cli": "^5.1.0",
-    "webpack-dev-server": "^4.15.0"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "crel": "^4.2.1"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-toastify": "^9.1.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/parser": "^5.61.0",
+    "@vitejs/plugin-react": "^4.0.1",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.44.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.1",
+    "postcss": "^8.4.26",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.0"
   }
 }

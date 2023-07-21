@@ -1,0 +1,9 @@
+.blink[blink='1'] {
+    animation: blink ease-in-out 0.5s 1;
+}
+
+@keyframes blink {
+    0% {
+        background-color: green;
+    }
+}

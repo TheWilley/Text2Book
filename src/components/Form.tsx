@@ -4,8 +4,8 @@ import loader from '../assets/loader.svg';
 function Form(props: { callback: (text: string, author: string, title: string) => void }) {
     // Normal states
     const [text, setText] = useState('');
-    const [author, setAuthor] = useState('Author');
-    const [title, setTitle] = useState('Book');
+    const [author, setAuthor] = useState('');
+    const [title, setTitle] = useState('');
     const [loading, setLoading] = useState(false);
 
     // Handle the submit

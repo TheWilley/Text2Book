@@ -35,7 +35,6 @@ function App() {
     />
   );
 
-  // Create title
   const Title = () => {
     return (
       <>
@@ -48,29 +47,22 @@ function App() {
     );
   };
 
-  // Create editor
-  const Editor = () => {
-    return (
-      <div className='max-w-3xl w-full bg-gray-100 p-6 rounded-lg shadow-md'>
-        <Form callback={callback} />
-        <div className='mt-3'>
-          <ol
-            className={`list-decimal ${styles.fadein}`}
-            onAnimationEnd={() => setFadeIn(0)}
-            {...allowedProps}
-          >
-            <Results results={results} />
-          </ol>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <>
       <div className="flex flex-col items-center bg-white">
         <Title />
-        <Editor />
+        <div className='max-w-3xl w-full bg-gray-100 p-6 rounded-lg shadow-md'>
+          <Form callback={callback} />
+          <div className='mt-3'>
+            <ol
+              className={`list-decimal ${styles.fadein}`}
+              onAnimationEnd={() => setFadeIn(0)}
+              {...allowedProps}
+            >
+              <Results results={results} />
+            </ol>
+          </div>
+        </div>
       </div>
       <Footer />
     </>

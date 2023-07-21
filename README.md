@@ -1,6 +1,6 @@
 # Text2Book - Convert Text to Minecraft Books
 
-![Text2Book](text2book.png)
+![Text2Book](text2book.png = 100x100)
 
 ## Table of Contents
 

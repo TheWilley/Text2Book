@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import loader from '../assets/loader.svg';
 
 function Form(props: { callback: (text: string, author: string, title: string) => void }) {
@@ -33,6 +33,33 @@ function Form(props: { callback: (text: string, author: string, title: string) =
         }
     };
 
+    const handleChangeText = (event: React.FormEvent) => {
+        const target = event.target as HTMLInputElement;
+        setText(target.value);
+
+        localStorage.setItem('text', target.value);
+    };
+
+    const handleChanngeAuthor = (event: React.FormEvent) => {
+        const target = event.target as HTMLInputElement;
+        setAuthor(target.value);
+
+        localStorage.setItem('author', target.value);
+    };
+
+    const handleChangeTitle = (event: React.FormEvent) => {
+        const target = event.target as HTMLInputElement;
+        setTitle(target.value);
+
+        localStorage.setItem('title', target.value);
+    };
+
+    useEffect(() => {
+        setText(localStorage.getItem('text') || '');
+        setAuthor(localStorage.getItem('author') ||'');
+        setTitle(localStorage.getItem('title') ||'');
+    }, []);
+
     return (
         <form
             onSubmit={handleSubmit}
@@ -48,7 +75,7 @@ function Form(props: { callback: (text: string, author: string, title: string) =
                         placeholder='Lewis Carroll'
                         className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300"
                         value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
+                        onChange={handleChanngeAuthor}
                         maxLength={50}
                         required
                     />
@@ -63,7 +90,7 @@ function Form(props: { callback: (text: string, author: string, title: string) =
                         placeholder='Alice in Wonderland'
                         className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300"
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={handleChangeTitle}
                         maxLength={15}
                         required
                     />
@@ -78,7 +105,7 @@ function Form(props: { callback: (text: string, author: string, title: string) =
                     placeholder='Once upon a time, there was a girl...'
                     className="w-full h-72 border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300 h-32 resize-none"
                     value={text}
-                    onChange={(e) => setText(e.target.value)}
+                    onChange={handleChangeText}
                     required
                 />
             </div>

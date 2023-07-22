@@ -19,3 +19,7 @@
   padding: 2rem;
   text-align: center;
 }
+
+.noblink {
+  background-color: transparent !important;
+}

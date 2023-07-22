@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import copy from '../assets/copy-icon.png';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from '../css/blink.module.css';
 
 function Results(props: { results: string[] }) {

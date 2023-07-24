@@ -1,5 +1,5 @@
 import getChars from './chars';
-type LineType = { 'word': string, 'value': number }[]
+type DotsOfWordType = { 'word': string, 'value': number }[]
 
 // Processing order:
 // getLines => calculateLetters => getCommands => createCommand
@@ -23,14 +23,14 @@ export default function start(text: string, author: string, title: string) {
  * @param word The word to calculate the letters of
  * @returns The lines and the sum of the dots
  */
-function calculateLetters(word: string): LineType {
-    const lines: LineType = [], allChars = getChars(), ms = 114;
-    let sum = 0, substringed_word = '';
+function getDotsOfWord(word: string): DotsOfWordType {
+    const words: DotsOfWordType = [], allChars = getChars(), ms = 114;
+    let total_dots = 0, substringed_word = '';
 
     // Go trough each letter
     for (let i = 0; i < word.length; i++) {
         // Get the character
-        const mcChar = allChars.find((c) => c.letter == word.charAt(i));
+        const mcChar = allChars.find((character) => character.letter == word.charAt(i));
 
         // If the character is not found, remove it and break the loop
         if (!mcChar) {
@@ -39,32 +39,32 @@ function calculateLetters(word: string): LineType {
         }
 
         // Add the dots
-        sum += mcChar.dots;
+        total_dots += mcChar.dots;
 
         // Set the substringed word
         substringed_word = word.substring(0, i);
 
         // Check if the sum is bigger than the max sum
-        if (sum >= ms) {
+        if (total_dots >= ms) {
             // Set the substringed word to include the last letter
             substringed_word = word.substring(0, i - 1);
 
             // Add the word to the array
-            lines.push({ 'word': substringed_word, 'value': sum });
+            words.push({ 'word': substringed_word, 'value': total_dots });
 
             // Remove the word from the string including the last letter
             word = word.substring(i - 1);
 
             // Reset the index and sum
-            i = sum = 0;
+            i = total_dots = 0;
         }
     }
 
     // Add the last word
-    lines.push({ 'word': word, 'value': sum });
+    words.push({ 'word': word, 'value': total_dots });
 
-    // Return the lines, the rest of the word and the sum + the length of the rest of the word + 4 to account for the spaces
-    return lines;
+    // Return the words
+    return words;
 }
 
 /**
@@ -72,51 +72,51 @@ function calculateLetters(word: string): LineType {
  * @returns The lines as a string array
  */
 function getLines(text: string) {
-    let words: string[] = [], rows: string[] = [], lines: LineType = [], sum = 0;
-    const new_rows = [];
+    let spliced_words: string[] = [], lines: string[] = [], words: DotsOfWordType = [], sum = 0;
+    const new_lines = [];
 
     // This is to fix some errors regarding formatting
     // The (') and (") characters break syntax in command blocks, causing all sort of oddities
     text = text.replace(/"/g, '‟').replace(/'/g, '‛');
 
-    // Split the string into words
-    words = text.split(/\s+/);
+    // Split the text into words
+    spliced_words = text.split(/\s+/);
 
     // Go trough each word
-    for (let i = 0; i < words.length; i++) {
-        // Get the letters
-        lines = calculateLetters(words[i]);
+    for (let i = 0; i < spliced_words.length; i++) {
+        // Get the words and the sum of the it's letters
+        words = getDotsOfWord(spliced_words[i]);
 
-        for (let e = 0; e < lines.length; e++) {
+        // Go trough each word
+        for (let e = 0; e < words.length; e++) {
             // Add the sum of the letters and the spaces
             // This will sometimes fail, because the last word might NOT contain any spaces afterwards
             // Thus we check beforehand if the sum already is larger, as we dont need to add uneeded space
-            if (sum + lines[e].value >= 114) {
-                sum += lines[e].value;
+            if (sum + words[e].value >= 114) {
+                sum += words[e].value;
             } else {
-                sum += lines[e].value + 4;
+                sum += words[e].value + 4;
             }
 
             // If the sum is bigger than 114, reset the sum to the word which caused the overflow
             if (sum > 114) {
-                sum = lines[e].value + 4;
+                sum = words[e].value + 4;
 
-                new_rows.push(rows.join(' '));
-                rows = [];
+                new_lines.push(lines.join(' '));
+                lines = [];
             }
 
-            // Add the letters to the rows
-            rows.push(lines[e].word);
+            // Add the letters to the lines
+            lines.push(words[e].word);
         }
 
     }
 
-    // Add the rest of the words to the rows
-    new_rows.push(rows.join(' '));
+    // Add the rest of the words to the lines
+    new_lines.push(lines.join(' '));
 
-    // Return the rows and remove empty rows
-    return new_rows.filter((r) => r != '');
-
+    // Return the lines and remove empty lines
+    return new_lines.filter((r) => r != '');
 }
 
 /**

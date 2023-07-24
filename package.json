@@ -12,6 +12,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@types/react-toastify": "^4.1.0",
     "gh-pages": "^5.0.0",
     "github-pages": "^3.0.2",
     "react": "^18.2.0",

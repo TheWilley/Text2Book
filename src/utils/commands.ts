@@ -226,18 +226,3 @@ function createCommand(book: string[], author: string, title: string): string {
     // Return the command string
     return command;
 }
-
-/**
- * Gets the stats of the text, such as the amount of characters, lines, pages and books
- * Removed for now but may be added llater
- * @returns The stats of the text
- */
-// function getStats() {
-//     this._lines = new Lines(this._GLOBALS.text_content.value).getLines();
-//     const amountOfCharacters = this._GLOBALS.text_content.value.length;
-//     const amountOfLines = this._lines.length;
-//     const amountOfPages = Math.ceil(this._lines.length / 14);
-//     const amountOfBooks = Math.ceil(amountOfPages / 100);
-
-//     return [this._lines, amountOfCharacters, amountOfLines, amountOfPages, amountOfBooks];
-// }

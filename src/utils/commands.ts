@@ -2,20 +2,28 @@ import getChars from './chars';
 type DotsOfWordType = { 'word': string, 'value': number }[]
 
 // Processing order:
-// getLines => calculateLetters => getCommands => createCommand
+// getLines => calculateLetters => getCommands / getRawText => createCommand
 
 /**
  * Initiates the convertion process
  */
-export default function start(text: string, author: string, title: string) {
+export default function start(text: string, author: string, title: string, rawOutput: boolean) {
     // Step 1 - Get all lines
     const lines = getLines(text);
 
-    // Step 2 - Pass lines along with author and title to generate commands
-    const commands = getCommands(lines, author, title);
+    if (rawOutput) {
+        // Step (2) - Pass lines to generate text
+        const texts = getRawText(lines);
 
-    // Step 3 - Return commands
-    return commands;
+        // Step (3) - Return texts
+        return texts;
+    } else {
+        // Step (2) - Pass lines along with author and title to generate commands
+        const commands = getCommands(lines, author, title);
+
+        // Step (3) - Return commands
+        return commands;
+    }
 }
 
 /**
@@ -225,4 +233,44 @@ function createCommand(book: string[], author: string, title: string): string {
 
     // Return the command string
     return command;
+}
+
+/**
+ * Generates text which can be copied into minecraft books page by page and returns it
+ * @param lines The lines to convert
+ * @returns A command generating a minecraft book containg the lines contents
+ */
+function getRawText(lines: string[]) {
+    // TODO: Can probably find a better type here
+    const texts: string[] = [];
+
+    // Create copy to not modify the original
+    const copy_of_lines = [...lines];
+
+    // Counter for the amount of lines
+    let amount_of_lines = 0;
+
+    // Go trough each line
+    for (let i = 0; i <= lines.length; i++) {
+        amount_of_lines++;
+
+        // If the amount of lines is 14, or the index is the length of the lines array, create the command
+        if (amount_of_lines == 14 || i == lines.length) {
+            // Create object containing info
+            const params = {
+                lines: copy_of_lines.splice(0, amount_of_lines),
+            };
+
+            // Create the command
+            const text = params.lines.join('');
+
+            // Reset the amount of lines
+            amount_of_lines = 0;
+
+            // Push the command to the array
+            texts.push(text);
+        }
+    }
+
+    return texts;
 }

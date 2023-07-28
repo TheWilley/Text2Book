@@ -31,6 +31,7 @@ function FileUploadSingle(props: { callback: (text: string) => void }) {
                     onChange={handleFileChange}
                     accept='.txt'
                     className="opacity-0 absolute z-0 w-full h-full"
+                    required
                 />
                 <div className="bg-white rounded-md border border-gray-400 px-4 py-2 flex items-center justify-between">
                     <span className="text-gray-700">{fileName || 'Choose a file'}</span>

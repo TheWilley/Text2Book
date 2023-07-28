@@ -14,8 +14,8 @@ function App() {
   const allowedProps = { fadein: fadeIn };
 
   // Handle the submit
-  const callback = (text: string, author: string, title: string) => {
-    setResults(start(text, author, title));
+  const callback = (text: string, author: string, title: string, rawOutput: boolean) => {
+    setResults(start(text, author, title, rawOutput));
     setFadeIn(1);
   };
 

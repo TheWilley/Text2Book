@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import loader from '../assets/loader.svg';
 import FileUploadSingle from './FileUploadSingle';
 
-function Form(props: { callback: (text: string, author: string, title: string) => void }) {
+function Form(props: { callback: (text: string, author: string, title: string, rawOutput: boolean) => void }) {
     // Normal states
     const [text, setText] = useState('');
     const [author, setAuthor] = useState('');
@@ -17,7 +17,7 @@ function Form(props: { callback: (text: string, author: string, title: string) =
         const run = async () => {
             await new Promise(resolve => setTimeout(resolve, 500));
             setLoading(false);
-            props.callback(text, author, title);
+            props.callback(text, author, title, rawOutput);
         };
         void run();
         setLoading(true);

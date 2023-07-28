@@ -137,16 +137,19 @@ function Form(props: { callback: (text: string, author: string, title: string, r
                         Text
                     </label>
                     <div>
-                        {useFileUpload ? <FileUploadSingle callback={(text) => setText(text)} /> :
-                            <textarea
-                                id="text"
-                                placeholder='Once upon a time, there was a girl...'
-                                className="w-full h-72 border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300 h-32 resize-none"
-                                value={text}
-                                onChange={handleChangeText}
-                                required
-                            />
-                        }
+                        <div className={`${useFileUpload ? 'hidden' : ''}`}>
+                            <FileUploadSingle callback={(text) => setText(text)} />
+                        </div>
+                        <div className={`${!useFileUpload ? 'hidden' : ''}`}>
+                        <textarea
+                            id="text"
+                            placeholder='Once upon a time, there was a girl...'
+                            className="w-full h-72 border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300 h-32 resize-none"
+                            value={text}
+                            onChange={handleChangeText}
+                            required
+                        />
+                        </div>
                     </div>
                 </div>
                 <button

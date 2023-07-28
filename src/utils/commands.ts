@@ -238,7 +238,7 @@ function createCommand(book: string[], author: string, title: string): string {
 /**
  * Generates text which can be copied into minecraft books page by page and returns it
  * @param lines The lines to convert
- * @returns A command generating a minecraft book containg the lines contents
+ * @returns A text string containg the lines contents
  */
 function getRawText(lines: string[]) {
     // TODO: Can probably find a better type here
@@ -254,7 +254,7 @@ function getRawText(lines: string[]) {
     for (let i = 0; i <= lines.length; i++) {
         amount_of_lines++;
 
-        // If the amount of lines is 14, or the index is the length of the lines array, create the command
+        // If the amount of lines is 14, or the index is the length of the lines array, create the text string
         if (amount_of_lines == 14 || i == lines.length) {
             // Create object containing info
             const params = {
@@ -262,7 +262,7 @@ function getRawText(lines: string[]) {
             };
 
             // Create the command
-            const text = params.lines.join('');
+            const text = params.lines.join(' ');
 
             // Reset the amount of lines
             amount_of_lines = 0;

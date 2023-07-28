@@ -6,10 +6,10 @@ import styles from '../css/blink.module.css';
 function Results(props: { results: string[] }) {
     const [blink, setBlink] = useState(0);
     const allowedProps = { blink: blink };
-    const copyAndNotify = (event: React.FormEvent, result: string, index: number) => {
+    const copyAndNotify = (event: React.FormEvent, result: string) => {
         // FIXME: NEVER do this, its better to find out how to fix it. I am unsure as of now, so this will be laft as is for the time being
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
-        toast(`Command "${index + 1}" copied!`);
+        toast(<div className='font-bold text-green-600'> Copied! </div>);
 
         // Make parent blinkable
         const target = (event.target as HTMLElement).closest('.listitem');
@@ -33,7 +33,7 @@ function Results(props: { results: string[] }) {
         props.results.map((result, index) =>
         (
             <li key={index} className={`flex rounded border overflow-hidden h-12 mb-1 listitem noblink ${styles.blink} ${styles.noblink}`} {...allowedProps} onAnimationEnd={animationEnd}>
-                <button onClick={(e) => copyAndNotify(e, result, index)} className='w-12 bg-gray-300 h-full p-2 border-right group'>
+                <button onClick={(e) => copyAndNotify(e, result)} className='w-12 bg-gray-300 h-full p-2 border-right group'>
                     <img className='p-1 group-hover:opacity-70 transition' src={copy} />
                 </button>
                 <input className='w-full p-2 opacity-80 font-mono h-full outline-none' type='text' value={result} readOnly />

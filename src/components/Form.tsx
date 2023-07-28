@@ -14,6 +14,7 @@ function Form(props: { callback: (text: string, author: string, title: string, r
     // Handle the submit
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
+        console.log('sdfsdg');
         const run = async () => {
             await new Promise(resolve => setTimeout(resolve, 500));
             setLoading(false);
@@ -65,38 +66,27 @@ function Form(props: { callback: (text: string, author: string, title: string, r
 
     return (
         <>
-            <div className="flex flex-col items-center">
-                <div className="border rounded-md p-4 mb-4 grid grid-cols-2">
-                    <fieldset className="text-gray-700 text-sm mb-2">
-                        <div className="flex items-center">
-                            <input id="use-file-upload" type="radio" className="mr-2 leading-tight h-4 w-4" onChange={() => setUseFileUpload(true)} name='input_method' />
-                            <label htmlFor="use-file-upload" className="text-gray-700">
-                                Use file upload
-                            </label>
-                        </div>
-                        <div className="flex items-center">
-                            <input id="use-text" type="radio" className="mr-2 leading-tight h-4 w-4" onChange={() => setUseFileUpload(false)} name='input_method' />
-                            <label htmlFor="use-text" className="text-gray-700">
-                                Use text box
-                            </label>
-                        </div>
-                    </fieldset>
-                    <fieldset className="text-gray-700 text-sm mb-2">
-                        <div className="flex items-center">
-                            <input id="raw-output" type="radio" className="mr-2 leading-tight p-2 h-4 w-4" onChange={() => setRawOutput(true)} name='generation_method' />
-                            <label htmlFor="raw-output" className="text-gray-700">
-                                Generate text
-                            </label>
-                        </div>
-                        <div className="flex items-center">
-                            <input id="command-output" type="radio" className="mr-2 leading-tight p-2 h-4 w-4" onChange={() => setRawOutput(false)} name='generation_method' />
-                            <label htmlFor="command-output" className="text-gray-700">
-                                Generate commands
-                            </label>
-                        </div>
-                    </fieldset>
+            <div className="grid w-full grid-cols-1 sm:grid-cols-2 gap-2 rounded-xl bg-gray-200 p-2">
+                <div>
+                    <input type="radio" name="input_method" id="use-text-input" className="peer hidden" onChange={() => setUseFileUpload(false)} checked={!useFileUpload} />
+                    <label htmlFor="use-text-input" className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white hover:bg-blue-200 transition">Use Text Input</label>
+                </div>
+                <div>
+                    <input type="radio" name="input_method" id="use-file-upload" className="peer hidden" onChange={() => setUseFileUpload(true)} checked={useFileUpload} />
+                    <label htmlFor="use-file-upload" className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white hover:bg-blue-200 transition">Use File Input</label>
                 </div>
             </div>
+            <div className="grid w-full grid-cols-1 sm:grid-cols-2 gap-2 rounded-xl bg-gray-200 p-2 mt-2">
+                <div>
+                    <input type="radio" name="generation_method" id="command-output" className="peer hidden" onChange={() => setRawOutput(false)} checked={!rawOutput} />
+                    <label htmlFor="command-output" className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white hover:bg-blue-200 transition">Generate Commands</label>
+                </div>
+                <div>
+                    <input type="radio" name="generation_method" id="raw-output" className="peer hidden" onChange={() => setRawOutput(true)} checked={rawOutput} />
+                    <label htmlFor="raw-output" className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white hover:bg-blue-200 transition">Generate Text</label>
+                </div>
+            </div>
+            <hr className='mb-4 mt-4' />
             <form
                 onSubmit={handleSubmit}
             >
@@ -137,18 +127,18 @@ function Form(props: { callback: (text: string, author: string, title: string, r
                         Text
                     </label>
                     <div>
-                        <div className={`${useFileUpload ? 'hidden' : ''}`}>
-                            <FileUploadSingle callback={(text) => setText(text)} />
-                        </div>
                         <div className={`${!useFileUpload ? 'hidden' : ''}`}>
-                        <textarea
-                            id="text"
-                            placeholder='Once upon a time, there was a girl...'
-                            className="w-full h-72 border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300 h-32 resize-none"
-                            value={text}
-                            onChange={handleChangeText}
-                            required
-                        />
+                            <FileUploadSingle callback={(text) => setText(text)} useFileUpload={useFileUpload} />
+                        </div>
+                        <div className={`${useFileUpload ? 'hidden' : ''}`}>
+                            <textarea
+                                id="text"
+                                placeholder='Once upon a time, there was a girl...'
+                                className="w-full h-72 border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300 h-32 resize-none"
+                                value={text}
+                                onChange={handleChangeText}
+                                required={!useFileUpload}
+                            />
                         </div>
                     </div>
                 </div>

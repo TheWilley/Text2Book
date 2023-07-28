@@ -66,19 +66,35 @@ function Form(props: { callback: (text: string, author: string, title: string) =
     return (
         <>
             <div className="flex flex-col items-center">
-                <div className="border rounded-md p-4 mb-4">
-                    <div className="mb-4 flex items-center">
-                        <input id="use-file-upload" type="checkbox" className="mr-2 leading-tight h-4 w-4" onChange={() => setUseFileUpload(!useFileUpload)} />
-                        <label htmlFor="use-file-upload" className="text-gray-700">
-                            Use file upload
-                        </label>
-                    </div>
-                    <div className="flex items-center">
-                        <input id="raw-output" type="checkbox" className="mr-2 leading-tight p-2 h-4 w-4" onChange={() => setRawOutput(!rawOutput)} />
-                        <label htmlFor="raw-output" className="text-gray-700">
-                            Generate raw text
-                        </label>
-                    </div>
+                <div className="border rounded-md p-4 mb-4 grid grid-cols-2">
+                    <fieldset className="text-gray-700 text-sm mb-2">
+                        <div className="flex items-center">
+                            <input id="use-file-upload" type="radio" className="mr-2 leading-tight h-4 w-4" onChange={() => setUseFileUpload(true)} name='input_method' />
+                            <label htmlFor="use-file-upload" className="text-gray-700">
+                                Use file upload
+                            </label>
+                        </div>
+                        <div className="flex items-center">
+                            <input id="use-text" type="radio" className="mr-2 leading-tight h-4 w-4" onChange={() => setUseFileUpload(false)} name='input_method' />
+                            <label htmlFor="use-text" className="text-gray-700">
+                                Use text box
+                            </label>
+                        </div>
+                    </fieldset>
+                    <fieldset className="text-gray-700 text-sm mb-2">
+                        <div className="flex items-center">
+                            <input id="raw-output" type="radio" className="mr-2 leading-tight p-2 h-4 w-4" onChange={() => setRawOutput(true)} name='generation_method' />
+                            <label htmlFor="raw-output" className="text-gray-700">
+                                Generate text
+                            </label>
+                        </div>
+                        <div className="flex items-center">
+                            <input id="command-output" type="radio" className="mr-2 leading-tight p-2 h-4 w-4" onChange={() => setRawOutput(false)} name='generation_method' />
+                            <label htmlFor="command-output" className="text-gray-700">
+                                Generate commands
+                            </label>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
             <form

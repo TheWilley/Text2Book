@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import loader from '../assets/loader.svg';
 import FileUploadSingle from './FileUploadSingle';
 
-function Form(props: { callback: (text: string, author: string, title: string, rawOutput: boolean) => void }) {
+function Form(props: { callback: (text: string, author: string, title: string, rawOutput: boolean, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => void }) {
     // Normal states
     const [text, setText] = useState('');
     const [author, setAuthor] = useState('');
@@ -14,14 +14,13 @@ function Form(props: { callback: (text: string, author: string, title: string, r
     // Handle the submit
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        console.log('sdfsdg');
         const run = async () => {
-            await new Promise(resolve => setTimeout(resolve, 500));
-            setLoading(false);
-            props.callback(text, author, title, rawOutput);
+            // Wait 0.5 seconds to show the loading icon
+            await new Promise((resolve) => { setTimeout(resolve, 500); });
+            props.callback(text, author, title, rawOutput, setLoading);
         };
-        void run();
         setLoading(true);
+        void run();
     };
 
     // Decides if load icon should be shown

@@ -42,20 +42,19 @@ function getDotsOfWord(word: string): DotsOfWordType {
 
         // If the character is not found, remove it and break the loop
         if (!mcChar) {
-            word = word.substring(0, i) + word.substring(i + 1);
-            break;
+            continue;
         }
-
+        
         // Add the dots
         total_dots += mcChar.dots;
-
+        
         // Set the substringed word
-        substringed_word = word.substring(0, i);
+        substringed_word = word.substring(0, i + 1);
 
         // Check if the sum is bigger than the max sum
         if (total_dots >= ms) {
             // Set the substringed word to include the last letter
-            substringed_word = word.substring(0, i - 1);
+            substringed_word = word.substring(0, i + 1);
 
             // Add the word to the array
             words.push({ 'word': substringed_word, 'value': total_dots });
@@ -64,7 +63,7 @@ function getDotsOfWord(word: string): DotsOfWordType {
             word = word.substring(i - 1);
 
             // Reset the index and sum
-            i = total_dots = 0;
+            total_dots = i = 0; 
         }
     }
 
@@ -85,10 +84,10 @@ function getLines(text: string) {
 
     // This is to fix some errors regarding formatting
     // The (') and (") characters break syntax in command blocks, causing all sort of oddities
-    text = text.replace(/"/g, '‟').replace(/'/g, '‛');
+    text = text.replace(/"/g, '‟').replace(/'/g, '‛').replace(/\n/g, ' ');
 
     // Split the text into words
-    spliced_words = text.split(/\s+/);
+    spliced_words = text.split(/(\s+)/);
 
     // Go trough each word
     for (let i = 0; i < spliced_words.length; i++) {
@@ -98,19 +97,14 @@ function getLines(text: string) {
         // Go trough each word
         for (let e = 0; e < words.length; e++) {
             // Add the sum of the letters and the spaces
-            // This will sometimes fail, because the last word might NOT contain any spaces afterwards
-            // Thus we check beforehand if the sum already is larger, as we dont need to add uneeded space
-            if (sum + words[e].value >= 114) {
-                sum += words[e].value;
-            } else {
-                sum += words[e].value + 4;
-            }
+            sum += words[e].value;
 
             // If the sum is bigger than 114, reset the sum to the word which caused the overflow
-            if (sum > 114) {
-                sum = words[e].value + 4;
+            // The reason we ignore the space is becuase it will not occupy a space if its the very last word in the row
+            if (words[e].word != ' ' && sum > 114) {
+                sum = words[e].value;
 
-                new_lines.push(lines.join(' '));
+                new_lines.push(lines.join(''));
                 lines = [];
             }
 
@@ -121,7 +115,7 @@ function getLines(text: string) {
     }
 
     // Add the rest of the words to the lines
-    new_lines.push(lines.join(' '));
+    new_lines.push(lines.join(''));
 
     // Return the lines and remove empty lines
     return new_lines.filter((r) => r != '');
@@ -192,7 +186,7 @@ function createCommand(book: string[], author: string, title: string): string {
 
     const pageStrings = book.map((line) => {
         // Add the line to the lines string
-        lines += line + ' ';
+        lines += line;
 
         // Increase coonter
         counter++;
@@ -262,7 +256,7 @@ function getRawText(lines: string[]) {
             };
 
             // Create the command
-            const text = params.lines.join(' ');
+            const text = params.lines.join('');
 
             // Reset the amount of lines
             amount_of_lines = 0;

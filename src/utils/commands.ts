@@ -42,6 +42,8 @@ function getDotsOfWord(word: string): DotsOfWordType {
 
         // If the character is not found, remove it and break the loop
         if (!mcChar) {
+            word = word.substring(0, i) + word.substring(i + 1);
+            i--;
             continue;
         }
         

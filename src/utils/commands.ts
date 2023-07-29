@@ -54,18 +54,19 @@ function getDotsOfWord(word: string): DotsOfWordType {
         substringed_word = word.substring(0, i + 1);
 
         // Check if the sum is bigger than the max sum
-        if (total_dots >= ms) {
-            // Set the substringed word to include the last letter
-            substringed_word = word.substring(0, i + 1);
+        if (total_dots > ms) {
+            // Remove the last letter
+            substringed_word = substringed_word.substring(0, substringed_word.length - 1);
 
             // Add the word to the array
             words.push({ 'word': substringed_word, 'value': total_dots });
 
             // Remove the word from the string including the last letter
-            word = word.substring(i - 1);
+            word = word.substring(i);
 
             // Reset the index and sum
-            total_dots = i = 0; 
+            total_dots = 0;
+            i = -1; 
         }
     }
 
@@ -185,6 +186,8 @@ function createCommand(book: string[], author: string, title: string): string {
     // Create an array of page JSON strings, containing 14 lines each
     let lines = '';
     let counter = 0;
+
+    console.log(book);
 
     const pageStrings = book.map((line) => {
         // Add the line to the lines string

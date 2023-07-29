@@ -187,8 +187,6 @@ function createCommand(book: string[], author: string, title: string): string {
     let lines = '';
     let counter = 0;
 
-    console.log(book);
-
     const pageStrings = book.map((line) => {
         // Add the line to the lines string
         lines += line;

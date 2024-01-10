@@ -287,6 +287,7 @@ function getChars() {
         new MinecraftChar('²', 6),
         new MinecraftChar('■', 7),
         new MinecraftChar(' ', 4),
+        new MinecraftChar('\n', 0),
     ];
 }
 

@@ -85,11 +85,8 @@ function getLines(text: string) {
     let spliced_words: string[] = [], lines: string[] = [], words: DotsOfWordType = [], sum = 0;
     const new_lines = [];
 
-    // This is to fix some errors regarding formatting
-    text = text.replace(/\n/g, ' ');
-
     // Split the text into words
-    spliced_words = text.split(/(\s+)/);
+    spliced_words = text.split(/(\n|\s+)/g);
 
     // Go trough each word
     for (let i = 0; i < spliced_words.length; i++) {
@@ -101,9 +98,10 @@ function getLines(text: string) {
             // Add the sum of the letters and the spaces
             sum += words[e].value;
 
+
             // If the sum is bigger than 114, reset the sum to the word which caused the overflow
             // The reason we ignore the space is becuase it will not occupy a space if its the very last word in the row
-            if (words[e].word != ' ' && sum > 114) {
+            if ((words[e].word === '\n') || (words[e].word != ' ' && sum > 114)) {
                 sum = words[e].value;
 
                 new_lines.push(lines.join(''));
@@ -118,6 +116,15 @@ function getLines(text: string) {
 
     // Add the rest of the words to the lines
     new_lines.push(lines.join(''));
+
+    // Needed to remove the very first line break of every 14th row to account for page switching
+    // Without this we would have an extra space at the beginning of every page
+    // I realise that I will have no idea what this comment refers to in 3 months, but trust me, this is important
+    new_lines.forEach((item, index) => {
+        if (index % 14 === 0 && index !== 0) {
+            new_lines[index] = item.replace(/\n/, '');
+        }
+    });
 
     // Return the lines and remove empty lines
     return new_lines.filter((r) => r != '');
@@ -197,6 +204,7 @@ function createCommand(book: string[], author: string, title: string): string {
         if (counter == 14) {
             // Create text string
             lines = lines.replace(/"/g, '\\\\' + '"').replace(/'/g, '\\' + '\'');
+            lines = lines.replace(/\n/g, '\\\\n');
             const pageString = `'{"text":"${lines}"}'`;
 
             // Reset lines and counter
@@ -214,6 +222,7 @@ function createCommand(book: string[], author: string, title: string): string {
     // Add the remaining lines to the page strings
     if (lines.length > 0) {
         lines = lines.replace(/"/g, '\\\\' + '"').replace(/'/g, '\\' + '\'');
+        lines = lines.replace(/\n/g, '\\\\n');
         const pageString = `'{"text":"${lines}"}'`;
         pageStrings.push(pageString);
     }

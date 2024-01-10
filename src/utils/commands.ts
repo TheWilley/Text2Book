@@ -1,11 +1,12 @@
 import getChars from './chars';
+
 type DotsOfWordType = { 'word': string, 'value': number }[]
 
 // Processing order:
 // getLines => calculateLetters => getCommands / getRawText => createCommand
 
 /**
- * Initiates the convertion process
+ * Initiates the conversion process
  */
 export default function start(text: string, author: string, title: string, rawOutput: boolean) {
     // Step 1 - Get all lines
@@ -13,16 +14,10 @@ export default function start(text: string, author: string, title: string, rawOu
 
     if (rawOutput) {
         // Step (2) - Pass lines to generate text
-        const texts = getRawText(lines);
-
-        // Step (3) - Return texts
-        return texts;
+        return getRawText(lines);
     } else {
         // Step (2) - Pass lines along with author and title to generate commands
-        const commands = getCommands(lines, author, title);
-
-        // Step (3) - Return commands
-        return commands;
+        return getCommands(lines, author, title);
     }
 }
 
@@ -35,7 +30,7 @@ function getDotsOfWord(word: string): DotsOfWordType {
     const words: DotsOfWordType = [], allChars = getChars(), ms = 114;
     let total_dots = 0, substringed_word = '';
 
-    // Go trough each letter
+    // Go through each letter
     for (let i = 0; i < word.length; i++) {
         // Get the character
         const mcChar = allChars.find((character) => character.letter == word.charAt(i));
@@ -82,25 +77,25 @@ function getDotsOfWord(word: string): DotsOfWordType {
  * @returns The lines as a string array
  */
 function getLines(text: string) {
-    let spliced_words: string[] = [], lines: string[] = [], words: DotsOfWordType = [], sum = 0;
+    let lines: string[] = [], words: DotsOfWordType = [], sum = 0;
     const new_lines = [];
 
     // Split the text into words
-    spliced_words = text.split(/(\n|\s+)/g);
+    const spliced_words = text.split(/(\n|\s+)/g);
 
-    // Go trough each word
+    // Go through each word
     for (let i = 0; i < spliced_words.length; i++) {
-        // Get the words and the sum of the it's letters
+        // Get the words and the sum of it's letters
         words = getDotsOfWord(spliced_words[i]);
 
-        // Go trough each word
+        // Go through each word
         for (let e = 0; e < words.length; e++) {
             // Add the sum of the letters and the spaces
             sum += words[e].value;
 
 
             // If the sum is bigger than 114, reset the sum to the word which caused the overflow
-            // The reason we ignore the space is becuase it will not occupy a space if its the very last word in the row
+            // The reason we ignore the space is that it will not occupy a space if it's the very last word in the row
             if ((words[e].word === '\n') || (words[e].word != ' ' && sum > 114)) {
                 sum = words[e].value;
 
@@ -135,7 +130,7 @@ function getLines(text: string) {
  * @param lines The lines to convert
  * @param author The author of the generated book
  * @param title The title of the generated book
- * @returns A command generating a minecraft book containg the lines contents
+ * @returns A command generating a minecraft book that contain the lines contents
  */
 function getCommands(lines: string[], author: string, title: string) {
     // TODO: Can probably find a better type here
@@ -150,7 +145,7 @@ function getCommands(lines: string[], author: string, title: string) {
     // Counter for amount of books
     let amount_of_books = 0;
 
-    // Go trough each line
+    // Go through each line
     for (let i = 0; i <= lines.length; i++) {
         amount_of_lines++;
 
@@ -182,7 +177,7 @@ function getCommands(lines: string[], author: string, title: string) {
 
 
 /**
- * Creates a command from a array of lines
+ * Creates a command from an array of lines
  * @param book An array of lines
  * @param author The author of the book
  * @param title The prefix title of the book (the book number will be added to the end, for example: Book [1])
@@ -197,7 +192,7 @@ function createCommand(book: string[], author: string, title: string): string {
         // Add the line to the lines string
         lines += line;
 
-        // Increase coonter
+        // Increase counter
         counter++;
 
         // If the index is divisible by 14, return the page string
@@ -236,16 +231,13 @@ function createCommand(book: string[], author: string, title: string): string {
     };
 
     // Convert the book item to a command string
-    const command = `/give @p ${bookItem.id}{pages:[${bookItem.pages}], title: "${bookItem.title}", author: "${bookItem.author}"}`;
-
-    // Return the command string
-    return command;
+    return `/give @p ${bookItem.id}{pages:[${bookItem.pages.toString()}], title: "${bookItem.title}", author: "${bookItem.author}"}`;
 }
 
 /**
  * Generates text which can be copied into minecraft books page by page and returns it
  * @param lines The lines to convert
- * @returns A text string containg the lines contents
+ * @returns A text string contain the lines contents
  */
 function getRawText(lines: string[]) {
     // TODO: Can probably find a better type here
@@ -257,7 +249,7 @@ function getRawText(lines: string[]) {
     // Counter for the amount of lines
     let amount_of_lines = 0;
 
-    // Go trough each line
+    // Go through each line
     for (let i = 0; i <= lines.length; i++) {
         amount_of_lines++;
 

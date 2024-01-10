@@ -66,7 +66,7 @@ function getDotsOfWord(word: string): DotsOfWordType {
 
             // Reset the index and sum
             total_dots = 0;
-            i = -1; 
+            i = -1;
         }
     }
 
@@ -86,8 +86,7 @@ function getLines(text: string) {
     const new_lines = [];
 
     // This is to fix some errors regarding formatting
-    // The (') and (") characters break syntax in command blocks, causing all sort of oddities
-    text = text.replace(/"/g, '‟').replace(/'/g, '‛').replace(/\n/g, ' ');
+    text = text.replace(/\n/g, ' ');
 
     // Split the text into words
     spliced_words = text.split(/(\s+)/);
@@ -197,6 +196,7 @@ function createCommand(book: string[], author: string, title: string): string {
         // If the index is divisible by 14, return the page string
         if (counter == 14) {
             // Create text string
+            lines = lines.replace(/"/g, '\\\\' + '"').replace(/'/g, '\\' + '\'');
             const pageString = `'{"text":"${lines}"}'`;
 
             // Reset lines and counter
@@ -213,6 +213,7 @@ function createCommand(book: string[], author: string, title: string): string {
 
     // Add the remaining lines to the page strings
     if (lines.length > 0) {
+        lines = lines.replace(/"/g, '\\\\' + '"').replace(/'/g, '\\' + '\'');
         const pageString = `'{"text":"${lines}"}'`;
         pageStrings.push(pageString);
     }

@@ -1,17 +1,20 @@
-# Text2Book - Convert Text to Minecraft Books
+<h1 align="center">
+  <br>
+  <a href="https://thewilley.github.io/FruityDancitor/"><img src="text2book.png" alt="FruityDancitor" width="200"></a>
+  <br>
+  Text2Book
+  <br>
+</h1>
 
-<img src='text2book.png' alt='text2book' width=200 /> 
+<h4 align="center"> A tool to convert text to Minecraft books </h4>
 
-Go to the official page by clicking [this link](https://thewilley.github.io/Text2Book/)!
-
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Features](#features)
-- [How to Use](#how-to-use)
-- [Installation](#installation)
-- [Usage](#usage)
-- [License](#license)
+<p align="center">
+  <a href="#introduction">Introduction</a> •
+  <a href="#features">Features</a> •
+  <a href="#output-modes">Output Modes</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#license">License</a>
+</p>
 
 ## Introduction
 
@@ -24,15 +27,15 @@ user-friendly.
 ## Features
 
 - **Text Input**: Enter the desired text content directly into the application.
-- **Command Generation**: Generate the necessary commands to create the Minecraft books with the desired content.
-- **Text Generation**: Generate text sections which can be copied over to your Minecraft book.
+- **Command Output**: Generate the necessary commands to create the Minecraft books with the desired content.
+- **Text Output**: Generate text sections which can be copied over to your Minecraft book.
 - **Copy to Clipboard**: Easily copy the generated commands to your clipboard for quick in-game implementation.
 
-## How to Use
+## Output modes
 
-There are two generation modes you can choose from: **Commands** or **Text**.
+There are two output modes you can choose from: **Commands** or **Text**.
 
-### Text Generation:
+### Text Output:
 
 1. **Input Text**: Enter the content you wish to appear in your Minecraft book in the designated text box.
 
@@ -45,7 +48,7 @@ There are two generation modes you can choose from: **Commands** or **Text**.
 4. **Implement in Minecraft**: Open Minecraft and access the book interface. Paste the copied text sections into each
    page of the book manually.
 
-### Command Generation
+### Command Output
 
 1. **Input Text**: On the main page, you will find a text input box where you can enter the content you want to appear
    in your Minecraft book.
@@ -60,19 +63,29 @@ There are two generation modes you can choose from: **Commands** or **Text**.
    command block to create the Minecraft book. Activate the command block, and the book will be available in-game for
    players to read.
 
-## Installation
-
-To run Text2Book locally, follow these steps:
-
-1. Clone the repository: `git clone https://github.com/thewilley/Text2Book.git`
-2. Navigate to the project directory: `cd text2book`
-3. Install dependencies: `npm install`
-4. Build app: `npm run build`
-5. Run app: `npm run preview`
-
 ## Usage
 
-To run the application without any installation, go to [this link](https://thewilley.github.io/Text2Book/).
+Simply go to the [official webpage](https://thewilley.github.io/Text2Book/) to get started, or run the app yourself by following these steps:
+
+```bash
+# Clone this repository
+$ git clone https://github.com/thewilley/Text2Book.git
+
+# Go into the repository
+$ cd Text2Book
+
+# Install dependencies
+$ npm install
+
+# Build app
+$ npm run build
+
+# If you want to start the app 
+$ npm run preview
+
+# If you want to develop the app
+$ npm run dev
+```
 
 ## License
 

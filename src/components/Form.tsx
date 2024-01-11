@@ -1,34 +1,32 @@
-import { useEffect, useState } from 'react';
 import loader from '../assets/loader.svg';
-import FileUploadSingle from './FileUploadSingle';
+import FileUpload from './FileUpload.tsx';
+import {ShowResults} from '../global/types.ts';
+import useForm from '../hooks/useForm.ts';
+import classNames from 'classnames';
 
-function Form(props: { callback: (text: string, author: string, title: string, rawOutput: boolean, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => void }) {
-    // Normal states
-    const [text, setText] = useState('');
-    const [author, setAuthor] = useState('');
-    const [title, setTitle] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [useFileUpload, setUseFileUpload] = useState(false);
-    const [rawOutput, setRawOutput] = useState(false);
-
-    // Handle the submit
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
-        const run = async () => {
-            // Wait 0.5 seconds to show the loading icon
-            await new Promise((resolve) => { setTimeout(resolve, 500); });
-            props.callback(text, author, title, rawOutput, setLoading);
-        };
-        setLoading(true);
-        void run();
-    };
+function Form(props: { showResults: ShowResults }) {
+    const {
+        loading,
+        outputFormat,
+        setOutputFormat,
+        inputFormat,
+        setInputFormat,
+        handleSubmit,
+        text,
+        setText,
+        handleChangeText,
+        author,
+        handleChangeAuthor,
+        title,
+        handleChangeTitle
+    } = useForm(props.showResults);
 
     // Decides if load icon should be shown
-    const getButtonTitle = () => {
+    const ButtonTitle = () => {
         if (loading) {
             return (
-                <div className='flex justify-center text-white'>
-                    <img className="h-5 w-5 mr-3" src={loader} />
+                <div className="flex justify-center text-white">
+                    <img className="h-5 w-5 mr-3" src={loader}/>
                 </div>
             );
         } else {
@@ -36,60 +34,45 @@ function Form(props: { callback: (text: string, author: string, title: string, r
         }
     };
 
-    const handleChangeText = (event: React.FormEvent) => {
-        const target = event.target as HTMLInputElement;
-        setText(target.value);
-
-        localStorage.setItem('text', target.value);
-    };
-
-    const handleChanngeAuthor = (event: React.FormEvent) => {
-        const target = event.target as HTMLInputElement;
-        setAuthor(target.value);
-
-        localStorage.setItem('author', target.value);
-    };
-
-    const handleChangeTitle = (event: React.FormEvent) => {
-        const target = event.target as HTMLInputElement;
-        setTitle(target.value);
-
-        localStorage.setItem('title', target.value);
-    };
-
-    useEffect(() => {
-        setText(localStorage.getItem('text') || '');
-        setAuthor(localStorage.getItem('author') || '');
-        setTitle(localStorage.getItem('title') || '');
-    }, []);
-
     return (
         <>
             <div className="grid w-full grid-cols-1 sm:grid-cols-2 gap-2 rounded-xl bg-gray-200 p-2">
                 <div>
-                    <input type="radio" name="input_method" id="use-text-input" className="peer hidden" onChange={() => setUseFileUpload(false)} checked={!useFileUpload} />
-                    <label htmlFor="use-text-input" className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white hover:bg-blue-200 transition">Text Input</label>
+                    <input type="radio" name="input_method" id="use-text-input" className="peer hidden"
+                           onChange={() => setInputFormat('text')} checked={inputFormat === 'text'}/>
+                    <label htmlFor="use-text-input"
+                           className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white hover:bg-blue-200 transition">Text
+                        Input</label>
                 </div>
                 <div>
-                    <input type="radio" name="input_method" id="use-file-upload" className="peer hidden" onChange={() => setUseFileUpload(true)} checked={useFileUpload} />
-                    <label htmlFor="use-file-upload" className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white hover:bg-blue-200 transition">File Input</label>
+                    <input type="radio" name="input_method" id="use-file-upload" className="peer hidden"
+                           onChange={() => setInputFormat('file')} checked={inputFormat === 'file'}/>
+                    <label htmlFor="use-file-upload"
+                           className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white hover:bg-blue-200 transition">File
+                        Input</label>
                 </div>
             </div>
             <div className="grid w-full grid-cols-1 sm:grid-cols-2 gap-2 rounded-xl bg-gray-200 p-2 mt-2">
                 <div>
-                    <input type="radio" name="generation_method" id="command-output" className="peer hidden" onChange={() => setRawOutput(false)} checked={!rawOutput} />
-                    <label htmlFor="command-output" className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white hover:bg-blue-200 transition">Generate Commands</label>
+                    <input type="radio" name="generation_method" id="command-output" className="peer hidden"
+                           onChange={() => setOutputFormat('commands')} checked={outputFormat === 'commands'}/>
+                    <label htmlFor="command-output"
+                           className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white hover:bg-blue-200 transition">Generate
+                        Commands</label>
                 </div>
                 <div>
-                    <input type="radio" name="generation_method" id="raw-output" className="peer hidden" onChange={() => setRawOutput(true)} checked={rawOutput} />
-                    <label htmlFor="raw-output" className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white hover:bg-blue-200 transition">Generate Text</label>
+                    <input type="radio" name="generation_method" id="raw-output" className="peer hidden"
+                           onChange={() => setOutputFormat('text')} checked={outputFormat === 'text'}/>
+                    <label htmlFor="raw-output"
+                           className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white hover:bg-blue-200 transition">Generate
+                        Text</label>
                 </div>
             </div>
-            <hr className='mb-4 mt-4' />
+            <hr className="mb-4 mt-4"/>
             <form
                 onSubmit={handleSubmit}
             >
-                <div className="flex flex-wrap mb-4">
+                <div className={classNames('flex flex-wrap mb-4', {'hidden': outputFormat === 'text'})}>
                     <div className="w-full sm:w-1/2 px-2">
                         <label htmlFor="author" className="block text-gray-700 text-sm font-bold mb-2">
                             Author
@@ -97,10 +80,10 @@ function Form(props: { callback: (text: string, author: string, title: string, r
                         <input
                             type="text"
                             id="author"
-                            placeholder='Lewis Carroll'
+                            placeholder="Lewis Carroll"
                             className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300"
                             value={author}
-                            onChange={handleChanngeAuthor}
+                            onChange={handleChangeAuthor}
                             maxLength={50}
                             required
                         />
@@ -112,7 +95,7 @@ function Form(props: { callback: (text: string, author: string, title: string, r
                         <input
                             type="text"
                             id="title"
-                            placeholder='Alice in Wonderland'
+                            placeholder="Alice in Wonderland"
                             className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300"
                             value={title}
                             onChange={handleChangeTitle}
@@ -126,17 +109,17 @@ function Form(props: { callback: (text: string, author: string, title: string, r
                         Text
                     </label>
                     <div>
-                        <div className={`${!useFileUpload ? 'hidden' : ''}`}>
-                            <FileUploadSingle callback={(text) => setText(text)} useFileUpload={useFileUpload} />
+                        <div className={classNames({'hidden': inputFormat === 'text' })}>
+                            <FileUpload callback={(text) => setText(text)} useFileUpload={inputFormat === 'file'}/>
                         </div>
-                        <div className={`${useFileUpload ? 'hidden' : ''}`}>
+                        <div className={classNames({'hidden': inputFormat === 'file'})}>
                             <textarea
                                 id="text"
-                                placeholder='Once upon a time, there was a girl...'
-                                className="w-full h-72 border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300 h-32 resize-none"
+                                placeholder="Once upon a time, there was a girl..."
+                                className="w-full h-72 border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300 resize-none"
                                 value={text}
                                 onChange={handleChangeText}
-                                required={!useFileUpload}
+                                required={inputFormat === 'text'}
                             />
                         </div>
                     </div>
@@ -145,7 +128,7 @@ function Form(props: { callback: (text: string, author: string, title: string, r
                     type="submit"
                     className="w-full h-10 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
-                    {getButtonTitle()}
+                    <ButtonTitle />
                 </button>
             </form>
         </>

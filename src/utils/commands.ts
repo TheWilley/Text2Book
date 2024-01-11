@@ -8,11 +8,11 @@ type DotsOfWordType = { 'word': string, 'value': number }[]
 /**
  * Initiates the conversion process
  */
-export default function start(text: string, author: string, title: string, rawOutput: boolean) {
+export default function start(text: string, author: string, title: string, outputFormat: 'commands' | 'text') {
     // Step 1 - Get all lines
     const lines = getLines(text);
 
-    if (rawOutput) {
+    if (outputFormat === 'text') {
         // Step (2) - Pass lines to generate text
         return getRawText(lines);
     } else {

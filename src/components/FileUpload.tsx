@@ -1,26 +1,7 @@
-import { ChangeEvent, useState } from 'react';
+import useFileUpload from '../hooks/useFileUpload.ts';
 
-function FileUploadSingle(props: { callback: (text: string) => void, useFileUpload: boolean }) {
-    const [fileName, setFileName] = useState<string>('');
-
-    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.item(0);
-
-        // If file type is text/plain
-        if (file?.type === 'text/plain') {
-            // Read the file
-            const reader = new FileReader();
-            reader.readAsText(file);
-
-            // Set the file name
-            setFileName(file.name);
-
-            // Set the text
-            reader.onload = () => {
-                props.callback(reader.result as string);
-            };
-        }
-    };
+function FileUpload(props: { callback: (text: string) => void, useFileUpload: boolean }) {
+    const {fileName, handleFileChange} = useFileUpload(props.callback);
 
     return (
         <div>
@@ -47,4 +28,4 @@ function FileUploadSingle(props: { callback: (text: string) => void, useFileUplo
     );
 }
 
-export default FileUploadSingle;
+export default FileUpload;

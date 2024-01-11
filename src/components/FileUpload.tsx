@@ -10,7 +10,7 @@ function FileUpload(props: { callback: (text: string) => void, useFileUpload: bo
                     id="file-upload"
                     type="file"
                     onChange={handleFileChange}
-                    accept='.txt'
+                    accept=".txt"
                     className="opacity-0 absolute z-0 w-full h-full"
                     required={props.useFileUpload}
                 />

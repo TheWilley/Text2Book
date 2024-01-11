@@ -1,5 +1,5 @@
 .fadein[fadein='1'] {
-    animation: fadein  0.5s 1;
+    animation: fadein 0.5s 1;
 }
 
 @keyframes fadein {

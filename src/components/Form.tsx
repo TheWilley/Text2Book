@@ -109,7 +109,7 @@ function Form(props: { showResults: ShowResults }) {
                         Text
                     </label>
                     <div>
-                        <div className={classNames({'hidden': inputFormat === 'text' })}>
+                        <div className={classNames({'hidden': inputFormat === 'text'})}>
                             <FileUpload callback={(text) => setText(text)} useFileUpload={inputFormat === 'file'}/>
                         </div>
                         <div className={classNames({'hidden': inputFormat === 'file'})}>
@@ -128,7 +128,7 @@ function Form(props: { showResults: ShowResults }) {
                     type="submit"
                     className="w-full h-10 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
-                    <ButtonTitle />
+                    <ButtonTitle/>
                 </button>
             </form>
         </>

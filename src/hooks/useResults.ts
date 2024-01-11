@@ -3,7 +3,7 @@ import {toast} from 'react-toastify';
 
 export default function useResults() {
     const [blink, setBlink] = useState(0);
-    const blinkProps = { blink: blink };
+    const blinkProps = {blink: blink};
 
     const copyAndNotify = (event: FormEvent, result: string) => {
         // FIXME: NEVER do this, its better to find out how to fix it. I am unsure as of now, so this will be laft as is for the time being

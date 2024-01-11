@@ -22,5 +22,5 @@ export default function useFileUpload(callback: (readerResult: string) => void) 
         }
     };
 
-    return {fileName, handleFileChange}
+    return {fileName, handleFileChange};
 }

@@ -1,9 +1,9 @@
 /**
  * @param {string} letter
  * @param {number} dots
- * 
+ *
  * Class representing a Minecraft character
- * 
+ *
  * The length of the letter is represented by "dots"
  */
 class MinecraftChar {

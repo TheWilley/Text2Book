@@ -26,7 +26,7 @@ export default function start(text: string, author: string, title: string, rawOu
  * @param word The word to calculate the letters of
  * @returns The lines and the sum of the dots
  */
-function getDotsOfWord(word: string): DotsOfWordType {
+export function getDotsOfWord(word: string): DotsOfWordType {
     const words: DotsOfWordType = [], allChars = getChars(), ms = 114;
     let total_dots = 0, substringed_word = '';
 
@@ -76,7 +76,7 @@ function getDotsOfWord(word: string): DotsOfWordType {
  * Calculates the lines of the text
  * @returns The lines as a string array
  */
-function getLines(text: string) {
+export function getLines(text: string) {
     let lines: string[] = [], words: DotsOfWordType = [], sum = 0;
     const new_lines = [];
 
@@ -112,15 +112,6 @@ function getLines(text: string) {
     // Add the rest of the words to the lines
     new_lines.push(lines.join(''));
 
-    // Needed to remove the very first line break of every 14th row to account for page switching
-    // Without this we would have an extra space at the beginning of every page
-    // I realise that I will have no idea what this comment refers to in 3 months, but trust me, this is important
-    new_lines.forEach((item, index) => {
-        if (index % 14 === 0 && index !== 0) {
-            new_lines[index] = item.replace(/\n/, '');
-        }
-    });
-
     // Return the lines and remove empty lines
     return new_lines.filter((r) => r != '');
 }
@@ -132,7 +123,7 @@ function getLines(text: string) {
  * @param title The title of the generated book
  * @returns A command generating a minecraft book that contain the lines contents
  */
-function getCommands(lines: string[], author: string, title: string) {
+export function getCommands(lines: string[], author: string, title: string) {
     // TODO: Can probably find a better type here
     const commands: string[] = [];
 
@@ -183,7 +174,7 @@ function getCommands(lines: string[], author: string, title: string) {
  * @param title The prefix title of the book (the book number will be added to the end, for example: Book [1])
  * @returns The command
  */
-function createCommand(book: string[], author: string, title: string): string {
+export function createCommand(book: string[], author: string, title: string): string {
     // Create an array of page JSON strings, containing 14 lines each
     let lines = '';
     let counter = 0;
@@ -199,6 +190,7 @@ function createCommand(book: string[], author: string, title: string): string {
         if (counter == 14) {
             // Create text string
             lines = lines.replace(/"/g, '\\\\' + '"').replace(/'/g, '\\' + '\'');
+            lines = lines.trim();
             lines = lines.replace(/\n/g, '\\\\n');
             const pageString = `'{"text":"${lines}"}'`;
 
@@ -217,6 +209,7 @@ function createCommand(book: string[], author: string, title: string): string {
     // Add the remaining lines to the page strings
     if (lines.length > 0) {
         lines = lines.replace(/"/g, '\\\\' + '"').replace(/'/g, '\\' + '\'');
+        lines = lines.trim();
         lines = lines.replace(/\n/g, '\\\\n');
         const pageString = `'{"text":"${lines}"}'`;
         pageStrings.push(pageString);
@@ -239,7 +232,7 @@ function createCommand(book: string[], author: string, title: string): string {
  * @param lines The lines to convert
  * @returns A text string contain the lines contents
  */
-function getRawText(lines: string[]) {
+export function getRawText(lines: string[]) {
     // TODO: Can probably find a better type here
     const texts: string[] = [];
 

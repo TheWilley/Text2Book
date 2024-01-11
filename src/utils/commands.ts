@@ -14,10 +14,10 @@ export default function start(text: string, author: string, title: string, outpu
 
     if (outputFormat === 'text') {
         // Step (2) - Pass lines to generate text
-        return getRawText(lines);
+        return returnText(lines);
     } else {
         // Step (2) - Pass lines along with author and title to generate commands
-        return getCommands(lines, author, title);
+        return returnCommands(lines, author, title);
     }
 }
 
@@ -41,10 +41,10 @@ export function getDotsOfWord(word: string): DotsOfWordType {
             i--;
             continue;
         }
-        
+
         // Add the dots
         total_dots += mcChar.dots;
-        
+
         // Set the substringed word
         substringed_word = word.substring(0, i + 1);
 
@@ -54,7 +54,7 @@ export function getDotsOfWord(word: string): DotsOfWordType {
             substringed_word = substringed_word.substring(0, substringed_word.length - 1);
 
             // Add the word to the array
-            words.push({ 'word': substringed_word, 'value': total_dots });
+            words.push({'word': substringed_word, 'value': total_dots});
 
             // Remove the word from the string including the last letter
             word = word.substring(i);
@@ -66,7 +66,7 @@ export function getDotsOfWord(word: string): DotsOfWordType {
     }
 
     // Add the last word
-    words.push({ 'word': word, 'value': total_dots });
+    words.push({'word': word, 'value': total_dots});
 
     // Return the words
     return words;
@@ -106,7 +106,6 @@ export function getLines(text: string) {
             // Add the letters to the lines
             lines.push(words[e].word);
         }
-
     }
 
     // Add the rest of the words to the lines
@@ -123,8 +122,7 @@ export function getLines(text: string) {
  * @param title The title of the generated book
  * @returns A command generating a minecraft book that contain the lines contents
  */
-export function getCommands(lines: string[], author: string, title: string) {
-    // TODO: Can probably find a better type here
+export function returnCommands(lines: string[], author: string, title: string) {
     const commands: string[] = [];
 
     // Create copy to not modify the original
@@ -232,8 +230,7 @@ export function createCommand(book: string[], author: string, title: string): st
  * @param lines The lines to convert
  * @returns A text string contain the lines contents
  */
-export function getRawText(lines: string[]) {
-    // TODO: Can probably find a better type here
+export function returnText(lines: string[]) {
     const texts: string[] = [];
 
     // Create copy to not modify the original

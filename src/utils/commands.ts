@@ -81,7 +81,7 @@ export function getLines(text: string) {
     const new_lines = [];
 
     // Split the text into words
-    const spliced_words = text.split(/(\n|\s+)/g);
+    const spliced_words = text.split(/(\s)/g);
 
     // Go through each word
     for (let i = 0; i < spliced_words.length; i++) {
@@ -92,7 +92,6 @@ export function getLines(text: string) {
         for (let e = 0; e < words.length; e++) {
             // Add the sum of the letters and the spaces
             sum += words[e].value;
-
 
             // If the sum is bigger than 114, reset the sum to the word which caused the overflow
             // The reason we ignore the space is that it will not occupy a space if it's the very last word in the row

@@ -79,5 +79,5 @@ export default function returnText(lines: string[]) {
         }
     }
 
-    return texts;
+    return texts.filter((r) => r != '');
 }

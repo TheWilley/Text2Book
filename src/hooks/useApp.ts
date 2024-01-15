@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {ShowResults} from '../global/types.ts';
-import start from '../utils/commands.ts';
+import start from '../utils/main.ts';
 
 export default function useApp() {
     const [results, setResults] = useState<string[]>([]);

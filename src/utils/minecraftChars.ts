@@ -34,7 +34,7 @@ class MinecraftChar {
 
 /**
  * Returns a list minecraft characters and the amount of "dots" they take up on a page
- * @returns An arrray of Char objects, containing character and dots
+ * @returns An array of Char objects, containing character and dots
  */
 function getChars() {
     return [

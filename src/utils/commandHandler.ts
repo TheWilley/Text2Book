@@ -10,6 +10,14 @@ function createCommand(book: string[], author: string, title: string): string {
     let lines = '';
     let counter = 0;
 
+    const escapeCharacters = () => {
+        return lines
+            .replace(/"/g, '\\\\' + '"') // Escape double quotes (")
+            .replace(/'/g, '\\' + '\'') // Escape single quotes (')
+            .trim() // Remove whitespace from both ends of the string ( )
+            .replace(/\n/g, '\\\\n'); // Escape new lines (\n)
+    };
+
     const pageStrings = book.map((line) => {
         // Add the line to the lines string
         lines += line;
@@ -20,9 +28,7 @@ function createCommand(book: string[], author: string, title: string): string {
         // If the index is divisible by 14, return the page string
         if (counter == 14) {
             // Create text string
-            lines = lines.replace(/"/g, '\\\\' + '"').replace(/'/g, '\\' + '\'');
-            lines = lines.trim();
-            lines = lines.replace(/\n/g, '\\\\n');
+            lines = escapeCharacters();
             const pageString = `'{"text":"${lines}"}'`;
 
             // Reset lines and counter
@@ -38,9 +44,7 @@ function createCommand(book: string[], author: string, title: string): string {
 
     // Add the remaining lines to the page strings
     if (lines.length > 0) {
-        lines = lines.replace(/"/g, '\\\\' + '"').replace(/'/g, '\\' + '\'');
-        lines = lines.trim();
-        lines = lines.replace(/\n/g, '\\\\n');
+        lines = escapeCharacters();
         const pageString = `'{"text":"${lines}"}'`;
         pageStrings.push(pageString);
     }

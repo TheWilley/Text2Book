@@ -98,9 +98,7 @@ export function getLines(text: string) {
 
             // If the sum is bigger than 114, reset the sum to the word which caused the overflow
             // The reason we ignore the space is that it will not occupy a space if it's the very last word in the row
-            // However, if the sum is 115 with a space afterward, it cannot be ignored, as it indeed will occupy a space, creating a new line
-            // This is the one exception however
-            if ((words[e].word === '\n') || (words[e].word != ' ' && sum > 114) || (words[e].word === ' ' && sum == 115)) {
+            if ((words[e].word === '\n') || (words[e].word != ' ' && sum > 114)) {
                 sum = words[e].value;
 
                 new_lines.push(lines.join(''));

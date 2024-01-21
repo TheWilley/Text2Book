@@ -34,7 +34,6 @@ function createCommand(book: string[], author: string, title: string): string {
         } else {
             return null;
         }
-
     }).filter(pageString => pageString !== null);
 
     // Add the remaining lines to the page strings

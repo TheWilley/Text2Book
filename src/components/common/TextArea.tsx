@@ -14,7 +14,7 @@ function TextArea(props: {
       <textarea
         id={props.id}
         placeholder={props.placeholder}
-        className='w-full h-72 border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300 resize-none'
+        className='w-full min-h-[58px] h-72 border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300'
         value={props.value}
         onChange={props.onChange}
         required={props.required}

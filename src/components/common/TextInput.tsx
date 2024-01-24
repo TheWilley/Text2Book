@@ -18,7 +18,7 @@ function TextInput(props: {
         placeholder={props.placeholder}
         className='w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300'
         value={props.value}
-        onChange={props.onChange}
+        onChange={(e) => props.onChange(e.target.value)}
         maxLength={props.maxLength}
         required={props.required}
       />

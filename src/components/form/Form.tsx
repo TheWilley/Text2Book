@@ -5,21 +5,20 @@ import FormInput from './FormInput.tsx';
 
 function Form(props: { showResults: ShowResults }) {
   const {
-    loading,
-    outputFormat,
-    setOutputFormat,
     inputFormat,
     setInputFormat,
-    handleSubmit,
+    outputFormat,
+    setOutputFormat,
     text,
     setText,
     appendIndex,
     setAppendIndex,
-    handleChangeText,
     author,
-    handleChangeAuthor,
+    setAuthor,
     title,
-    handleChangeTitle,
+    setTitle,
+    loading,
+    handleSubmit,
   } = useForm(props.showResults);
 
   return (
@@ -34,21 +33,20 @@ function Form(props: { showResults: ShowResults }) {
       />
       <hr className='mb-4 mt-4' />
       <FormInput
-        setInputFormat={setInputFormat}
         inputFormat={inputFormat}
-        setOutputFormat={setOutputFormat}
+        setInputFormat={setInputFormat}
         outputFormat={outputFormat}
-        loading={loading}
-        handleSubmit={handleSubmit}
+        setOutputFormat={setOutputFormat}
         text={text}
         setText={setText}
         appendIndex={appendIndex}
         setAppendIndex={setAppendIndex}
-        handleChangeText={handleChangeText}
         author={author}
-        handleChangeAuthor={handleChangeAuthor}
+        setAuthor={setAuthor}
         title={title}
-        handleChangeTitle={handleChangeTitle}
+        setTitle={setTitle}
+        loading={loading}
+        handleSubmit={handleSubmit}
       />
     </>
   );

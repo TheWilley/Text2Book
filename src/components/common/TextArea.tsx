@@ -16,7 +16,7 @@ function TextArea(props: {
         placeholder={props.placeholder}
         className='w-full min-h-[58px] h-72 border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300'
         value={props.value}
-        onChange={props.onChange}
+        onChange={(e) => props.onChange(e.target.value)}
         required={props.required}
       />
     </>

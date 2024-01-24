@@ -1,21 +1,21 @@
 import React from 'react';
+type Setter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
 
 export type FormData = {
-  setInputFormat: React.Dispatch<React.SetStateAction<'text' | 'file'>>;
   inputFormat: 'text' | 'file';
-  setOutputFormat: React.Dispatch<React.SetStateAction<'text' | 'commands'>>;
+  setInputFormat: Setter<'text' | 'file'>;
   outputFormat: 'text' | 'commands';
-  loading: boolean;
-  handleSubmit: (event: React.FormEvent) => void;
+  setOutputFormat: Setter<'text' | 'commands'>;
   text: string;
-  setText: React.Dispatch<React.SetStateAction<string>>;
+  setText: Setter<string>;
   appendIndex: boolean;
-  setAppendIndex: React.Dispatch<React.SetStateAction<boolean>>;
-  handleChangeText: (event: React.FormEvent) => void;
+  setAppendIndex: Setter<boolean>;
   author: string;
-  handleChangeAuthor: (event: React.FormEvent) => void;
+  setAuthor: Setter<string>;
   title: string;
-  handleChangeTitle: (event: React.FormEvent) => void;
+  setTitle: Setter<string>;
+  handleSubmit: (event: React.FormEvent) => void;
+  loading: boolean;
 };
 
 export type ShowResults = (

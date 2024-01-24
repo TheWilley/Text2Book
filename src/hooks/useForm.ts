@@ -1,15 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormData, ShowResults } from '../global/types.ts';
+import useLocalStorage from 'use-local-storage';
 
 export default function useForm(showResults: ShowResults): FormData {
   // Normal states
-  const [text, setText] = useState('');
-  const [author, setAuthor] = useState('');
-  const [title, setTitle] = useState('');
-  const [appendIndex, setAppendIndex] = useState(false);
+  const [text, setText] = useLocalStorage('text', '');
+  const [author, setAuthor] = useLocalStorage('author', '');
+  const [title, setTitle] = useLocalStorage('title', '');
+  const [appendIndex, setAppendIndex] = useLocalStorage('appendIndex', false);
+  const [inputFormat, setInputFormat] = useLocalStorage<'text' | 'file'>(
+    'inputFormat',
+    'text'
+  );
+  const [outputFormat, setOutputFormat] = useLocalStorage<'commands' | 'text'>(
+    'outputFormat',
+    'commands'
+  );
   const [loading, setLoading] = useState(false);
-  const [inputFormat, setInputFormat] = useState<'text' | 'file'>('text');
-  const [outputFormat, setOutputFormat] = useState<'commands' | 'text'>('commands');
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -25,48 +32,20 @@ export default function useForm(showResults: ShowResults): FormData {
     void run();
   };
 
-  const handleChangeText = (event: React.FormEvent) => {
-    const target = event.target as HTMLInputElement;
-    setText(target.value);
-
-    localStorage.setItem('text', target.value);
-  };
-
-  const handleChangeAuthor = (event: React.FormEvent) => {
-    const target = event.target as HTMLInputElement;
-    setAuthor(target.value);
-
-    localStorage.setItem('author', target.value);
-  };
-
-  const handleChangeTitle = (event: React.FormEvent) => {
-    const target = event.target as HTMLInputElement;
-    setTitle(target.value);
-
-    localStorage.setItem('title', target.value);
-  };
-
-  useEffect(() => {
-    setText(localStorage.getItem('text') || '');
-    setAuthor(localStorage.getItem('author') || '');
-    setTitle(localStorage.getItem('title') || '');
-  }, []);
-
   return {
-    loading,
     inputFormat,
     setInputFormat,
     outputFormat,
     setOutputFormat,
-    handleSubmit,
     text,
     setText,
-    appendIndex: appendIndex,
-    setAppendIndex: setAppendIndex,
-    handleChangeText,
+    appendIndex,
+    setAppendIndex,
     author,
-    handleChangeAuthor,
+    setAuthor,
     title,
-    handleChangeTitle,
+    setTitle,
+    handleSubmit,
+    loading,
   };
 }

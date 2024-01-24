@@ -32,7 +32,7 @@ function FormInput(props: FormData) {
             id='author'
             placeholder='Lewis Carroll'
             value={props.author}
-            onChange={props.handleChangeAuthor}
+            onChange={props.setAuthor}
             maxLength={50}
             required
           />
@@ -43,7 +43,7 @@ function FormInput(props: FormData) {
             id='title'
             placeholder='Alice in Wonderland'
             value={props.title}
-            onChange={props.handleChangeTitle}
+            onChange={props.setTitle}
             maxLength={15}
             required
           />
@@ -63,7 +63,7 @@ function FormInput(props: FormData) {
             id='text'
             placeholder='Once upon a time, there was a girl...'
             value={props.text}
-            onChange={props.handleChangeText}
+            onChange={props.setText}
             required={props.inputFormat === 'text'}
           />
         </div>

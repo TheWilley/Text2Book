@@ -25,7 +25,7 @@ function FormSettingsAdvanced(
               id='format'
               placeholder='[n]'
               value={props.appendIndexFormat}
-              onChange={props.setAppendIndexFormat}
+              setter={props.setAppendIndexFormat}
               maxLength={15}
               centerText
             />

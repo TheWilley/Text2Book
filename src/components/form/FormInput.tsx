@@ -32,7 +32,7 @@ function FormInput(props: IFormInput) {
             id='author'
             placeholder='Lewis Carroll'
             value={props.author}
-            onChange={props.setAuthor}
+            setter={props.setAuthor}
             maxLength={50}
             required
           />
@@ -43,7 +43,7 @@ function FormInput(props: IFormInput) {
             id='title'
             placeholder='Alice in Wonderland'
             value={props.title}
-            onChange={props.setTitle}
+            setter={props.setTitle}
             maxLength={15}
             required
           />
@@ -63,7 +63,7 @@ function FormInput(props: IFormInput) {
             id='text'
             placeholder='Once upon a time, there was a girl...'
             value={props.text}
-            onChange={props.setText}
+            setter={props.setText}
             required={props.inputFormat === 'text'}
           />
         </div>

@@ -1,6 +1,6 @@
 function MultiChoice(props: {
   name: string;
-  items: { id: string; label: string; checked: boolean; callback: any }[];
+  items: { id: string; label: string; checked: boolean; callback: () => void }[];
 }) {
   return (
     <div

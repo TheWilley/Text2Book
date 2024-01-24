@@ -3,7 +3,7 @@ function RadioInput(props: {
   label: string;
   name?: string;
   checked: boolean;
-  callback: any;
+  callback: () => void;
 }) {
   return (
     <div>

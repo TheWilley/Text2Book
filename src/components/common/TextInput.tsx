@@ -3,7 +3,7 @@ function TextInput(props: {
   id: string;
   placeholder: string;
   value: string;
-  onChange: any;
+  setter: (value: string) => void;
   maxLength: number;
   centerText?: boolean;
   required?: boolean;
@@ -17,9 +17,9 @@ function TextInput(props: {
         type='text'
         id={props.id}
         placeholder={props.placeholder}
-        className={`w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300 ${props.centerText && 'text-center'}`}
+        className={`w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300 ${props.centerText ? 'text-center' : ''}`}
         value={props.value}
-        onChange={(e) => props.onChange(e.target.value)}
+        onChange={(e) => props.setter(e.target.value)}
         maxLength={props.maxLength}
         required={props.required}
       />

@@ -10,6 +10,8 @@ export type FormData = {
   setText: Setter<string>;
   appendIndex: boolean;
   setAppendIndex: Setter<boolean>;
+  appendIndexFormat: string;
+  setAppendIndexFormat: Setter<string>;
   author: string;
   setAuthor: Setter<string>;
   title: string;
@@ -23,5 +25,6 @@ export type ShowResults = (
   author: FormData['author'],
   title: FormData['title'],
   outputFormat: FormData['outputFormat'],
-  appendIndex: FormData['appendIndex']
+  appendIndex: FormData['appendIndex'],
+  appendIndexFormat: FormData['appendIndexFormat']
 ) => void;

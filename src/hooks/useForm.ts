@@ -8,6 +8,10 @@ export default function useForm(showResults: ShowResults): FormData {
   const [author, setAuthor] = useLocalStorage('author', '');
   const [title, setTitle] = useLocalStorage('title', '');
   const [appendIndex, setAppendIndex] = useLocalStorage('appendIndex', false);
+  const [appendIndexFormat, setAppendIndexFormat] = useLocalStorage(
+    'appendIndexFormat',
+    '[n]'
+  );
   const [inputFormat, setInputFormat] = useLocalStorage<'text' | 'file'>(
     'inputFormat',
     'text'
@@ -25,7 +29,7 @@ export default function useForm(showResults: ShowResults): FormData {
       await new Promise((resolve) => {
         setTimeout(resolve, 500);
       });
-      showResults(text, author, title, outputFormat, appendIndex);
+      showResults(text, author, title, outputFormat, appendIndex, appendIndexFormat);
       setLoading(false);
     };
     setLoading(true);
@@ -41,6 +45,8 @@ export default function useForm(showResults: ShowResults): FormData {
     setText,
     appendIndex,
     setAppendIndex,
+    appendIndexFormat,
+    setAppendIndexFormat,
     author,
     setAuthor,
     title,

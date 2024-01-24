@@ -15,7 +15,8 @@ export default function start(
   author: string,
   title: string,
   outputFormat: 'commands' | 'text',
-  appendIndex: boolean
+  appendIndex: boolean,
+  appendIndexFormat: string
 ) {
   // Step 1 - Get all lines
   const lines = getLines(text);
@@ -25,7 +26,7 @@ export default function start(
     return returnText(lines);
   } else {
     // Step (2) - Pass lines along with author and title to generate commands
-    return returnCommands(lines, author, title, appendIndex);
+    return returnCommands(lines, author, title, appendIndex, appendIndexFormat);
   }
 }
 

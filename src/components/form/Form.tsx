@@ -13,6 +13,8 @@ function Form(props: { showResults: ShowResults }) {
     setText,
     appendIndex,
     setAppendIndex,
+    appendIndexFormat,
+    setAppendIndexFormat,
     author,
     setAuthor,
     title,
@@ -30,6 +32,8 @@ function Form(props: { showResults: ShowResults }) {
         setOutputFormat={setOutputFormat}
         appendIndex={appendIndex}
         setAppendIndex={setAppendIndex}
+        appendIndexFormat={appendIndexFormat}
+        setAppendIndexFormat={setAppendIndexFormat}
       />
       <hr className='mb-4 mt-4' />
       <FormInput

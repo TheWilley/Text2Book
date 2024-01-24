@@ -3,7 +3,12 @@ import TextInput from '../common/TextInput.tsx';
 import Accordion from '../common/Accordion.tsx';
 import { FormData } from '../../global/types.ts';
 
-function FormSettingsAdvanced(props: Pick<FormData, 'appendIndex' | 'setAppendIndex'>) {
+function FormSettingsAdvanced(
+  props: Pick<
+    FormData,
+    'appendIndex' | 'setAppendIndex' | 'appendIndexFormat' | 'setAppendIndexFormat'
+  >
+) {
   return (
     <>
       <Accordion id='advanced-settings' label='Advanced'>
@@ -19,8 +24,8 @@ function FormSettingsAdvanced(props: Pick<FormData, 'appendIndex' | 'setAppendIn
               label='Format'
               id='format'
               placeholder='[n]'
-              value=''
-              onChange={() => {}}
+              value={props.appendIndexFormat}
+              onChange={props.setAppendIndexFormat}
               maxLength={15}
             />
           </div>

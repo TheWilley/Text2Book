@@ -11,6 +11,8 @@ function FormSettings(
     | 'setOutputFormat'
     | 'appendIndex'
     | 'setAppendIndex'
+    | 'appendIndexFormat'
+    | 'setAppendIndexFormat'
   >
 ) {
   return (
@@ -53,6 +55,8 @@ function FormSettings(
       <FormSettingsAdvanced
         appendIndex={props.appendIndex}
         setAppendIndex={props.setAppendIndex}
+        appendIndexFormat={props.appendIndexFormat}
+        setAppendIndexFormat={props.setAppendIndexFormat}
       />
     </>
   );

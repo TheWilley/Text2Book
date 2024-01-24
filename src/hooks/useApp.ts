@@ -13,9 +13,10 @@ export default function useApp() {
     author: string,
     title: string,
     outputFormat: 'commands' | 'text',
-    appendIndex: boolean
+    appendIndex: boolean,
+    appendIndexFormat
   ) => {
-    setResults(start(text, author, title, outputFormat, appendIndex));
+    setResults(start(text, author, title, outputFormat, appendIndex, appendIndexFormat));
     setFadeIn(1);
   };
 

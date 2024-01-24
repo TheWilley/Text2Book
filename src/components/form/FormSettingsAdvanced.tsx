@@ -16,7 +16,7 @@ function FormSettingsAdvanced(
           <div className='border bg-gray-300 rounded-xl p-2 relative'>
             <RadioInput
               id='append-number'
-              label='Append number after names'
+              label='Add title suffix'
               checked={props.appendIndex}
               callback={() => props.setAppendIndex(!props.appendIndex)}
             />

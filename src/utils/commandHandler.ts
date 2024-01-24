@@ -100,7 +100,15 @@ export default function returnCommands(
       const params = {
         lines: copy_of_lines.splice(0, amount_of_lines),
         author: author,
-        title: `${title}${appendIndex ? appendIndexFormat.replace('n', amount_of_books.toString()) : ''}`,
+        title: (() => {
+          const baseTitle = title;
+          const indexSuffix = appendIndex
+            ? appendIndexFormat
+              ? appendIndexFormat.replace('n', amount_of_books.toString())
+              : ' [n]'.replace('n', amount_of_books.toString())
+            : '';
+          return `${baseTitle}${indexSuffix}`;
+        })(),
       };
 
       // Create the command

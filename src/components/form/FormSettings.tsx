@@ -1,4 +1,5 @@
 import { FormData } from '../../global/types.ts';
+import FormSettingsAdvanced from './FormSettingsAdvanced.tsx';
 
 function FormSettings(
   props: Pick<
@@ -76,6 +77,7 @@ function FormSettings(
           </label>
         </div>
       </div>
+      <FormSettingsAdvanced />
     </>
   );
 }

@@ -5,7 +5,12 @@ import MultiChoice from '../common/MultiChoice.tsx';
 function FormSettings(
   props: Pick<
     FormData,
-    'inputFormat' | 'setInputFormat' | 'outputFormat' | 'setOutputFormat'
+    | 'inputFormat'
+    | 'setInputFormat'
+    | 'outputFormat'
+    | 'setOutputFormat'
+    | 'appendIndex'
+    | 'setAppendIndex'
   >
 ) {
   return (
@@ -45,7 +50,10 @@ function FormSettings(
           },
         ]}
       />
-      <FormSettingsAdvanced />
+      <FormSettingsAdvanced
+        appendIndex={props.appendIndex}
+        setAppendIndex={props.setAppendIndex}
+      />
     </>
   );
 }

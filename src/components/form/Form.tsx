@@ -13,6 +13,8 @@ function Form(props: { showResults: ShowResults }) {
     handleSubmit,
     text,
     setText,
+    appendIndex,
+    setAppendIndex,
     handleChangeText,
     author,
     handleChangeAuthor,
@@ -27,6 +29,8 @@ function Form(props: { showResults: ShowResults }) {
         setInputFormat={setInputFormat}
         outputFormat={outputFormat}
         setOutputFormat={setOutputFormat}
+        appendIndex={appendIndex}
+        setAppendIndex={setAppendIndex}
       />
       <hr className='mb-4 mt-4' />
       <FormInput
@@ -38,6 +42,8 @@ function Form(props: { showResults: ShowResults }) {
         handleSubmit={handleSubmit}
         text={text}
         setText={setText}
+        appendIndex={appendIndex}
+        setAppendIndex={setAppendIndex}
         handleChangeText={handleChangeText}
         author={author}
         handleChangeAuthor={handleChangeAuthor}

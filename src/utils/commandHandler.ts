@@ -68,9 +68,15 @@ function createCommand(book: string[], author: string, title: string): string {
  * @param lines The lines to convert
  * @param author The author of the generated book
  * @param title The title of the generated book
+ * @param appendIndex Weather to add an index after book names
  * @returns A command generating a minecraft book that contain the lines contents
  */
-export default function returnCommands(lines: string[], author: string, title: string) {
+export default function returnCommands(
+  lines: string[],
+  author: string,
+  title: string,
+  appendIndex: boolean
+) {
   const commands: string[] = [];
 
   // Create copy to not modify the original
@@ -91,8 +97,8 @@ export default function returnCommands(lines: string[], author: string, title: s
       // Create object containing info
       const params = {
         lines: copy_of_lines.splice(0, amount_of_lines),
-        author: author == '' ? 'Author' : author,
-        title: `${title == '' ? 'Book' : title} [${amount_of_books}]`,
+        author: author,
+        title: `${title}${appendIndex ? ' [' + amount_of_books + ']' : ''}`,
       };
 
       // Create the command

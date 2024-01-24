@@ -6,6 +6,7 @@ export default function useForm(showResults: ShowResults): FormData {
   const [text, setText] = useState('');
   const [author, setAuthor] = useState('');
   const [title, setTitle] = useState('');
+  const [appendIndex, setAppendIndex] = useState(false);
   const [loading, setLoading] = useState(false);
   const [inputFormat, setInputFormat] = useState<'text' | 'file'>('text');
   const [outputFormat, setOutputFormat] = useState<'commands' | 'text'>('commands');
@@ -17,7 +18,7 @@ export default function useForm(showResults: ShowResults): FormData {
       await new Promise((resolve) => {
         setTimeout(resolve, 500);
       });
-      showResults(text, author, title, outputFormat);
+      showResults(text, author, title, outputFormat, appendIndex);
       setLoading(false);
     };
     setLoading(true);
@@ -60,6 +61,8 @@ export default function useForm(showResults: ShowResults): FormData {
     handleSubmit,
     text,
     setText,
+    appendIndex: appendIndex,
+    setAppendIndex: setAppendIndex,
     handleChangeText,
     author,
     handleChangeAuthor,

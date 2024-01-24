@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { FormData, ShowResults } from '../global/types.ts';
+import { IFormData, IShowResults } from '../global/types.ts';
 import useLocalStorage from 'use-local-storage';
 
-export default function useForm(showResults: ShowResults): FormData {
+export default function useForm(showResults: IShowResults): IFormData {
   // Normal states
   const [text, setText] = useLocalStorage('text', '');
   const [author, setAuthor] = useLocalStorage('author', '');

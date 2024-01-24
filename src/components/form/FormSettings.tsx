@@ -1,20 +1,8 @@
-import { FormData } from '../../global/types.ts';
+import { IFormSettings } from '../../global/types.ts';
 import FormSettingsAdvanced from './FormSettingsAdvanced.tsx';
 import MultiChoice from '../common/MultiChoice.tsx';
 
-function FormSettings(
-  props: Pick<
-    FormData,
-    | 'inputFormat'
-    | 'setInputFormat'
-    | 'outputFormat'
-    | 'setOutputFormat'
-    | 'appendIndex'
-    | 'setAppendIndex'
-    | 'appendIndexFormat'
-    | 'setAppendIndexFormat'
-  >
-) {
+function FormSettings(props: IFormSettings) {
   return (
     <>
       <MultiChoice

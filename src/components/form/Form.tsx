@@ -1,9 +1,9 @@
-import { ShowResults } from '../../global/types.ts';
+import { IShowResults } from '../../global/types.ts';
 import useForm from '../../hooks/useForm.ts';
 import FormSettings from './FormSettings.tsx';
 import FormInput from './FormInput.tsx';
 
-function Form(props: { showResults: ShowResults }) {
+function Form(props: { showResults: IShowResults }) {
   const {
     inputFormat,
     setInputFormat,
@@ -43,8 +43,6 @@ function Form(props: { showResults: ShowResults }) {
         setOutputFormat={setOutputFormat}
         text={text}
         setText={setText}
-        appendIndex={appendIndex}
-        setAppendIndex={setAppendIndex}
         author={author}
         setAuthor={setAuthor}
         title={title}

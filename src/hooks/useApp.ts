@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ShowResults } from '../global/types.ts';
+import { IShowResults } from '../global/types.ts';
 import start from '../utils/main.ts';
 
 export default function useApp() {
@@ -8,7 +8,7 @@ export default function useApp() {
 
   const allowedProps = { fadein: fadeIn };
 
-  const showResults: ShowResults = (
+  const showResults: IShowResults = (
     text: string,
     author: string,
     title: string,

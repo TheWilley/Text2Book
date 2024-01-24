@@ -1,11 +1,11 @@
 import RadioInput from '../common/RadioInput.tsx';
 import TextInput from '../common/TextInput.tsx';
 import Accordion from '../common/Accordion.tsx';
-import { FormData } from '../../global/types.ts';
+import { IFormData } from '../../global/types.ts';
 
 function FormSettingsAdvanced(
   props: Pick<
-    FormData,
+    IFormData,
     'appendIndex' | 'setAppendIndex' | 'appendIndexFormat' | 'setAppendIndexFormat'
   >
 ) {

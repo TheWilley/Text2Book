@@ -1,7 +1,7 @@
 import React from 'react';
 type Setter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
 
-export type FormData = {
+export type IFormData = {
   inputFormat: 'text' | 'file';
   setInputFormat: Setter<'text' | 'file'>;
   outputFormat: 'text' | 'commands';
@@ -20,11 +20,39 @@ export type FormData = {
   loading: boolean;
 };
 
-export type ShowResults = (
-  text: FormData['text'],
-  author: FormData['author'],
-  title: FormData['title'],
-  outputFormat: FormData['outputFormat'],
-  appendIndex: FormData['appendIndex'],
-  appendIndexFormat: FormData['appendIndexFormat']
+export type IFormInput = Pick<
+  IFormData,
+  | 'inputFormat'
+  | 'setInputFormat'
+  | 'outputFormat'
+  | 'setOutputFormat'
+  | 'text'
+  | 'setText'
+  | 'author'
+  | 'setAuthor'
+  | 'title'
+  | 'setTitle'
+  | 'handleSubmit'
+  | 'loading'
+>;
+
+export type IFormSettings = Pick<
+  IFormData,
+  | 'inputFormat'
+  | 'setInputFormat'
+  | 'outputFormat'
+  | 'setOutputFormat'
+  | 'appendIndex'
+  | 'setAppendIndex'
+  | 'appendIndexFormat'
+  | 'setAppendIndexFormat'
+>;
+
+export type IShowResults = (
+  text: IFormData['text'],
+  author: IFormData['author'],
+  title: IFormData['title'],
+  outputFormat: IFormData['outputFormat'],
+  appendIndex: IFormData['appendIndex'],
+  appendIndexFormat: IFormData['appendIndexFormat']
 ) => void;

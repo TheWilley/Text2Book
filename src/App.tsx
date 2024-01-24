@@ -1,6 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './css/fadein.module.css';
-import Form from './components/Form';
+import Form from './components/form/Form.tsx';
 import { ToastContainer } from 'react-toastify';
 import Results from './components/Results';
 import Footer from './components/Footer';

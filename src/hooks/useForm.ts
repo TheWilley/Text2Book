@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { ShowResults } from '../global/types.ts';
+import { FormData, ShowResults } from '../global/types.ts';
 
-export default function useForm(showResults: ShowResults) {
+export default function useForm(showResults: ShowResults): FormData {
   // Normal states
   const [text, setText] = useState('');
   const [author, setAuthor] = useState('');

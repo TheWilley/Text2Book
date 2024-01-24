@@ -1,7 +1,9 @@
 import classNames from 'classnames';
-import FileUpload from '../FileUpload.tsx';
+import FileUpload from '../common/FileUpload.tsx';
 import loader from '../../assets/loader.svg';
 import { FormData } from '../../global/types.ts';
+import TextInput from '../common/TextInput.tsx';
+import TextArea from '../common/TextArea.tsx';
 
 function FormInput(props: FormData) {
   // Decides if load icon should be shown
@@ -25,14 +27,10 @@ function FormInput(props: FormData) {
         })}
       >
         <div className='w-full sm:w-1/2 px-2'>
-          <label htmlFor='author' className='block text-gray-700 text-sm font-bold mb-2'>
-            Author
-          </label>
-          <input
-            type='text'
+          <TextInput
+            label='Author'
             id='author'
             placeholder='Lewis Carroll'
-            className='w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300'
             value={props.author}
             onChange={props.handleChangeAuthor}
             maxLength={50}
@@ -40,14 +38,10 @@ function FormInput(props: FormData) {
           />
         </div>
         <div className='w-full sm:w-1/2 px-2'>
-          <label htmlFor='title' className='block text-gray-700 text-sm font-bold mb-2'>
-            Title
-          </label>
-          <input
-            type='text'
+          <TextInput
+            label='Title'
             id='title'
             placeholder='Alice in Wonderland'
-            className='w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300'
             value={props.title}
             onChange={props.handleChangeTitle}
             maxLength={15}
@@ -56,26 +50,22 @@ function FormInput(props: FormData) {
         </div>
       </div>
       <div className='mb-4'>
-        <label htmlFor='text' className='block text-gray-700 text-sm font-bold mb-2'>
-          Text
-        </label>
-        <div>
-          <div className={classNames({ hidden: props.inputFormat === 'text' })}>
-            <FileUpload
-              callback={(text) => props.setText(text)}
-              useFileUpload={props.inputFormat === 'file'}
-            />
-          </div>
-          <div className={classNames({ hidden: props.inputFormat === 'file' })}>
-            <textarea
-              id='text'
-              placeholder='Once upon a time, there was a girl...'
-              className='w-full h-72 border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300 resize-none'
-              value={props.text}
-              onChange={props.handleChangeText}
-              required={props.inputFormat === 'text'}
-            />
-          </div>
+        <div className={classNames({ hidden: props.inputFormat === 'text' })}>
+          <FileUpload
+            label='Text'
+            callback={(text) => props.setText(text)}
+            useFileUpload={props.inputFormat === 'file'}
+          />
+        </div>
+        <div className={classNames({ hidden: props.inputFormat === 'file' })}>
+          <TextArea
+            label='Text'
+            id='text'
+            placeholder='Once upon a time, there was a girl...'
+            value={props.text}
+            onChange={props.handleChangeText}
+            required={props.inputFormat === 'text'}
+          />
         </div>
       </div>
       <button

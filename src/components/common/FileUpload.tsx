@@ -1,10 +1,17 @@
-import useFileUpload from '../hooks/useFileUpload.ts';
+import useFileUpload from '../../hooks/useFileUpload.ts';
 
-function FileUpload(props: { callback: (text: string) => void; useFileUpload: boolean }) {
+function FileUpload(props: {
+  callback: (text: string) => void;
+  useFileUpload: boolean;
+  label: string;
+}) {
   const { fileName, handleFileChange } = useFileUpload(props.callback);
 
   return (
-    <div>
+    <>
+      <label htmlFor='file-upload' className='block text-gray-700 text-sm font-bold mb-2'>
+        Text
+      </label>
       <div className='relative mb-3'>
         <input
           id='file-upload'
@@ -24,7 +31,7 @@ function FileUpload(props: { callback: (text: string) => void; useFileUpload: bo
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

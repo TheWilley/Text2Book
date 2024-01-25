@@ -4,7 +4,9 @@ function MultiChoice(props: {
 }) {
   return (
     <div
-      className={`grid w-full grid-cols-1 sm:grid-cols-${props.items.length} gap-2 rounded-xl bg-gray-200 p-2`}
+      className={
+        'grid w-full grid-cols-1 sm:grid-cols-2 gap-2 rounded-xl bg-gray-200 p-2'
+      }
     >
       {props.items.map((item) => (
         <div>

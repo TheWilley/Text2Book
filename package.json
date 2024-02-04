@@ -9,6 +9,7 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "test": "node test/test.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "prettier": "prettier src --write"
@@ -16,6 +17,7 @@
   "dependencies": {
     "@types/react-toastify": "^4.1.0",
     "classnames": "^2.5.1",
+    "file-saver": "^2.0.5",
     "gh-pages": "^5.0.0",
     "github-pages": "^3.0.2",
     "glob": "^10.3.10",
@@ -27,6 +29,7 @@
     "use-local-storage": "^3.0.0"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.7",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
@@ -38,6 +41,7 @@
     "eslint-plugin-react-refresh": "^0.4.1",
     "postcss": "^8.4.26",
     "prettier": "^3.2.4",
+    "react-router-dom": "^6.22.0",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.0"

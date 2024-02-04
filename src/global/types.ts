@@ -36,6 +36,11 @@ export type IFormInput = Pick<
   | 'loading'
 >;
 
+export type IFormDebugInput = Pick<
+  IFormData,
+  'inputFormat' | 'text' | 'setText' | 'handleSubmit' | 'loading'
+>;
+
 export type IFormSettings = Pick<
   IFormData,
   | 'inputFormat'

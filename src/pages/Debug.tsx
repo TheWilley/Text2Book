@@ -17,6 +17,10 @@ function Debug() {
           className='underline'
         >
           testing methodology
+        </a>{' '}
+        or{' '}
+        <a href='https://thewilley.github.io/Text2Book' className='underline'>
+          go home again
         </a>
         .
       </div>

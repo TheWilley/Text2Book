@@ -8,7 +8,11 @@ function removeQuotes(input) {
   return input.substring(1, input.length - 1);
 }
 
-//var data = fs.readFileSync('./data/player.dat');
+function replaceNewLinesWithN(input) {
+  // https://codepen.io/jsnelders/pen/qBByqQy
+  return input.replace(/(?:\r\n|\r|\n)/g, '\\n');
+}
+
 const args = minimist(process.argv.slice(2));
 
 // Check if arguments are supplied
@@ -70,8 +74,8 @@ nbt.parse(playerdata, function (error, data) {
   }
 
   // Defined for later
-  const author = targetBook.author.value;
-  const title = targetBook.title.value;
+  //const author = targetBook.author.value;
+  //const title = targetBook.title.value;
   const pages = targetBook.pages.value.value;
 
   // Define results for later
@@ -83,7 +87,7 @@ nbt.parse(playerdata, function (error, data) {
   // Go trough each page and compare Text2Book output with the Minecraft book contents
   pages.forEach((page, index) => {
     const io = { expected: inputfile[index], got: page, page: index };
-    if (removeQuotes(page) !== inputfile[index]) {
+    if (removeQuotes(page) !== replaceNewLinesWithN(inputfile[index])) {
       results.fail.push(io);
     } else {
       results.success.push(io);

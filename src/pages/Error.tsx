@@ -9,7 +9,7 @@ const Error = () => {
             home
           </a>{' '}
           or{' '}
-          <a href='/debug' className='underline text-blue-500'>
+          <a href='/#debug' className='underline text-blue-500'>
             debug
           </a>{' '}
           page?

@@ -34,7 +34,7 @@ Testing sadly isn't as convenient as running a script. There are some steps we n
 5. Click "Generate" and copy command.
 6. Run the command in a command block to generate the book. Make sure it's in an inventory slot.
 7. Save and exit the world.
-8. Open the [debug page on Text2Book](https://thewilley.github.io/Text2Book/debug).
+8. Open the [debug page on Text2Book](https://thewilley.github.io/Text2Book/#debug).
 9. Paste the same text you used in step 3.
 10. Press "Generate" to download a JSON file containing pages.
 

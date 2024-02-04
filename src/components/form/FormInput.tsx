@@ -34,7 +34,7 @@ function FormInput(props: IFormInput) {
             value={props.author}
             setter={props.setAuthor}
             maxLength={50}
-            required
+            required={props.outputFormat === 'commands'}
           />
         </div>
         <div className='w-full sm:w-1/2 px-2'>
@@ -45,7 +45,7 @@ function FormInput(props: IFormInput) {
             value={props.title}
             setter={props.setTitle}
             maxLength={15}
-            required
+            required={props.outputFormat === 'commands'}
           />
         </div>
       </div>

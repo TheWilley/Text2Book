@@ -12,7 +12,10 @@ function Debug() {
         OBS: This is a debugging page used for validating the output of this app. Clicking
         the "Generate" button will download a JSON file which is used as an input
         parameter when running tests. For more info, please have a look at the{' '}
-        <a href='underline' className='underline'>
+        <a
+          href='https://github.com/TheWilley/Text2Book/blob/master/test/testing.md'
+          className='underline'
+        >
           testing methodology
         </a>
         .

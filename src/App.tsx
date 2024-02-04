@@ -12,9 +12,9 @@ import Error from './pages/Error.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<Layout />} errorElement={<Error />}>
+    <Route path='/Text2Book' element={<Layout />} errorElement={<Error />}>
       <Route index element={<Home />} />
-      <Route path='/debug' element={<Debug />} />
+      <Route path='/Text2Book/debug' element={<Debug />} />
     </Route>
   )
 );

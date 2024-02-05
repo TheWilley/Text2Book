@@ -13,6 +13,11 @@ function replaceNewLinesWithN(input) {
   return input.replace(/(?:\r\n|\r|\n)/g, '\\n');
 }
 
+function unescape(input) {
+  //https://stackoverflow.com/a/21451722/10223638
+  return input.replace(/\\"/g, '"');
+}
+
 const args = minimist(process.argv.slice(2));
 
 // Check if arguments are supplied
@@ -86,8 +91,13 @@ nbt.parse(playerdata, function (error, data) {
 
   // Go trough each page and compare Text2Book output with the Minecraft book contents
   pages.forEach((page, index) => {
-    const io = { expected: inputfile[index], got: page, page: index };
-    if (removeQuotes(page) !== replaceNewLinesWithN(inputfile[index])) {
+    // Modify strings to be compatible
+    const newInput = replaceNewLinesWithN(inputfile[index]);
+    const newPage = removeQuotes(unescape(page));
+
+    // Compare and push
+    const io = { expected: newInput, got: newPage, page: index };
+    if (newPage !== newInput) {
       results.fail.push(io);
     } else {
       results.success.push(io);
@@ -103,7 +113,7 @@ nbt.parse(playerdata, function (error, data) {
 
     results.fail.forEach((item) => {
       console.log(
-        `P${item.page} - Expected: \x1b[33m${item.expected}\x1b[0m, Got: \x1b[31m${removeQuotes(item.got)}\x1b[0m`
+        `P${item.page} - Expected: \x1b[33m${item.expected}\x1b[0m, Got: \x1b[31m${item.got}\x1b[0m`
       );
     });
   } else {

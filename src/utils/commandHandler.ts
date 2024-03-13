@@ -95,7 +95,7 @@ export default function returnCommands(
     amount_of_lines++;
 
     // If the amount of lines is 1400, or the index is the length of the lines array, create the command
-    if (amount_of_lines == 1400 || i == lines.length) {
+    if (amount_of_lines == 700 || i == lines.length) {
       // Create object containing info
       const params = {
         lines: copy_of_lines.splice(0, amount_of_lines),

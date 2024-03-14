@@ -17,7 +17,7 @@ function createText(book: string[]): string {
       counter++;
 
       // If the index is divisible by 14, return the page string
-      if (counter == 14) {
+      if (counter == 13) {
         // Create text string
         lines = lines.trim();
         const pageString = lines;
@@ -63,7 +63,7 @@ export default function returnText(lines: string[]) {
     amount_of_lines++;
 
     // If the amount of lines is 14, or the index is the length of the lines array, create the text string
-    if (amount_of_lines == 14 || i == lines.length) {
+    if (amount_of_lines == 13 || i == lines.length) {
       // Create object containing info
       const params = {
         lines: copy_of_lines.splice(0, amount_of_lines),

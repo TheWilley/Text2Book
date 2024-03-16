@@ -1,7 +1,7 @@
 import 'react-toastify/dist/ReactToastify.css';
 import styles from '../css/fadein.module.css';
 import Form from '../components/form/Form.tsx';
-import Results from '../components/Results';
+import Results from '../components/Results.tsx';
 import useApp from '../hooks/useApp.ts';
 
 // TODO: Seperate code into components and files, this is MESSY

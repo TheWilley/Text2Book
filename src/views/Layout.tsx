@@ -1,9 +1,12 @@
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Footer from '../components/Footer';
-import { Outlet } from 'react-router-dom';
 
-function App() {
+type Props = {
+  children: React.ReactNode;
+};
+
+function Layout(props: Props) {
   // Creates a toast
   const Toast = () => (
     <ToastContainer
@@ -37,7 +40,7 @@ function App() {
       <div className='flex flex-col items-center bg-white'>
         <Title />
         <div className='max-w-3xl w-full bg-gray-100 p-6 rounded-lg shadow-md'>
-          <Outlet />
+          {props.children}
         </div>
       </div>
       <Footer />
@@ -45,4 +48,4 @@ function App() {
   );
 }
 
-export default App;
+export default Layout;

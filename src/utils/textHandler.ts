@@ -16,8 +16,10 @@ function createText(book: string[]): string {
       // Increase counter
       counter++;
 
-      // If the index is divisible by 14, return the page string
-      if (counter == 14) {
+      // If the index is divisible by 13, return the page string
+      // This is supposed to be 14, but until the word cutoff issue is fixed, it's 13 as it adds a fallback line
+      // See https://github.com/TheWilley/Text2Book/issues/13
+      if (counter == 13) {
         // Create text string
         lines = lines.trim();
         const pageString = lines;

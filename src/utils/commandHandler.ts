@@ -6,7 +6,6 @@
  * @returns The command
  */
 function createCommand(book: string[], author: string, title: string): string {
-  // Create an array of page JSON strings, containing 14 lines each
   let lines = '';
   let counter = 0;
 
@@ -26,8 +25,10 @@ function createCommand(book: string[], author: string, title: string): string {
       // Increase counter
       counter++;
 
-      // If the index is divisible by 14, return the page string
-      if (counter == 14) {
+      // If the index is divisible by 13, return the page string
+      // This is supposed to be 14, but until the word cutoff issue is fixed, it's 13 as it adds a fallback line
+      // See https://github.com/TheWilley/Text2Book/issues/13
+      if (counter == 13) {
         // Create text string
         lines = escapeCharacters();
         const pageString = `'{"text":"${lines}"}'`;

@@ -1,4 +1,3 @@
-import 'react-toastify/dist/ReactToastify.css';
 import Layout from './views/Layout.tsx';
 import Home from './views/Home.tsx';
 

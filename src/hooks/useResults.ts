@@ -1,5 +1,4 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 
 export default function useResults(results: string[]) {
   const [blink, setBlink] = useState(0);
@@ -11,10 +10,6 @@ export default function useResults(results: string[]) {
   }, [results]);
 
   const copyAndNotify = (event: FormEvent, index: number, result: string) => {
-    // FIXME: NEVER do this, its better to find out how to fix it. I am unsure as of now, so this will be laft as is for the time being
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
-    toast('Copied!', { className: 'font-bold text-green-600' });
-
     // Make parent linkable
     const target = (event.target as HTMLElement).closest('.listitem');
     target && target.classList.remove('noblink');

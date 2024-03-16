@@ -16,7 +16,6 @@
     "prettier": "prettier src --write"
   },
   "dependencies": {
-    "@types/react-toastify": "^4.1.0",
     "classnames": "^2.5.1",
     "file-saver": "^2.0.5",
     "gh-pages": "^5.0.0",
@@ -26,7 +25,6 @@
     "nbt": "^0.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-toastify": "^9.1.3",
     "use-local-storage": "^3.0.0"
   },
   "devDependencies": {

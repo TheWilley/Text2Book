@@ -7,10 +7,7 @@ export default function useForm(showResults: IShowResults): IFormData {
   const [text, setText] = useLocalStorage('text', '');
   const [author, setAuthor] = useLocalStorage('author', '');
   const [title, setTitle] = useLocalStorage('title', '');
-  const [appendIndexFormat, setAppendIndexFormat] = useLocalStorage(
-    'appendIndexFormat',
-    ''
-  );
+  const [nameSuffix, setNameSuffix] = useLocalStorage('nameSuffix', '');
   const [inputFormat, setInputFormat] = useLocalStorage<'text' | 'file'>(
     'inputFormat',
     'text'
@@ -32,7 +29,7 @@ export default function useForm(showResults: IShowResults): IFormData {
       await new Promise((resolve) => {
         setTimeout(resolve, 500);
       });
-      showResults(text, author, title, outputFormat, minecraftVersion, appendIndexFormat);
+      showResults(text, title, author, minecraftVersion, outputFormat, nameSuffix);
       setLoading(false);
     };
     setLoading(true);
@@ -48,8 +45,8 @@ export default function useForm(showResults: IShowResults): IFormData {
     setMinecraftVersion,
     text,
     setText,
-    appendIndexFormat,
-    setAppendIndexFormat,
+    nameSuffix,
+    setNameSuffix,
     author,
     setAuthor,
     title,

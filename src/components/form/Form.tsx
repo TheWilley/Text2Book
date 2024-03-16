@@ -13,8 +13,8 @@ function Form(props: { showResults: IShowResults }) {
     setMinecraftVersion,
     text,
     setText,
-    appendIndexFormat,
-    setAppendIndexFormat,
+    nameSuffix,
+    setNameSuffix,
     author,
     setAuthor,
     title,
@@ -32,8 +32,8 @@ function Form(props: { showResults: IShowResults }) {
         setOutputFormat={setOutputFormat}
         minecraftVersion={minecraftVersion}
         setMinecraftVersion={setMinecraftVersion}
-        appendIndexFormat={appendIndexFormat}
-        setAppendIndexFormat={setAppendIndexFormat}
+        nameSuffix={nameSuffix}
+        setNameSuffix={setNameSuffix}
       />
       <hr className='mb-4 mt-4' />
       <FormInput

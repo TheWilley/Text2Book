@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { IShowResults } from '../global/types.ts';
-import start from '../utils/main.ts';
+import BookGenerator from '../utils/MinecraftBook';
 
 export default function useApp() {
   const [results, setResults] = useState<string[]>([]);
@@ -10,15 +10,21 @@ export default function useApp() {
 
   const showResults: IShowResults = (
     text: string,
-    author: string,
     title: string,
-    outputFormat: 'commands' | 'text',
+    author: string,
     minecraftVersion: 'bedrock' | 'java',
-    appendIndexFormat: string
+    outputFormat: 'commands' | 'text',
+    nameSuffix: string
   ) => {
-    setResults(
-      start(text, author, title, outputFormat, minecraftVersion, appendIndexFormat)
+    const bookGenerator = new BookGenerator(
+      text,
+      title,
+      author,
+      minecraftVersion,
+      outputFormat,
+      nameSuffix
     );
+    setResults(bookGenerator.book);
     setFadeIn(1);
   };
 

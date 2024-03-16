@@ -10,8 +10,8 @@ export type IFormData = {
   setMinecraftVersion: Setter<'bedrock' | 'java'>;
   text: string;
   setText: Setter<string>;
-  appendIndexFormat: string;
-  setAppendIndexFormat: Setter<string>;
+  nameSuffix: string;
+  setNameSuffix: Setter<string>;
   author: string;
   setAuthor: Setter<string>;
   title: string;
@@ -44,15 +44,15 @@ export type IFormSettings = Pick<
   | 'setOutputFormat'
   | 'minecraftVersion'
   | 'setMinecraftVersion'
-  | 'appendIndexFormat'
-  | 'setAppendIndexFormat'
+  | 'nameSuffix'
+  | 'setNameSuffix'
 >;
 
 export type IShowResults = (
   text: IFormData['text'],
-  author: IFormData['author'],
   title: IFormData['title'],
-  outputFormat: IFormData['outputFormat'],
+  author: IFormData['author'],
   minecraftVersion: IFormData['minecraftVersion'],
-  appendIndexFormat: IFormData['appendIndexFormat']
+  outputFormat: IFormData['outputFormat'],
+  nameSuffix: IFormData['nameSuffix']
 ) => void;

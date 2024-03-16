@@ -2,9 +2,7 @@ import TextInput from '../common/TextInput.tsx';
 import Accordion from '../common/Accordion.tsx';
 import { IFormData } from '../../global/types.ts';
 
-function FormSettingsAdvanced(
-  props: Pick<IFormData, 'appendIndexFormat' | 'setAppendIndexFormat'>
-) {
+function FormSettingsAdvanced(props: Pick<IFormData, 'nameSuffix' | 'setNameSuffix'>) {
   return (
     <>
       <Accordion id='advanced-settings' label='Advanced'>
@@ -14,8 +12,8 @@ function FormSettingsAdvanced(
               label='Append Index Format'
               id='format'
               placeholder='"n" is replaced with the index number (leave blank for no index)'
-              value={props.appendIndexFormat}
-              setter={props.setAppendIndexFormat}
+              value={props.nameSuffix}
+              setter={props.setNameSuffix}
               maxLength={15}
               centerText
             />

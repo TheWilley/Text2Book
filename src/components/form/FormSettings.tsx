@@ -63,8 +63,8 @@ function FormSettings(props: IFormSettings) {
         </>
       )}
       <FormSettingsAdvanced
-        appendIndexFormat={props.appendIndexFormat}
-        setAppendIndexFormat={props.setAppendIndexFormat}
+        nameSuffix={props.nameSuffix}
+        setNameSuffix={props.setNameSuffix}
       />
     </>
   );

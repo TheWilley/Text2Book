@@ -6,6 +6,8 @@ export type IFormData = {
   setInputFormat: Setter<'text' | 'file'>;
   outputFormat: 'text' | 'commands';
   setOutputFormat: Setter<'text' | 'commands'>;
+  minecraftVersion: 'bedrock' | 'java';
+  setMinecraftVersion: Setter<'bedrock' | 'java'>;
   text: string;
   setText: Setter<string>;
   appendIndexFormat: string;
@@ -34,17 +36,14 @@ export type IFormInput = Pick<
   | 'loading'
 >;
 
-export type IFormDebugInput = Pick<
-  IFormData,
-  'inputFormat' | 'text' | 'setText' | 'handleSubmit' | 'loading'
->;
-
 export type IFormSettings = Pick<
   IFormData,
   | 'inputFormat'
   | 'setInputFormat'
   | 'outputFormat'
   | 'setOutputFormat'
+  | 'minecraftVersion'
+  | 'setMinecraftVersion'
   | 'appendIndexFormat'
   | 'setAppendIndexFormat'
 >;
@@ -54,5 +53,6 @@ export type IShowResults = (
   author: IFormData['author'],
   title: IFormData['title'],
   outputFormat: IFormData['outputFormat'],
+  minecraftVersion: IFormData['minecraftVersion'],
   appendIndexFormat: IFormData['appendIndexFormat']
 ) => void;

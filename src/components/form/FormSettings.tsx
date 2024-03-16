@@ -40,6 +40,28 @@ function FormSettings(props: IFormSettings) {
           },
         ]}
       />
+      {props.outputFormat === 'commands' && (
+        <>
+          <div className='mb-2' />
+          <MultiChoice
+            name='minecraft-version'
+            items={[
+              {
+                id: 'bedrock',
+                label: 'Bedrock Version',
+                checked: props.minecraftVersion === 'bedrock',
+                callback: () => props.setMinecraftVersion('bedrock'),
+              },
+              {
+                id: 'java',
+                label: 'Java Version',
+                checked: props.minecraftVersion === 'java',
+                callback: () => props.setMinecraftVersion('java'),
+              },
+            ]}
+          />
+        </>
+      )}
       <FormSettingsAdvanced
         appendIndexFormat={props.appendIndexFormat}
         setAppendIndexFormat={props.setAppendIndexFormat}

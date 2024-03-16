@@ -19,6 +19,10 @@ export default function useForm(showResults: IShowResults): IFormData {
     'outputFormat',
     'commands'
   );
+  const [minecraftVersion, setMinecraftVersion] = useLocalStorage<'bedrock' | 'java'>(
+    'minecraftVersion',
+    'bedrock'
+  );
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -28,7 +32,7 @@ export default function useForm(showResults: IShowResults): IFormData {
       await new Promise((resolve) => {
         setTimeout(resolve, 500);
       });
-      showResults(text, author, title, outputFormat, appendIndexFormat);
+      showResults(text, author, title, outputFormat, minecraftVersion, appendIndexFormat);
       setLoading(false);
     };
     setLoading(true);
@@ -40,6 +44,8 @@ export default function useForm(showResults: IShowResults): IFormData {
     setInputFormat,
     outputFormat,
     setOutputFormat,
+    minecraftVersion,
+    setMinecraftVersion,
     text,
     setText,
     appendIndexFormat,

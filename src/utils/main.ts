@@ -15,6 +15,7 @@ export default function start(
   author: string,
   title: string,
   outputFormat: 'commands' | 'text',
+  minecraftVersion: 'bedrock' | 'java',
   appendIndexFormat: string
 ) {
   // Step 1 - Get all lines
@@ -25,7 +26,7 @@ export default function start(
     return returnText(lines);
   } else {
     // Step (2) - Pass lines along with author and title to generate commands
-    return returnCommands(lines, author, title, appendIndexFormat);
+    return returnCommands(lines, author, title, minecraftVersion, appendIndexFormat);
   }
 }
 

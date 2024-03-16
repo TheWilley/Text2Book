@@ -69,6 +69,7 @@ function createCommand(book: string[], author: string, title: string): string {
  * @param lines The lines to convert
  * @param author The author of the generated book
  * @param title The title of the generated book
+ * @param minecraftVersion The version of minecraft to generate the book for
  * @param appendIndexFormat The format of the appended index, replaces 'n' with the index
  * @returns A command generating a minecraft book that contain the lines contents
  */
@@ -76,25 +77,23 @@ export default function returnCommands(
   lines: string[],
   author: string,
   title: string,
+  minecraftVersion: 'bedrock' | 'java',
   appendIndexFormat: string
 ) {
   const commands: string[] = [];
-
-  // Create copy to not modify the original
   const copy_of_lines = [...lines];
-
-  // Counter for the amount of lines
   let amount_of_lines = 0;
-
-  // Counter for amount of books
   let amount_of_books = 0;
+
+  // 13 lines * 50 characters per line = 650 characters
+  // 13 lines * 100 characters per line = 1300 characters
+  const line_limit = minecraftVersion === 'bedrock' ? 650 : 1300;
 
   // Go through each line
   for (let i = 0; i <= lines.length; i++) {
     amount_of_lines++;
 
-    // If the amount of lines is 1400, or the index is the length of the lines array, create the command
-    if (amount_of_lines == 1400 || i == lines.length) {
+    if (amount_of_lines == line_limit || i == lines.length) {
       // Create object containing info
       const params = {
         lines: copy_of_lines.splice(0, amount_of_lines),

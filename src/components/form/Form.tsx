@@ -9,6 +9,8 @@ function Form(props: { showResults: IShowResults }) {
     setInputFormat,
     outputFormat,
     setOutputFormat,
+    minecraftVersion,
+    setMinecraftVersion,
     text,
     setText,
     appendIndexFormat,
@@ -28,6 +30,8 @@ function Form(props: { showResults: IShowResults }) {
         setInputFormat={setInputFormat}
         outputFormat={outputFormat}
         setOutputFormat={setOutputFormat}
+        minecraftVersion={minecraftVersion}
+        setMinecraftVersion={setMinecraftVersion}
         appendIndexFormat={appendIndexFormat}
         setAppendIndexFormat={setAppendIndexFormat}
       />

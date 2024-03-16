@@ -13,9 +13,12 @@ export default function useApp() {
     author: string,
     title: string,
     outputFormat: 'commands' | 'text',
-    appendIndexFormat
+    minecraftVersion: 'bedrock' | 'java',
+    appendIndexFormat: string
   ) => {
-    setResults(start(text, author, title, outputFormat, appendIndexFormat));
+    setResults(
+      start(text, author, title, outputFormat, minecraftVersion, appendIndexFormat)
+    );
     setFadeIn(1);
   };
 

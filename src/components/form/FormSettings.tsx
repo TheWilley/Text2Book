@@ -41,8 +41,6 @@ function FormSettings(props: IFormSettings) {
         ]}
       />
       <FormSettingsAdvanced
-        appendIndex={props.appendIndex}
-        setAppendIndex={props.setAppendIndex}
         appendIndexFormat={props.appendIndexFormat}
         setAppendIndexFormat={props.setAppendIndexFormat}
       />

@@ -8,8 +8,6 @@ export type IFormData = {
   setOutputFormat: Setter<'text' | 'commands'>;
   text: string;
   setText: Setter<string>;
-  appendIndex: boolean;
-  setAppendIndex: Setter<boolean>;
   appendIndexFormat: string;
   setAppendIndexFormat: Setter<string>;
   author: string;
@@ -47,8 +45,6 @@ export type IFormSettings = Pick<
   | 'setInputFormat'
   | 'outputFormat'
   | 'setOutputFormat'
-  | 'appendIndex'
-  | 'setAppendIndex'
   | 'appendIndexFormat'
   | 'setAppendIndexFormat'
 >;
@@ -58,6 +54,5 @@ export type IShowResults = (
   author: IFormData['author'],
   title: IFormData['title'],
   outputFormat: IFormData['outputFormat'],
-  appendIndex: IFormData['appendIndex'],
   appendIndexFormat: IFormData['appendIndexFormat']
 ) => void;

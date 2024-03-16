@@ -11,8 +11,6 @@ function Form(props: { showResults: IShowResults }) {
     setOutputFormat,
     text,
     setText,
-    appendIndex,
-    setAppendIndex,
     appendIndexFormat,
     setAppendIndexFormat,
     author,
@@ -30,8 +28,6 @@ function Form(props: { showResults: IShowResults }) {
         setInputFormat={setInputFormat}
         outputFormat={outputFormat}
         setOutputFormat={setOutputFormat}
-        appendIndex={appendIndex}
-        setAppendIndex={setAppendIndex}
         appendIndexFormat={appendIndexFormat}
         setAppendIndexFormat={setAppendIndexFormat}
       />

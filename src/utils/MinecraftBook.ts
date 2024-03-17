@@ -294,7 +294,7 @@ class Calculator {
 
   private convertTextToPixels(text: string) {
     const words: PixelsOfWord = [],
-      allChars = new CharacterLexicon().characterLexicon,
+      allCharacters = new CharacterLexicon().characterLexicon,
       ms = 114;
     let totalPixels = 0,
       substringedWord = '';
@@ -302,17 +302,19 @@ class Calculator {
     // Go through each letter
     for (let i = 0; i < text.length; i++) {
       // Get the character
-      const mcChar = allChars.find((character) => character.letter == text.charAt(i));
+      const minecraftCharacter = allCharacters.find(
+        (character) => character.letter == text.charAt(i)
+      );
 
       // If the character is not found, remove it and break the loop
-      if (!mcChar) {
+      if (!minecraftCharacter) {
         text = text.substring(0, i) + text.substring(i + 1);
         i--;
         continue;
       }
 
       // Add the pixels
-      totalPixels += mcChar.pixels;
+      totalPixels += minecraftCharacter.pixels;
 
       // Set the substringed word
       substringedWord = text.substring(0, i + 1);
@@ -345,16 +347,16 @@ class Calculator {
     let lines: string[] = [],
       words: PixelsOfWord = [],
       sum = 0;
-    const new_lines = [];
+    const modifedLines = [];
 
     // Removes all trailing spaces of new lines
     // Splits the text into words to calculate their lengths separately
-    const spliced_words = this._text.replace(/ +\n/g, '\n').split(/(\s)/g);
+    const splicedWords = this._text.replace(/ +\n/g, '\n').split(/(\s)/g);
 
     // Go through each word
-    for (let i = 0; i < spliced_words.length; i++) {
+    for (let i = 0; i < splicedWords.length; i++) {
       // Get the sum of the words letters
-      words = this.convertTextToPixels(spliced_words[i]);
+      words = this.convertTextToPixels(splicedWords[i]);
 
       // Go through each word
       for (let e = 0; e < words.length; e++) {
@@ -366,7 +368,7 @@ class Calculator {
         if (words[e].word === '\n' || (words[e].word != ' ' && sum > 114)) {
           sum = words[e].value;
 
-          new_lines.push(lines.join(''));
+          modifedLines.push(lines.join(''));
           lines = [];
         }
 
@@ -376,10 +378,10 @@ class Calculator {
     }
 
     // Add the rest of the words to the lines
-    new_lines.push(lines.join('').trim());
+    modifedLines.push(lines.join('').trim());
 
     // Return the lines and remove empty lines
-    return new_lines.filter((r) => r != '');
+    return modifedLines.filter((r) => r != '');
   }
 }
 

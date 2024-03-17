@@ -1,10 +1,15 @@
-import Layout from './views/Layout.tsx';
-import Home from './views/Home.tsx';
+import Layout from './layout/Layout.tsx';
+import useApp from './hooks/useApp.ts';
+import Form from './views/form/Form.tsx';
+import Results from './views/Results.tsx';
 
 function App() {
+  const { results, showResults, fadeinProps, setFadeIn } = useApp();
+
   return (
     <Layout>
-      <Home />
+      <Form showResults={showResults} />
+      <Results results={results} fadeinProps={fadeinProps} setFadeIn={setFadeIn} />
     </Layout>
   );
 }

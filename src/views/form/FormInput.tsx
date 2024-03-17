@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import FileUpload from '../common/FileUpload.tsx';
+import FileUpload from '../../components/FileUpload.tsx';
 import loader from '../../assets/loader.svg';
 import { IFormInput } from '../../global/types.ts';
-import TextInput from '../common/TextInput.tsx';
-import TextArea from '../common/TextArea.tsx';
+import TextInput from '../../components/TextInput.tsx';
+import TextArea from '../../components/TextArea.tsx';
 
 function FormInput(props: IFormInput) {
   // Decides if load icon should be shown

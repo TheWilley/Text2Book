@@ -2,6 +2,7 @@ import { IShowResults } from '../../global/types.ts';
 import useForm from '../../hooks/useForm.ts';
 import FormSettings from './FormSettings.tsx';
 import FormInput from './FormInput.tsx';
+import FormSettingsAdvanced from './FormSettingsAdvanced.tsx';
 
 function Form(props: { showResults: IShowResults }) {
   const {
@@ -35,6 +36,7 @@ function Form(props: { showResults: IShowResults }) {
         nameSuffix={nameSuffix}
         setNameSuffix={setNameSuffix}
       />
+      <FormSettingsAdvanced nameSuffix={nameSuffix} setNameSuffix={setNameSuffix} />
       <hr className='mb-4 mt-4' />
       <FormInput
         inputFormat={inputFormat}

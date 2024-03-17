@@ -1,5 +1,5 @@
-import TextInput from '../common/TextInput.tsx';
-import Accordion from '../common/Accordion.tsx';
+import TextInput from '../../components/TextInput.tsx';
+import Accordion from '../../components/Accordion.tsx';
 import { IFormData } from '../../global/types.ts';
 
 function FormSettingsAdvanced(props: Pick<IFormData, 'nameSuffix' | 'setNameSuffix'>) {

@@ -1,6 +1,6 @@
 import { IFormSettings } from '../../global/types.ts';
 import FormSettingsAdvanced from './FormSettingsAdvanced.tsx';
-import MultiChoice from '../common/MultiChoice.tsx';
+import MultiChoice from '../../components/MultiChoice.tsx';
 
 function FormSettings(props: IFormSettings) {
   return (
@@ -62,10 +62,6 @@ function FormSettings(props: IFormSettings) {
           />
         </>
       )}
-      <FormSettingsAdvanced
-        nameSuffix={props.nameSuffix}
-        setNameSuffix={props.setNameSuffix}
-      />
     </>
   );
 }

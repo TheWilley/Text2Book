@@ -1,4 +1,4 @@
-import useFileUpload from '../../hooks/useFileUpload.ts';
+import useFileUpload from '../hooks/useFileUpload.ts';
 
 function FileUpload(props: {
   callback: (text: string) => void;

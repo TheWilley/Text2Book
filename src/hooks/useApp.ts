@@ -6,7 +6,7 @@ export default function useApp() {
   const [results, setResults] = useState<string[]>([]);
   const [fadeIn, setFadeIn] = useState(0);
 
-  const allowedProps = { fadein: fadeIn };
+  const fadeinProps = { fadein: fadeIn };
 
   const showResults: IShowResults = (
     text: string,
@@ -28,5 +28,5 @@ export default function useApp() {
     setFadeIn(1);
   };
 
-  return { results, allowedProps, showResults, setFadeIn };
+  return { results, fadeinProps, showResults, setFadeIn };
 }

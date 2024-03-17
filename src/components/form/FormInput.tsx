@@ -15,7 +15,7 @@ function FormInput(props: IFormInput) {
         </div>
       );
     } else {
-      return 'Generate';
+      return '🚀 Generate';
     }
   };
 

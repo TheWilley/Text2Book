@@ -10,13 +10,13 @@ function FormSettings(props: IFormSettings) {
         items={[
           {
             id: 'use-text-input',
-            label: 'Text Input',
+            label: '📝 Text Input',
             checked: props.inputFormat === 'text',
             callback: () => props.setInputFormat('text'),
           },
           {
             id: 'use-file-input',
-            label: 'File Input',
+            label: '📁 File Input',
             checked: props.inputFormat === 'file',
             callback: () => props.setInputFormat('file'),
           },
@@ -28,13 +28,13 @@ function FormSettings(props: IFormSettings) {
         items={[
           {
             id: 'use-command-output',
-            label: 'Generate Commands',
+            label: '📟 Generate Commands',
             checked: props.outputFormat === 'commands',
             callback: () => props.setOutputFormat('commands'),
           },
           {
             id: 'use-text-output',
-            label: 'Generate Text',
+            label: '💬 Generate Text',
             checked: props.outputFormat === 'text',
             callback: () => props.setOutputFormat('text'),
           },
@@ -48,13 +48,13 @@ function FormSettings(props: IFormSettings) {
             items={[
               {
                 id: 'bedrock',
-                label: 'Bedrock Version',
+                label: '🪨 Bedrock Version',
                 checked: props.minecraftVersion === 'bedrock',
                 callback: () => props.setMinecraftVersion('bedrock'),
               },
               {
                 id: 'java',
-                label: 'Java Version',
+                label: '☕ Java Version',
                 checked: props.minecraftVersion === 'java',
                 callback: () => props.setMinecraftVersion('java'),
               },

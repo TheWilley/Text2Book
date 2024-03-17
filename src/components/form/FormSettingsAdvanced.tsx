@@ -5,7 +5,7 @@ import { IFormData } from '../../global/types.ts';
 function FormSettingsAdvanced(props: Pick<IFormData, 'nameSuffix' | 'setNameSuffix'>) {
   return (
     <>
-      <Accordion id='advanced-settings' label='Advanced'>
+      <Accordion id='advanced-settings' label='⚙️ Advanced'>
         <div className='grid grid-cols-1'>
           <div className='border bg-gray-300 rounded-xl p-2 relative'>
             <TextInput

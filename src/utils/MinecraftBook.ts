@@ -59,7 +59,7 @@ class CharacterLexicon {
     new MinecraftCharacter('$', 6),
     new MinecraftCharacter('%', 6),
     new MinecraftCharacter('&', 6),
-    new MinecraftCharacter("'", 3),
+    new MinecraftCharacter('\'', 3),
     new MinecraftCharacter('(', 5),
     new MinecraftCharacter(')', 5),
     new MinecraftCharacter('*', 5),
@@ -325,7 +325,7 @@ class Calculator {
         substringedWord = substringedWord.substring(0, substringedWord.length - 1);
 
         // Add the word to the array
-        words.push({ word: substringedWord, value: totalPixels });
+        words.push({ word: substringedWord, value: totalPixels - minecraftCharacter.pixels });
 
         // Remove the word from the string including the last letter
         text = text.substring(i);
@@ -424,7 +424,7 @@ export default class BookGenerator {
     if (this._outputFormat === 'commands') {
       this._workerLine = this._workerLine
         .replace(/"/g, '\\\\' + '"') // Escape double quotes (")
-        .replace(/'/g, '\\' + "'") // Escape single quotes (')
+        .replace(/'/g, '\\' + '\'') // Escape single quotes (')
         .trim() // Remove whitespace from both ends of the string ( )
         .replace(/\n/g, '\\\\n'); // Escape new lines (\n)
     } else if (this._outputFormat === 'text') {

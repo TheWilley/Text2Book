@@ -325,7 +325,10 @@ class Calculator {
         substringedWord = substringedWord.substring(0, substringedWord.length - 1);
 
         // Add the word to the array
-        words.push({ word: substringedWord, value: totalPixels - minecraftCharacter.pixels });
+        words.push({
+          word: substringedWord,
+          value: totalPixels - minecraftCharacter.pixels,
+        });
 
         // Remove the word from the string including the last letter
         text = text.substring(i);
@@ -394,6 +397,7 @@ export default class BookGenerator {
   private _lines: string[];
   private _pages: string[] = [];
   private _workerLine = '';
+  private _linesPerPage: number;
   private _nameSuffix: string;
   private _booksCounter = 0;
   public book: string[] = [];
@@ -404,12 +408,14 @@ export default class BookGenerator {
     author: string,
     minecraftVersion: 'java' | 'bedrock',
     outputFormat: 'commands' | 'text',
+    linesPerPage = 14,
     nameSuffix: string
   ) {
     this._outputFormat = outputFormat;
     this._minecraftVersion = minecraftVersion;
     this._title = title;
     this._author = author;
+    this._linesPerPage = linesPerPage > 14 ? 14 : linesPerPage;
     this._nameSuffix = nameSuffix;
 
     this._calculator = new Calculator(text);
@@ -474,10 +480,7 @@ export default class BookGenerator {
         this._workerLine += line;
         counter++;
 
-        // If the index is divisible by 13, return the page string
-        // This is supposed to be 14, but until the word cutoff issue is fixed, it's 13 as it adds a fallback line
-        // See https://github.com/TheWilley/Text2Book/issues/13
-        if (counter == 13) {
+        if (counter == this._linesPerPage) {
           // Create text string
           this.escapeCharacters();
           const page = this.encapsuleText();
@@ -511,9 +514,12 @@ export default class BookGenerator {
     let lineLimit = 0;
 
     if (this._outputFormat === 'commands') {
-      // 13 lines * 50 characters per line = 650 characters
-      // 13 lines * 100 characters per line = 1300 characters
-      lineLimit = this._minecraftVersion === 'bedrock' ? 650 : 1300;
+      // x lines * 50 characters per line = 650 characters
+      // x lines * 100 characters per line = 1300 characters
+      lineLimit =
+        this._minecraftVersion === 'bedrock'
+          ? this._linesPerPage * 50
+          : this._linesPerPage * 100;
     } else if (this._outputFormat === 'text') {
       // 13 lines for each page
       lineLimit = 13;

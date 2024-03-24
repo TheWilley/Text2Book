@@ -16,6 +16,7 @@ export default function useForm(showResults: IShowResults): IFormData {
     'outputFormat',
     'commands'
   );
+  const [linesPerPage, setLinesPerPage] = useLocalStorage('linesPerPage', 14);
   const [minecraftVersion, setMinecraftVersion] = useLocalStorage<'bedrock' | 'java'>(
     'minecraftVersion',
     'bedrock'
@@ -29,7 +30,7 @@ export default function useForm(showResults: IShowResults): IFormData {
       await new Promise((resolve) => {
         setTimeout(resolve, 500);
       });
-      showResults(text, title, author, minecraftVersion, outputFormat, nameSuffix);
+      showResults(text, title, author, minecraftVersion, outputFormat, linesPerPage, nameSuffix);
       setLoading(false);
     };
     setLoading(true);
@@ -45,6 +46,8 @@ export default function useForm(showResults: IShowResults): IFormData {
     setMinecraftVersion,
     text,
     setText,
+    linesPerPage,
+    setLinesPerPage,
     nameSuffix,
     setNameSuffix,
     author,

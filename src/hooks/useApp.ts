@@ -14,6 +14,7 @@ export default function useApp() {
     author: string,
     minecraftVersion: 'bedrock' | 'java',
     outputFormat: 'commands' | 'text',
+    linesPerPage: number,
     nameSuffix: string
   ) => {
     const bookGenerator = new BookGenerator(
@@ -22,6 +23,7 @@ export default function useApp() {
       author,
       minecraftVersion,
       outputFormat,
+      linesPerPage,
       nameSuffix
     );
     setResults(bookGenerator.book);

@@ -14,6 +14,8 @@ function Form(props: { showResults: IShowResults }) {
     setMinecraftVersion,
     text,
     setText,
+    linesPerPage,
+    setLinesPerPage,
     nameSuffix,
     setNameSuffix,
     author,
@@ -33,10 +35,17 @@ function Form(props: { showResults: IShowResults }) {
         setOutputFormat={setOutputFormat}
         minecraftVersion={minecraftVersion}
         setMinecraftVersion={setMinecraftVersion}
+        linesPerPage={linesPerPage}
+        setLinesPerPage={setLinesPerPage}
         nameSuffix={nameSuffix}
         setNameSuffix={setNameSuffix}
       />
-      <FormSettingsAdvanced nameSuffix={nameSuffix} setNameSuffix={setNameSuffix} />
+      <FormSettingsAdvanced
+        nameSuffix={nameSuffix}
+        setNameSuffix={setNameSuffix}
+        linesPerPage={linesPerPage}
+        setLinesPerPage={setLinesPerPage}
+      />
       <hr className='mb-4 mt-4' />
       <FormInput
         inputFormat={inputFormat}

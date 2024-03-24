@@ -1,5 +1,4 @@
 import { IFormSettings } from '../../global/types.ts';
-import FormSettingsAdvanced from './FormSettingsAdvanced.tsx';
 import MultiChoice from '../../components/MultiChoice.tsx';
 
 function FormSettings(props: IFormSettings) {

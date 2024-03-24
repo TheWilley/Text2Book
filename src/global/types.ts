@@ -10,6 +10,8 @@ export type IFormData = {
   setMinecraftVersion: Setter<'bedrock' | 'java'>;
   text: string;
   setText: Setter<string>;
+  linesPerPage: number;
+  setLinesPerPage: Setter<number>;
   nameSuffix: string;
   setNameSuffix: Setter<string>;
   author: string;
@@ -44,6 +46,8 @@ export type IFormSettings = Pick<
   | 'setOutputFormat'
   | 'minecraftVersion'
   | 'setMinecraftVersion'
+  | 'linesPerPage'
+  | 'setLinesPerPage'
   | 'nameSuffix'
   | 'setNameSuffix'
 >;
@@ -54,5 +58,6 @@ export type IShowResults = (
   author: IFormData['author'],
   minecraftVersion: IFormData['minecraftVersion'],
   outputFormat: IFormData['outputFormat'],
+  linesPerPage: IFormData['linesPerPage'],
   nameSuffix: IFormData['nameSuffix']
 ) => void;

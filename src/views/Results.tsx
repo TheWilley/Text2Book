@@ -1,4 +1,5 @@
 import copy from '../assets/copy-icon.png';
+import Pagination from '../components/Pagination.tsx';
 import blink from '../css/blink.module.css';
 import fadein from '../css/fadein.module.css';
 import useResults from '../hooks/useResults.ts';
@@ -10,8 +11,17 @@ type Props = {
 };
 
 function Results(props: Props) {
-  const { onAnimationEnd, copyAndNotify, blinkProps, removeCopiedRow, checkRowIsCopied } =
-    useResults(props.results);
+  const {
+    page,
+    blinkProps,
+    truncatedResults,
+    onAnimationEnd,
+    copyAndNotify,
+    removeCopiedRow,
+    checkRowIsCopied,
+    prevPage,
+    nextPage,
+  } = useResults(props.results);
 
   return (
     <div className='mt-3'>
@@ -20,15 +30,15 @@ function Results(props: Props) {
         onAnimationEnd={() => props.setFadeIn(0)}
         {...props.fadeinProps}
       >
-        {props.results.map((result, index) => (
+        {truncatedResults.map((result) => (
           <li
-            key={index}
+            key={result.index}
             className={`flex rounded border overflow-hidden h-12 mb-1 listitem noblink ${blink.blink} ${blink.noblink}`}
             {...blinkProps}
             onAnimationEnd={onAnimationEnd}
           >
             <button
-              onClick={(e) => copyAndNotify(e, index, result)}
+              onClick={(e) => copyAndNotify(e, result.index, result.value)}
               className='w-12 bg-gray-300 h-full p-2 border-right group'
             >
               <img className='p-1 group-hover:opacity-70 transition' src={copy} />
@@ -36,14 +46,14 @@ function Results(props: Props) {
             <input
               className='w-full p-2 opacity-80 font-mono h-full outline-none'
               type='text'
-              value={result}
+              value={result.value}
               readOnly
             />
-            <div className='text-xl p-2 bg-gray-300 select-none'>{index + 1}</div>
-            {checkRowIsCopied(index) && (
+            <div className='text-xl p-2 bg-gray-300 select-none'>{result.index + 1}</div>
+            {checkRowIsCopied(result.index) && (
               <div
                 className='text-xl p-2 bg-green-300 hover:bg-red-300 select-none cursor-pointer'
-                onClick={() => removeCopiedRow(index)}
+                onClick={() => removeCopiedRow(result.index)}
               >
                 ✓
               </div>
@@ -51,6 +61,7 @@ function Results(props: Props) {
           </li>
         ))}
       </ol>
+      <Pagination page={page} onPrevious={prevPage} onNext={nextPage} visible={truncatedResults.length > 0} />
     </div>
   );
 }

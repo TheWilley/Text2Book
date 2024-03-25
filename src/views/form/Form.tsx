@@ -1,10 +1,10 @@
-import { IShowResults } from '../../global/types.ts';
+import { IResults } from '../../global/types.ts';
 import useForm from '../../hooks/useForm.ts';
 import FormSettings from './FormSettings.tsx';
 import FormInput from './FormInput.tsx';
 import FormSettingsAdvanced from './FormSettingsAdvanced.tsx';
 
-function Form(props: { showResults: IShowResults }) {
+function Form(props: { showResults: IResults, loading: boolean}) {
   const {
     inputFormat,
     setInputFormat,
@@ -22,7 +22,6 @@ function Form(props: { showResults: IShowResults }) {
     setAuthor,
     title,
     setTitle,
-    loading,
     handleSubmit,
   } = useForm(props.showResults);
 
@@ -58,7 +57,7 @@ function Form(props: { showResults: IShowResults }) {
         setAuthor={setAuthor}
         title={title}
         setTitle={setTitle}
-        loading={loading}
+        loading={props.loading}
         handleSubmit={handleSubmit}
       />
     </>

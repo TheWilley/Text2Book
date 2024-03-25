@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import { IFormData, IShowResults } from '../global/types.ts';
+import { IFormData, IResults } from '../global/types.ts';
 import useLocalStorage from 'use-local-storage';
 
-export default function useForm(showResults: IShowResults): IFormData {
+export default function useForm(showResults: IResults): IFormData {
   // Normal states
   const [text, setText] = useLocalStorage('text', '');
   const [author, setAuthor] = useLocalStorage('author', '');
@@ -21,20 +20,18 @@ export default function useForm(showResults: IShowResults): IFormData {
     'minecraftVersion',
     'bedrock'
   );
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const run = async () => {
-      // Wait 0.5 seconds to show the loading icon
-      await new Promise((resolve) => {
-        setTimeout(resolve, 500);
-      });
-      showResults(text, title, author, minecraftVersion, outputFormat, linesPerPage, nameSuffix);
-      setLoading(false);
-    };
-    setLoading(true);
-    void run();
+    showResults(
+      text,
+      title,
+      author,
+      minecraftVersion,
+      outputFormat,
+      linesPerPage,
+      nameSuffix
+    );
   };
 
   return {
@@ -55,6 +52,5 @@ export default function useForm(showResults: IShowResults): IFormData {
     title,
     setTitle,
     handleSubmit,
-    loading,
   };
 }

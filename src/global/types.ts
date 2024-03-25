@@ -19,7 +19,6 @@ export type IFormData = {
   title: string;
   setTitle: Setter<string>;
   handleSubmit: (event: React.FormEvent) => void;
-  loading: boolean;
 };
 
 export type IFormInput = Pick<
@@ -35,8 +34,7 @@ export type IFormInput = Pick<
   | 'title'
   | 'setTitle'
   | 'handleSubmit'
-  | 'loading'
->;
+> & { loading: boolean };
 
 export type IFormSettings = Pick<
   IFormData,
@@ -52,12 +50,12 @@ export type IFormSettings = Pick<
   | 'setNameSuffix'
 >;
 
-export type IShowResults = (
+export type IResults = (
   text: IFormData['text'],
   title: IFormData['title'],
   author: IFormData['author'],
   minecraftVersion: IFormData['minecraftVersion'],
   outputFormat: IFormData['outputFormat'],
   linesPerPage: IFormData['linesPerPage'],
-  nameSuffix: IFormData['nameSuffix']
+  nameSuffix: IFormData['nameSuffix'],
 ) => void;

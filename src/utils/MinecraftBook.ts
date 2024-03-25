@@ -563,11 +563,15 @@ export default class MinecraftBook {
     this._bookParameters = bookParameters;
   }
 
-  generate() {
+  generateBook() {
     return new BookGenerator(this._bookParameters).book;
   }
 
   get bookParameters() {
     return this._bookParameters;
   }
+}
+
+export function generateBook(bookParameters: BookParameters) {
+  return new BookGenerator(bookParameters).book;
 }

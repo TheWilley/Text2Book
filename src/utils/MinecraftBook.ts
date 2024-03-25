@@ -412,22 +412,27 @@ class BookGenerator {
   private _booksCounter = 0;
   public book: BookOutput = [];
 
-  constructor(inputParams: BookParameters) {
+  constructor({
+    outputFormat,
+    minecraftVersion,
+    title,
+    author,
+    linesPerPage = 14,
+    nameSuffix = '',
+    text,
+  }: BookParameters) {
     // Required parameters
-    this._outputFormat = inputParams.outputFormat;
-    this._minecraftVersion = inputParams.minecraftVersion;
-    this._title = inputParams.title;
-    this._author = inputParams.author;
+    this._outputFormat = outputFormat;
+    this._minecraftVersion = minecraftVersion;
+    this._title = title;
+    this._author = author;
 
     // Optional parameters
-    this._linesPerPage =
-      inputParams.linesPerPage && inputParams.linesPerPage > 14
-        ? 14
-        : inputParams.linesPerPage || 14;
-    this._nameSuffix = inputParams.nameSuffix || '';
+    this._linesPerPage = linesPerPage > 14 ? 14 : linesPerPage;
+    this._nameSuffix = nameSuffix;
 
     // Create the book
-    this._calculator = new Calculator(inputParams.text);
+    this._calculator = new Calculator(text);
     this._lines = this._calculator.convertTextToLines();
     this.book = this.createOutput();
   }

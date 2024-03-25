@@ -398,7 +398,7 @@ class Calculator {
   }
 }
 
-export default class BookGenerator {
+class BookGenerator {
   private _calculator: Calculator;
   private _title: string;
   private _author: string;
@@ -541,5 +541,17 @@ export default class BookGenerator {
     }
 
     return library;
+  }
+}
+
+export default class MinecraftBook {
+  private _bookParameters: BookParameters;
+
+  constructor(bookParameters: BookParameters) {
+    this._bookParameters = bookParameters;
+  }
+
+  generate() {
+    return new BookGenerator(this._bookParameters).book;
   }
 }

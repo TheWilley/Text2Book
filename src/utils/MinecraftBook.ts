@@ -4,8 +4,8 @@ export type BookParameters = {
   author: string;
   minecraftVersion: 'java' | 'bedrock';
   outputFormat: 'commands' | 'text';
-  linesPerPage: number;
-  nameSuffix: string;
+  linesPerPage?: number;
+  nameSuffix?: string;
 };
 export type BookOutput = string[];
 type PixelsOfWord = { word: string; value: number }[];
@@ -413,13 +413,20 @@ class BookGenerator {
   public book: BookOutput = [];
 
   constructor(inputParams: BookParameters) {
+    // Required parameters
     this._outputFormat = inputParams.outputFormat;
     this._minecraftVersion = inputParams.minecraftVersion;
     this._title = inputParams.title;
     this._author = inputParams.author;
-    this._linesPerPage = inputParams.linesPerPage > 14 ? 14 : inputParams.linesPerPage;
-    this._nameSuffix = inputParams.nameSuffix;
 
+    // Optional parameters
+    this._linesPerPage =
+      inputParams.linesPerPage && inputParams.linesPerPage > 14
+        ? 14
+        : inputParams.linesPerPage || 14;
+    this._nameSuffix = inputParams.nameSuffix || '';
+
+    // Create the book
     this._calculator = new Calculator(inputParams.text);
     this._lines = this._calculator.convertTextToLines();
     this.book = this.createOutput();

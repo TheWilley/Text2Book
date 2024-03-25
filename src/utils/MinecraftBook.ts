@@ -554,4 +554,8 @@ export default class MinecraftBook {
   generate() {
     return new BookGenerator(this._bookParameters).book;
   }
+
+  get bookParameters() {
+    return this._bookParameters;
+  }
 }

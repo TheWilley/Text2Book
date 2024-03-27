@@ -68,6 +68,8 @@ function Results(props: Props) {
         ))}
       </ol>
       <Pagination
+        previousDisabled={page === 1}
+        nextDisabled={page === Math.ceil(props.results.length / 10)}
         page={page}
         onPrevious={prevPage}
         onNext={nextPage}

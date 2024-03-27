@@ -9,7 +9,6 @@ type Props = {
 function Layout(props: Props) {
   return (
     <>
-      <Banner visisble />
       <Header />
       <div className='flex flex-col items-center bg-white'>
         <div className='max-w-3xl w-full bg-gray-100 p-6 rounded-lg shadow-md'>

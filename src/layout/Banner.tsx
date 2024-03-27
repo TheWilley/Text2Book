@@ -1,5 +1,3 @@
-import React from 'react';
-
 type Props = {
   visisble: boolean;
 };
@@ -7,16 +5,9 @@ type Props = {
 function Banner(props: Props) {
   return (
     props.visisble && (
-      <div className='w-full bg-red-300 absolute top-0 left-0'>
+      <div className='w-full bg-red-300 rounded-md p-2'>
         <span>
-          ⚠️ This is under active development, and may not be 100% accurate. Don't worry,{' '}
-          <a
-            href='https://github.com/TheWilley/Text2Book/issues/10'
-            target='_blank'
-            className='underline text-blue-800 cursor-pointer'
-          >
-            I'm working on it.
-          </a>
+          ⚠️ Set number of lines to <u>13</u> if words get cut off
         </span>
       </div>
     )

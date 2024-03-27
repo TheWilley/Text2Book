@@ -8,6 +8,7 @@ type Props = {
   results: string[];
   setFadeIn: React.Dispatch<React.SetStateAction<number>>;
   fadeinProps: { fadein: number };
+  timeToGenerate: number;
 };
 
 function Results(props: Props) {
@@ -25,6 +26,11 @@ function Results(props: Props) {
 
   return (
     <div className='mt-3'>
+      {truncatedResults.length > 0 && (
+        <div className='text-center text-gray-500 mb-2'>
+          Generated {props.results.length} lines in {props.timeToGenerate}s
+        </div>
+      )}
       <ol
         className={`list-decimal ${fadein.fadein}`}
         onAnimationEnd={() => props.setFadeIn(0)}
@@ -61,7 +67,12 @@ function Results(props: Props) {
           </li>
         ))}
       </ol>
-      <Pagination page={page} onPrevious={prevPage} onNext={nextPage} visible={truncatedResults.length > 0} />
+      <Pagination
+        page={page}
+        onPrevious={prevPage}
+        onNext={nextPage}
+        visible={truncatedResults.length > 0}
+      />
     </div>
   );
 }

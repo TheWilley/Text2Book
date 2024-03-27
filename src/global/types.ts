@@ -4,8 +4,8 @@ type Setter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
 export type IFormData = {
   inputFormat: 'text' | 'file';
   setInputFormat: Setter<'text' | 'file'>;
-  outputFormat: 'text' | 'commands';
-  setOutputFormat: Setter<'text' | 'commands'>;
+  generationFormat: 'text' | 'commands';
+  setGenerationFormat: Setter<'text' | 'commands'>;
   minecraftVersion: 'bedrock' | 'java';
   setMinecraftVersion: Setter<'bedrock' | 'java'>;
   text: string;
@@ -25,8 +25,8 @@ export type IFormInput = Pick<
   IFormData,
   | 'inputFormat'
   | 'setInputFormat'
-  | 'outputFormat'
-  | 'setOutputFormat'
+  | 'generationFormat'
+  | 'setGenerationFormat'
   | 'text'
   | 'setText'
   | 'author'
@@ -40,8 +40,8 @@ export type IFormSettings = Pick<
   IFormData,
   | 'inputFormat'
   | 'setInputFormat'
-  | 'outputFormat'
-  | 'setOutputFormat'
+  | 'generationFormat'
+  | 'setGenerationFormat'
   | 'minecraftVersion'
   | 'setMinecraftVersion'
   | 'linesPerPage'
@@ -55,7 +55,7 @@ export type IResults = (
   title: IFormData['title'],
   author: IFormData['author'],
   minecraftVersion: IFormData['minecraftVersion'],
-  outputFormat: IFormData['outputFormat'],
+  generationFormat: IFormData['generationFormat'],
   linesPerPage: IFormData['linesPerPage'],
   nameSuffix: IFormData['nameSuffix'],
 ) => void;

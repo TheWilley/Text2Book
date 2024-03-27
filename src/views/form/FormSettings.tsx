@@ -28,18 +28,18 @@ function FormSettings(props: IFormSettings) {
           {
             id: 'use-command-output',
             label: '📟 Generate Commands',
-            checked: props.outputFormat === 'commands',
-            callback: () => props.setOutputFormat('commands'),
+            checked: props.generationFormat === 'commands',
+            callback: () => props.setGenerationFormat('commands'),
           },
           {
             id: 'use-text-output',
             label: '💬 Generate Text',
-            checked: props.outputFormat === 'text',
-            callback: () => props.setOutputFormat('text'),
+            checked: props.generationFormat === 'text',
+            callback: () => props.setGenerationFormat('text'),
           },
         ]}
       />
-      {props.outputFormat === 'commands' && (
+      {props.generationFormat === 'commands' && (
         <>
           <div className='mb-2' />
           <MultiChoice

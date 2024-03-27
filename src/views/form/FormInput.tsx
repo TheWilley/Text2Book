@@ -23,7 +23,7 @@ function FormInput(props: IFormInput) {
     <form onSubmit={props.handleSubmit}>
       <div
         className={classNames('flex flex-wrap mb-4', {
-          hidden: props.outputFormat === 'text',
+          hidden: props.generationFormat === 'text',
         })}
       >
         <div className='w-full sm:w-1/2 px-2'>
@@ -34,7 +34,7 @@ function FormInput(props: IFormInput) {
             value={props.author}
             setter={props.setAuthor}
             maxLength={50}
-            required={props.outputFormat === 'commands'}
+            required={props.generationFormat === 'commands'}
           />
         </div>
         <div className='w-full sm:w-1/2 px-2'>
@@ -45,7 +45,7 @@ function FormInput(props: IFormInput) {
             value={props.title}
             setter={props.setTitle}
             maxLength={15}
-            required={props.outputFormat === 'commands'}
+            required={props.generationFormat === 'commands'}
           />
         </div>
       </div>

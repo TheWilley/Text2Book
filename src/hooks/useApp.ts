@@ -21,7 +21,7 @@ export default function useApp() {
       title: string,
       author: string,
       minecraftVersion: 'bedrock' | 'java',
-      outputFormat: 'commands' | 'text',
+      generationFormat: 'commands' | 'text',
       linesPerPage: number,
       nameSuffix: string
     ) => {
@@ -32,13 +32,13 @@ export default function useApp() {
         title,
         author,
         minecraftVersion,
-        outputFormat,
+        generationFormat,
         linesPerPage,
         nameSuffix,
       };
       if (window.Worker) {
         setLoading(true);
-        
+
         // Wait 0.5s to show the loading spinner and avoid flickering
         setTimeout(() => {
           worker.postMessage(inputParams);

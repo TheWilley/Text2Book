@@ -11,8 +11,8 @@ export default function useForm(showResults: IResults): IFormData {
     'inputFormat',
     'text'
   );
-  const [outputFormat, setOutputFormat] = useLocalStorage<'commands' | 'text'>(
-    'outputFormat',
+  const [generationFormat, setGenerationFormat] = useLocalStorage<'commands' | 'text'>(
+    'generationFormat',
     'commands'
   );
   const [linesPerPage, setLinesPerPage] = useLocalStorage('linesPerPage', 14);
@@ -28,7 +28,7 @@ export default function useForm(showResults: IResults): IFormData {
       title,
       author,
       minecraftVersion,
-      outputFormat,
+      generationFormat,
       linesPerPage,
       nameSuffix
     );
@@ -37,8 +37,8 @@ export default function useForm(showResults: IResults): IFormData {
   return {
     inputFormat,
     setInputFormat,
-    outputFormat,
-    setOutputFormat,
+    generationFormat,
+    setGenerationFormat,
     minecraftVersion,
     setMinecraftVersion,
     text,

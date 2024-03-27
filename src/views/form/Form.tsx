@@ -8,8 +8,8 @@ function Form(props: { showResults: IResults, loading: boolean}) {
   const {
     inputFormat,
     setInputFormat,
-    outputFormat,
-    setOutputFormat,
+    generationFormat,
+    setGenerationFormat,
     minecraftVersion,
     setMinecraftVersion,
     text,
@@ -30,8 +30,8 @@ function Form(props: { showResults: IResults, loading: boolean}) {
       <FormSettings
         inputFormat={inputFormat}
         setInputFormat={setInputFormat}
-        outputFormat={outputFormat}
-        setOutputFormat={setOutputFormat}
+        generationFormat={generationFormat}
+        setGenerationFormat={setGenerationFormat}
         minecraftVersion={minecraftVersion}
         setMinecraftVersion={setMinecraftVersion}
         linesPerPage={linesPerPage}
@@ -49,8 +49,8 @@ function Form(props: { showResults: IResults, loading: boolean}) {
       <FormInput
         inputFormat={inputFormat}
         setInputFormat={setInputFormat}
-        outputFormat={outputFormat}
-        setOutputFormat={setOutputFormat}
+        generationFormat={generationFormat}
+        setGenerationFormat={setGenerationFormat}
         text={text}
         setText={setText}
         author={author}

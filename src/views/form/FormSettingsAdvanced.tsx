@@ -18,7 +18,7 @@ function FormSettingsAdvanced(
         <div className='grid grid-cols-1 sm:grid-cols-2'>
           <div className='border bg-gray-300 rounded-xl p-2 relative'>
             <TextInput
-              label='Append Index Format'
+              label='Name Suffix'
               id='format'
               placeholder='"n" is replaced with the index number (leave blank for no index)'
               value={props.nameSuffix}

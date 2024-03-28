@@ -1,5 +1,4 @@
 import Footer from './Footer';
-import Banner from './Banner';
 import Header from './Header';
 
 type Props = {

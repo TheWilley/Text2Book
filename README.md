@@ -11,7 +11,7 @@
 <p align="center">
   <a href="#introduction">Introduction</a> •
   <a href="#features">Features</a> •
-  <a href="#output-modes">Output Modes</a> •
+  <a href="#generation-modes">Generation Modes</a> •
   <a href="#usage">Usage</a> •
   <a href="#license">License</a>
 </p>
@@ -26,42 +26,37 @@ user-friendly.
 
 ## Features
 
-- **Text Input**: Enter the desired text content directly into the application.
-- **Command Output**: Generate the necessary commands to create the Minecraft books with the desired content.
-- **Text Output**: Generate text sections which can be copied over to your Minecraft book.
-- **Copy to Clipboard**: Easily copy the generated commands to your clipboard for quick in-game implementation.
+- **Text and File Input**: Enter the desired text content directly into the application or upload a text file.
+- **Command and Text Generation**: Generate the necessary commands or text section to create the Minecraft books with the desired content.
+- **File and Text output**: Save generated content as a file or display directly within the app in a list.
+- **Copy to Clipboard**: Easily copy the generated commands or text lines to your clipboard for quick in-game implementation.
 
-## Output modes
+## Generation Modes
 
-There are two output modes you can choose from: **Commands** or **Text**.
+There are two generation modes you can choose from: **Commands** or **Text**.
 
-### Text Output:
+### Text Generation:
 
 1. **Input Text**: Enter the content you wish to appear in your Minecraft book in the designated text box.
 
-2. **Generate Text**: Click the "Generate Text" button after entering your desired content. The application will process
+2. **Generate Text**: Click the "Generate" button after entering your desired content. The application will process
    your input and generate the necessary sections of text for your Minecraft book.
 
-3. **Copy Text**: Once the text sections are generated, they will be displayed on the screen. Click the "Copy" button
-   next to each section to copy them to your clipboard.
+3. **Copy Text**: Once the text sections are generated, they will be displayed on the screen. Click the "Copy" button next to a section to copy it to your clipboard.
 
-4. **Implement in Minecraft**: Open Minecraft and access the book interface. Paste the copied text sections into each
-   page of the book manually.
+4. **Implement in Minecraft**: Open Minecraft and access the book interface. Paste the copied text sections into each page of the book manually.
 
-### Command Output
+### Command Generation
 
-1. **Input Text**: On the main page, you will find a text input box where you can enter the content you want to appear
-   in your Minecraft book.
+1. **Input Text**: Enter the content you wish to appear in your Minecraft book in the designated text box.
 
-2. **Generate Commands**: After entering desired content, click the "Generate" button. The application will process your
-   input and generate the necessary commands to create the Minecraft book with the given content.
+2. **Generate Command**: Click the "Generate" button after entering your desired content. The application will process your input and generate the necessary commands for your Minecraft book.
 
-4. **Copy Commands**: Once the commands are generated, you will see them on the screen. Click the "Copy" button next to
-   the commands to copy them to your clipboard.
+3. **Copy Commands**: Once the commands are generated, you will see them on the screen. Click the "Copy" button next to a command to copy it to your clipboard.
 
-5. **Implement in Minecraft**: Open your Minecraft world and access a command block. Paste the copied commands into the
-   command block to create the Minecraft book. Activate the command block, and the book will be available in-game for
-   players to read.
+4. **Choose Minecraft Version**: Pick either Java or Bedrock depending on which version you're using.
+
+4. **Implement in Minecraft**: Open your Minecraft world and access a command block. Paste the copied commands into the command block to create the Minecraft book. Activate the command block to add the book to your inventory.
 
 ## Usage
 
@@ -80,7 +75,7 @@ $ npm install
 # Build app
 $ npm run build
 
-# If you want to start the app 
+# If you want to start the app
 $ npm run preview
 
 # If you want to develop the app

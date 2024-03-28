@@ -1,27 +1,40 @@
 import React from 'react';
-type Setter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
+import { BookOutput } from '../utils/MinecraftBook';
+type LocalStorageSetter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
+type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export type IFormData = {
   inputFormat: 'text' | 'file';
-  setInputFormat: Setter<'text' | 'file'>;
+  setInputFormat: LocalStorageSetter<'text' | 'file'>;
   outputFormat: 'text' | 'file';
-  setOutputFormat: Setter<'text' | 'file'>;
+  setOutputFormat: LocalStorageSetter<'text' | 'file'>;
   generationFormat: 'text' | 'commands';
-  setGenerationFormat: Setter<'text' | 'commands'>;
+  setGenerationFormat: LocalStorageSetter<'text' | 'commands'>;
   minecraftVersion: 'bedrock' | 'java';
-  setMinecraftVersion: Setter<'bedrock' | 'java'>;
+  setMinecraftVersion: LocalStorageSetter<'bedrock' | 'java'>;
   text: string;
-  setText: Setter<string>;
+  setText: LocalStorageSetter<string>;
   linesPerPage: number;
-  setLinesPerPage: Setter<number>;
+  setLinesPerPage: LocalStorageSetter<number>;
   nameSuffix: string;
-  setNameSuffix: Setter<string>;
+  setNameSuffix: LocalStorageSetter<string>;
   author: string;
-  setAuthor: Setter<string>;
+  setAuthor: LocalStorageSetter<string>;
   title: string;
-  setTitle: Setter<string>;
+  setTitle: LocalStorageSetter<string>;
   handleSubmit: (event: React.FormEvent) => void;
 };
+
+export type IApp = {
+  results: BookOutput;
+  fadeinProps: { fadein: number };
+  loading: boolean;
+  timeToGenerate: number;
+  outputFormat: 'text' | 'file';
+  showResults: IResults;
+  setOutputFormat: LocalStorageSetter<'text' | 'file'>;
+  setFadeIn: StateSetter<number>;
+}
 
 export type IFormInput = Pick<
   IFormData,

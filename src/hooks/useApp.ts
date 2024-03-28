@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { IResults } from '../global/types.ts';
+import { IApp, IResults } from '../global/types.ts';
 import { BookOutput, BookParameters } from '../utils/MinecraftBook.ts';
 import useLocalStorage from 'use-local-storage';
 
-export default function useApp() {
+export default function useApp(): IApp {
   const [results, setResults] = useState<BookOutput>([]);
   const [loading, setLoading] = useState(false);
   const [fadeIn, setFadeIn] = useState(0);

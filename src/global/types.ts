@@ -4,6 +4,8 @@ type Setter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
 export type IFormData = {
   inputFormat: 'text' | 'file';
   setInputFormat: Setter<'text' | 'file'>;
+  outputFormat: 'text' | 'file';
+  setOutputFormat: Setter<'text' | 'file'>;
   generationFormat: 'text' | 'commands';
   setGenerationFormat: Setter<'text' | 'commands'>;
   minecraftVersion: 'bedrock' | 'java';
@@ -40,6 +42,8 @@ export type IFormSettings = Pick<
   IFormData,
   | 'inputFormat'
   | 'setInputFormat'
+  | 'outputFormat'
+  | 'setOutputFormat'
   | 'generationFormat'
   | 'setGenerationFormat'
   | 'minecraftVersion'

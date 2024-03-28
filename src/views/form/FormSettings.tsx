@@ -23,19 +23,37 @@ function FormSettings(props: IFormSettings) {
       />
       <div className='mb-2' />
       <MultiChoice
+        name='output-method'
+        items={[
+          {
+            id: 'use-text-output',
+            label: '📖 Text Output',
+            checked: props.outputFormat === 'text',
+            callback: () => props.setOutputFormat('text'),
+          },
+          {
+            id: 'use-file-output',
+            label: '🗄️ File Output',
+            checked: props.outputFormat === 'file',
+            callback: () => props.setOutputFormat('file'),
+          },
+        ]}
+      />
+      <div className='mb-2' />
+      <MultiChoice
         name='generation_method'
         items={[
           {
-            id: 'use-command-output',
-            label: '📟 Generate Commands',
-            checked: props.generationFormat === 'commands',
-            callback: () => props.setGenerationFormat('commands'),
-          },
-          {
-            id: 'use-text-output',
+            id: 'use-text-generation',
             label: '💬 Generate Text',
             checked: props.generationFormat === 'text',
             callback: () => props.setGenerationFormat('text'),
+          },
+          {
+            id: 'use-command-generation',
+            label: '📟 Generate Commands',
+            checked: props.generationFormat === 'commands',
+            callback: () => props.setGenerationFormat('commands'),
           },
         ]}
       />

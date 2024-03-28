@@ -11,6 +11,10 @@ export default function useForm(showResults: IResults): IFormData {
     'inputFormat',
     'text'
   );
+  const [outputFormat, setOutputFormat] = useLocalStorage<'text' | 'file'>(
+    'outputFormat',
+    'text'
+  );
   const [generationFormat, setGenerationFormat] = useLocalStorage<'commands' | 'text'>(
     'generationFormat',
     'commands'
@@ -18,7 +22,7 @@ export default function useForm(showResults: IResults): IFormData {
   const [linesPerPage, setLinesPerPage] = useLocalStorage('linesPerPage', 14);
   const [minecraftVersion, setMinecraftVersion] = useLocalStorage<'bedrock' | 'java'>(
     'minecraftVersion',
-    'bedrock'
+    'java'
   );
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -37,6 +41,8 @@ export default function useForm(showResults: IResults): IFormData {
   return {
     inputFormat,
     setInputFormat,
+    outputFormat,
+    setOutputFormat,
     generationFormat,
     setGenerationFormat,
     minecraftVersion,

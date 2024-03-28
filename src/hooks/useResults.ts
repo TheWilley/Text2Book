@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useState } from 'react';
 
 export default function useResults(results: string[]) {
   const [page, setPage] = useState(1);
@@ -96,10 +96,24 @@ export default function useResults(results: string[]) {
    */
   const clearCheckedRows = () => setCopiedRows([]);
 
+  /**
+   * Download the commands as a text file.
+   */
+  const download = useCallback(() => {
+    const file = new Blob([results.join('\n')], { type: 'text/plain' });
+    const url = URL.createObjectURL(file);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'generated.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [results]);
+
   return {
     blinkProps,
     truncatedResults,
     page,
+    download,
     onAnimationEnd,
     copyAndNotify,
     addCopiedRow,

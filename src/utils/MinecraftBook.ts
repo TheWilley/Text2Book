@@ -475,7 +475,7 @@ class BookGenerator {
   private finalizeBook() {
     if (this._generationFormat === 'commands') {
       const suffix = this._nameSuffix.replace('n', this._booksCounter.toString());
-      return `/give @p minecraft:written_book{pages:[${this._pages.toString()}], title: "${this._title + suffix}", author: "${this._author}"}`;
+      return `/give @p written_book[written_book_content={title:"${this._title + suffix}",author:"${this._author}",pages:[${this._pages.toString()}]}] 1`;
     } else if (this._generationFormat === 'text') {
       return this._pages.toString();
     } else {

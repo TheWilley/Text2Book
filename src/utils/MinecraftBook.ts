@@ -518,6 +518,9 @@ class BookGenerator {
       this._pages.push(page);
     }
 
+    // Must reset, otherwise workerline will be preserved
+    this._workerLine = '';
+
     return this.finalizeBook();
   }
 

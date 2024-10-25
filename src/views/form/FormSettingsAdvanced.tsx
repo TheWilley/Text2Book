@@ -12,9 +12,8 @@ function FormSettingsAdvanced(
 ) {
   return (
     <>
-
       <Accordion id='advanced-settings' label='⚙️ Advanced'>
-      <Banner visisble />
+        <Banner visisble />
         <div className='grid grid-cols-1 sm:grid-cols-2'>
           <div className='border bg-gray-300 rounded-xl p-2 relative'>
             <TextInput

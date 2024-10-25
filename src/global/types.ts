@@ -34,7 +34,7 @@ export type IApp = {
   showResults: IResults;
   setOutputFormat: LocalStorageSetter<'text' | 'file'>;
   setFadeIn: StateSetter<number>;
-}
+};
 
 export type IFormInput = Pick<
   IFormData,
@@ -74,5 +74,5 @@ export type IResults = (
   minecraftVersion: IFormData['minecraftVersion'],
   generationFormat: IFormData['generationFormat'],
   linesPerPage: IFormData['linesPerPage'],
-  nameSuffix: IFormData['nameSuffix'],
+  nameSuffix: IFormData['nameSuffix']
 ) => void;

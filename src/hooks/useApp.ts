@@ -8,7 +8,10 @@ export default function useApp(): IApp {
   const [loading, setLoading] = useState(false);
   const [fadeIn, setFadeIn] = useState(0);
   const [timeToGenerate, setTimeToGenerate] = useState(0);
-  const [outputFormat, setOutputFormat] = useLocalStorage<'text' | 'file'>('outputFormat', 'text');
+  const [outputFormat, setOutputFormat] = useLocalStorage<'text' | 'file'>(
+    'outputFormat',
+    'text'
+  );
   const worker: Worker = useMemo(
     () => new Worker(new URL('../utils/worker.ts', import.meta.url), { type: 'module' }),
     []
@@ -66,5 +69,14 @@ export default function useApp(): IApp {
     }
   }, [worker]);
 
-  return { results, fadeinProps, loading, timeToGenerate, outputFormat, showResults, setOutputFormat, setFadeIn };
+  return {
+    results,
+    fadeinProps,
+    loading,
+    timeToGenerate,
+    outputFormat,
+    showResults,
+    setOutputFormat,
+    setFadeIn,
+  };
 }

@@ -538,8 +538,8 @@ class BookGenerator {
           ? this._linesPerPage * 50
           : this._linesPerPage * 100;
     } else if (this._generationFormat === 'text') {
-      // 13 lines for each page
-      lineLimit = 13;
+      // 14 lines for each page
+      lineLimit = this._linesPerPage || 14;
     }
 
     // Go through each line

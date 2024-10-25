@@ -16,6 +16,7 @@ function Accordion(props: {
         className='peer hidden'
         checked={open}
         onClick={() => setOpen(!open)}
+        readOnly
       />
       <label
         htmlFor={props.id}

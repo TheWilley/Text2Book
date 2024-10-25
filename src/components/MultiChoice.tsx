@@ -9,7 +9,7 @@ function MultiChoice(props: {
       }
     >
       {props.items.map((item) => (
-        <div>
+        <div key={item.id}>
           <input
             type='radio'
             name={props.name}

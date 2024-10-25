@@ -44,7 +44,7 @@ class CharacterLexicon {
   constructor() {
     for (const glyph of glyphs) {
       this._characterLexicon.push(
-        new MinecraftCharacter(glyph.char as string, glyph.pixels as number)
+        new MinecraftCharacter(glyph.char, glyph.pixels)
       );
     }
   }

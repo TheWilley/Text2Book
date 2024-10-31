@@ -86,14 +86,16 @@ function Results(props: Props) {
               </li>
             ))}
           </ol>
-          <Pagination
-            previousDisabled={page === 1}
-            nextDisabled={page === Math.ceil(props.results.length / 10)}
-            page={page}
-            onPrevious={prevPage}
-            onNext={nextPage}
-            visible={truncatedResults.length > 0}
-          />
+          {props.results.length > 1 && (
+            <Pagination
+              previousDisabled={page === 1}
+              nextDisabled={page === Math.ceil(props.results.length / 10)}
+              page={page}
+              onPrevious={prevPage}
+              onNext={nextPage}
+              visible={truncatedResults.length > 0}
+            />
+          )}
         </>
       )}
     </div>

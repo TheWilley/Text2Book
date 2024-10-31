@@ -43,9 +43,7 @@ class CharacterLexicon {
 
   constructor() {
     for (const glyph of glyphs) {
-      this._characterLexicon.push(
-        new MinecraftCharacter(glyph.char, glyph.pixels)
-      );
+      this._characterLexicon.push(new MinecraftCharacter(glyph.char, glyph.pixels));
     }
   }
 
@@ -75,7 +73,6 @@ class Calculator {
         (character) => character.letter == text.charAt(i)
       );
 
-
       // If the character is not found, remove it and break the loop
       if (!minecraftCharacter) {
         text = text.substring(0, i) + text.substring(i + 1);
@@ -85,7 +82,7 @@ class Calculator {
 
       // Add the pixels
       // An additional pixel is added as the old list included the space in between characters
-      if(minecraftCharacter.letter === ' ') {
+      if (minecraftCharacter.letter === ' ') {
         totalPixels += minecraftCharacter.pixels;
       } else {
         totalPixels += minecraftCharacter.pixels + 1;
@@ -104,16 +101,16 @@ class Calculator {
           word: substringedWord,
           value: totalPixels - minecraftCharacter.pixels,
         });
-        
+
         // Remove the word from the string including the last letter
         text = text.substring(i);
-        
+
         // Reset the index and sum
         totalPixels = 0;
         i = -1;
       }
     }
-    
+
     // Add the last word
     words.push({ word: text, value: totalPixels });
 
@@ -143,10 +140,14 @@ class Calculator {
 
         // If the sum is bigger than 114, reset the sum to the word which caused the overflow
         // The reason we ignore the space is that it will not occupy a space if it's the very last word in the row
-        // I guess it has to do something with 
+        // I guess it has to do something with
 
         // If the value is over 114 and the character is not a space, go to next
-        if (words[e].word === '\n' || (words[e].word !== ' ' && sum > 114) || (words[e].word === ' ' && sum >= 119)) {
+        if (
+          words[e].word === '\n' ||
+          (words[e].word !== ' ' && sum > 114) ||
+          (words[e].word === ' ' && sum >= 119)
+        ) {
           sum = words[e].value;
 
           modifedLines.push(lines.join(''));
@@ -211,7 +212,7 @@ class BookGenerator {
     if (this._generationFormat === 'commands') {
       return text
         .replace(/"/g, '\\\\' + '"') // Escape double quotes (")
-        .replace(/'/g, '\\' + '\'') // Escape single quotes (')
+        .replace(/'/g, '\\' + "'") // Escape single quotes (')
         .trim() // Remove whitespace from both ends of the string ( )
         .replace(/\n/g, '\\\\n'); // Escape new lines (\n)
     } else if (this._generationFormat === 'text') {

@@ -144,7 +144,9 @@ class Calculator {
         // If the sum is bigger than 114, reset the sum to the word which caused the overflow
         // The reason we ignore the space is that it will not occupy a space if it's the very last word in the row
         // I guess it has to do something with 
-        if (words[e].word === '\n' || (words[e].word != ' ' && sum > 114)) {
+
+        // If the value is over 114 and the character is not a space, go to next
+        if (words[e].word === '\n' || (words[e].word !== ' ' && sum > 114) || (words[e].word === ' ' && sum >= 119)) {
           sum = words[e].value;
 
           modifedLines.push(lines.join(''));

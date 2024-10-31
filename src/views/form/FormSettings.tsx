@@ -95,7 +95,7 @@ function FormSettings(props: IFormSettings) {
                   },
                   {
                     id: '1204',
-                    label: '🛖 Old Syntax (1.20.4)',
+                    label: '👴 Old Syntax (1.20.4)',
                     checked: props.javaVersion === '1.20.4',
                     callback: () => props.setJavaVersion('1.20.4'),
                   },

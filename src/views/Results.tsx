@@ -86,7 +86,7 @@ function Results(props: Props) {
               </li>
             ))}
           </ol>
-          {props.results.length > 1 && (
+          {props.results.length / 10 > 1 && (
             <Pagination
               previousDisabled={page === 1}
               nextDisabled={page === Math.ceil(props.results.length / 10)}

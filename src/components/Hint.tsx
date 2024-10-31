@@ -3,19 +3,21 @@ import React from 'react';
 type Props = {
   text: string;
   position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  padding?: number;
   children?: React.ReactNode;
 };
 
 function Hint(props: Props) {
   // Set default position to 'top-left' if not provided
   const position = props.position || 'top-left';
+  const padding = 0 + (props.padding || 0);
 
   const hintStyle = {
     position: 'absolute' as const,
-    ...(position === 'top-left' && { top: -7, left: -7 }),
-    ...(position === 'top-right' && { top: 0, right: 0 }),
-    ...(position === 'bottom-left' && { bottom: 0, left: 0 }),
-    ...(position === 'bottom-right' && { bottom: 0, right: 0 }),
+    ...(position === 'top-left' && { top: padding, left: padding }),
+    ...(position === 'top-right' && { top: padding, right: padding }),
+    ...(position === 'bottom-left' && { bottom: padding, left: padding }),
+    ...(position === 'bottom-right' && { bottom: padding, right: padding }),
   };
 
   // Ensure the parent container has relative positioning

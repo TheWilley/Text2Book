@@ -21,6 +21,8 @@ export type IFormData = {
   author: string;
   setAuthor: LocalStorageSetter<string>;
   title: string;
+  javaVersion: '1.20.4' | '1.20.5';
+  setJavaVersion: LocalStorageSetter<'1.20.4' | '1.20.5'>;
   setTitle: LocalStorageSetter<string>;
   handleSubmit: (event: React.FormEvent) => void;
 };
@@ -64,6 +66,8 @@ export type IFormSettings = Pick<
   | 'linesPerPage'
   | 'setLinesPerPage'
   | 'nameSuffix'
+  | 'javaVersion'
+  | 'setJavaVersion'
   | 'setNameSuffix'
 >;
 
@@ -73,6 +77,7 @@ export type IResults = (
   author: IFormData['author'],
   minecraftVersion: IFormData['minecraftVersion'],
   generationFormat: IFormData['generationFormat'],
+  javaVersion: IFormData['javaVersion'],
   linesPerPage: IFormData['linesPerPage'],
   nameSuffix: IFormData['nameSuffix']
 ) => void;

@@ -24,6 +24,10 @@ export default function useForm(showResults: IResults): IFormData {
     'minecraftVersion',
     'java'
   );
+  const [javaVersion, setJavaVersion] = useLocalStorage<'1.20.4' | '1.20.5'>(
+    'javaVersion',
+    '1.20.5'
+  );
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -33,6 +37,7 @@ export default function useForm(showResults: IResults): IFormData {
       author,
       minecraftVersion,
       generationFormat,
+      javaVersion,
       linesPerPage,
       nameSuffix
     );
@@ -57,6 +62,8 @@ export default function useForm(showResults: IResults): IFormData {
     setAuthor,
     title,
     setTitle,
+    javaVersion,
+    setJavaVersion,
     handleSubmit,
   };
 }

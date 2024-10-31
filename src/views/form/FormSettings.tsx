@@ -77,6 +77,28 @@ function FormSettings(props: IFormSettings) {
               },
             ]}
           />
+          {props.minecraftVersion === 'java' && (
+            <>
+              <div className='mb-2' />
+              <MultiChoice
+                name='java-version'
+                items={[
+                  {
+                    id: '1205',
+                    label: '✨ New Syntax (1.20.5)',
+                    checked: props.javaVersion === '1.20.5',
+                    callback: () => props.setJavaVersion('1.20.5'),
+                  },
+                  {
+                    id: '1204',
+                    label: '🛖 Old Syntax (1.20.4)',
+                    checked: props.javaVersion === '1.20.4',
+                    callback: () => props.setJavaVersion('1.20.4'),
+                  },
+                ]}
+              />
+            </>
+          )}
         </>
       )}
     </>

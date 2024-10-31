@@ -27,6 +27,7 @@ export default function useApp(): IApp {
       author: string,
       minecraftVersion: 'bedrock' | 'java',
       generationFormat: 'commands' | 'text',
+      javaVersion: '1.20.4' | '1.20.5',
       linesPerPage: number,
       nameSuffix: string
     ) => {
@@ -38,6 +39,7 @@ export default function useApp(): IApp {
         author,
         minecraftVersion,
         generationFormat,
+        javaVersion,
         linesPerPage,
         nameSuffix,
       };

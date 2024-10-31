@@ -26,6 +26,8 @@ function Form(props: Props) {
     author,
     setAuthor,
     title,
+    javaVersion,
+    setJavaVersion,
     setTitle,
     handleSubmit,
   } = useForm(props.showResults);
@@ -45,6 +47,8 @@ function Form(props: Props) {
         setLinesPerPage={setLinesPerPage}
         nameSuffix={nameSuffix}
         setNameSuffix={setNameSuffix}
+        javaVersion={javaVersion}
+        setJavaVersion={setJavaVersion}
       />
       <FormSettingsAdvanced
         nameSuffix={nameSuffix}

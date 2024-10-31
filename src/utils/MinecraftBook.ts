@@ -6,6 +6,7 @@ export type BookParameters = {
   author: string;
   minecraftVersion: 'java' | 'bedrock';
   generationFormat: 'commands' | 'text';
+  javaVersion: '1.20.4' | '1.20.5';
   linesPerPage?: number;
   nameSuffix?: string;
 };
@@ -173,6 +174,7 @@ class BookGenerator {
   private _author: string;
   private _minecraftVersion: 'java' | 'bedrock';
   private _generationFormat: 'commands' | 'text';
+  private _javaVersion: '1.20.4' | '1.20.5';
   private _lines: string[];
   private _pages: string[] = [];
   private _linesPerPage: number;
@@ -187,6 +189,7 @@ class BookGenerator {
     author,
     linesPerPage = 14,
     nameSuffix = '',
+    javaVersion = '1.20.4',
     text,
   }: BookParameters) {
     // Required parameters
@@ -198,6 +201,7 @@ class BookGenerator {
     // Optional parameters
     this._linesPerPage = linesPerPage > 14 ? 14 : linesPerPage;
     this._nameSuffix = nameSuffix;
+    this._javaVersion = javaVersion;
 
     // Create the book
     this._calculator = new Calculator(text);
@@ -212,7 +216,7 @@ class BookGenerator {
     if (this._generationFormat === 'commands') {
       return text
         .replace(/"/g, '\\\\' + '"') // Escape double quotes (")
-        .replace(/'/g, '\\' + "'") // Escape single quotes (')
+        .replace(/'/g, '\\' + '\'') // Escape single quotes (')
         .trim() // Remove whitespace from both ends of the string ( )
         .replace(/\n/g, '\\\\n'); // Escape new lines (\n)
     } else if (this._generationFormat === 'text') {
@@ -243,12 +247,24 @@ class BookGenerator {
   private finalizeBook() {
     if (this._generationFormat === 'commands') {
       const suffix = this._nameSuffix.replace('n', this._booksCounter.toString());
-      return `/give @p written_book[written_book_content={title:"${this._title + suffix}",author:"${this._author}",pages:[${this._pages.toString()}]}] 1`;
+
+      if (this._minecraftVersion === 'java') {
+        if (this._javaVersion === '1.20.5') {
+          return `/give @p written_book[written_book_content={title:"${this._title + suffix}",author:"${this._author}",pages:[${this._pages.toString()}]}] 1`;
+        } else if (this._javaVersion === '1.20.4') {
+          return `/give @p minecraft:written_book{pages:[${this._pages.toString()}], title: "${this._title + suffix}", author: "${this._author}"}`;
+        }
+      } else if (this._minecraftVersion === 'bedrock') {
+        // FIXME: This is probably the incorrect format for bedrock
+        return `/give @p written_book[written_book_content={title:"${this._title + suffix}",author:"${this._author}",pages:[${this._pages.toString()}]}] 1`;
+      }
     } else if (this._generationFormat === 'text') {
       return this._pages.toString();
     } else {
       return '';
     }
+
+    return '';
   }
 
   /**

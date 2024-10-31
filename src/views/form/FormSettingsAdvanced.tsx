@@ -3,6 +3,7 @@ import Accordion from '../../components/Accordion.tsx';
 import { IFormData } from '../../global/types.ts';
 import NumberInput from '../../components/NumberInput.tsx';
 import Banner from '../../layout/Banner.tsx';
+import Hint from '../../components/Hint.tsx';
 
 function FormSettingsAdvanced(
   props: Pick<
@@ -16,15 +17,20 @@ function FormSettingsAdvanced(
         <Banner visisble />
         <div className='grid grid-cols-1 sm:grid-cols-2'>
           <div className='border bg-gray-300 rounded-xl p-2 relative'>
-            <TextInput
-              label='Name Suffix'
-              id='format'
-              placeholder='"n" is replaced with the index number (leave blank for no index)'
-              value={props.nameSuffix}
-              setter={props.setNameSuffix}
-              maxLength={15}
-              centerText
-            />
+            <Hint
+              text='The letter "n" will be replaced by the corresponding book number generated. For example, the first book will replace "n" with 0, the second book will replace it with 1, and so on. This applies even if only one book is generated.'
+              padding={-15}
+            >
+              <TextInput
+                label='Name Suffix'
+                id='format'
+                placeholder='Enter Suffix'
+                value={props.nameSuffix}
+                setter={props.setNameSuffix}
+                maxLength={15}
+                centerText
+              />
+            </Hint>
           </div>
           <div className='border bg-gray-300 rounded-xl p-2 relative'>
             <NumberInput

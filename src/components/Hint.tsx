@@ -28,9 +28,8 @@ function Hint(props: Props) {
             {' '}
             ?{' '}
           </div>
-          <span className='absolute left-1/2 transform -translate-x-1/2 top-7 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100 transition-transform ease-in-out'>
+          <span className='absolute md:w-32 left-1/2 transform -translate-x-1/2 top-7 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100 transition-transform ease-in-out'>
             {props.text}
-            <span className='absolute left-1/2 transform -translate-x-1/2 -translate-y-10 top-full mt-1 w-2 h-2 bg-gray-800 rotate-45'></span>
           </span>
         </div>
       </div>

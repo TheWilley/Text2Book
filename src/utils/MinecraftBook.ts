@@ -174,7 +174,6 @@ class BookGenerator {
   private _generationFormat: 'commands' | 'text';
   private _lines: string[];
   private _pages: string[] = [];
-  private _workerLine = '';
   private _linesPerPage: number;
   private _nameSuffix: string;
   private _booksCounter = 0;
@@ -208,17 +207,17 @@ class BookGenerator {
   /**
    * Escapes characters or trims the line based on the output format.
    */
-  private escapeCharacters() {
+  private escapeCharacters(text: string) {
     if (this._generationFormat === 'commands') {
-      this._workerLine = this._workerLine
+      return text
         .replace(/"/g, '\\\\' + '"') // Escape double quotes (")
         .replace(/'/g, '\\' + '\'') // Escape single quotes (')
         .trim() // Remove whitespace from both ends of the string ( )
         .replace(/\n/g, '\\\\n'); // Escape new lines (\n)
     } else if (this._generationFormat === 'text') {
-      this._workerLine = this._workerLine.trim();
+      return text.trim();
     } else {
-      this._workerLine = '';
+      return '';
     }
   }
 
@@ -226,11 +225,11 @@ class BookGenerator {
    * Encapsulates the text with the correct format based on the output format.
    * @returns The encapsulated text based on the output format.
    */
-  private encapsuleText() {
+  private encapsuleText(text: string) {
     if (this._generationFormat === 'commands') {
-      return `'{"text":"${this._workerLine}"}'`;
+      return `'{"text":"${text}"}'`;
     } else if (this._generationFormat === 'text') {
-      return this._workerLine;
+      return text;
     } else {
       return '';
     }
@@ -256,19 +255,20 @@ class BookGenerator {
    */
   private createBook(lines: string[]) {
     let counter = 0;
+    let workerLine = '';
 
     this._pages = lines
       .map((line) => {
-        this._workerLine += line;
+        workerLine += line;
         counter++;
 
         if (counter == this._linesPerPage) {
           // Create text string
-          this.escapeCharacters();
-          const page = this.encapsuleText();
+          const escapedText = this.escapeCharacters(workerLine);
+          const page = this.encapsuleText(escapedText);
 
           // Reset lines and counter
-          this._workerLine = '';
+          workerLine = '';
           counter = 0;
 
           // Finally return the string
@@ -280,14 +280,14 @@ class BookGenerator {
       .filter((page) => page !== null) as string[];
 
     // Add the remaining lines to the page strings
-    if (this._workerLine.length > 0) {
-      this.escapeCharacters();
-      const page = this.encapsuleText();
+    if (workerLine.length > 0) {
+      const escapedText = this.escapeCharacters(workerLine);
+      const page = this.encapsuleText(escapedText);
       this._pages.push(page);
     }
 
     // Must reset, otherwise workerline will be preserved
-    this._workerLine = '';
+    workerLine = '';
 
     return this.finalizeBook();
   }

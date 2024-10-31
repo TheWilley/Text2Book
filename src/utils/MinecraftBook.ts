@@ -216,7 +216,7 @@ class BookGenerator {
     if (this._generationFormat === 'commands') {
       return text
         .replace(/"/g, '\\\\' + '"') // Escape double quotes (")
-        .replace(/'/g, '\\' + '\'') // Escape single quotes (')
+        .replace(/'/g, '\\' + "'") // Escape single quotes (')
         .trim() // Remove whitespace from both ends of the string ( )
         .replace(/\n/g, '\\\\n'); // Escape new lines (\n)
     } else if (this._generationFormat === 'text') {

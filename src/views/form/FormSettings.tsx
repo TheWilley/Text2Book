@@ -1,5 +1,6 @@
 import { IFormSettings } from '../../global/types.ts';
 import MultiChoice from '../../components/MultiChoice.tsx';
+import Hint from '../../components/Hint.tsx';
 
 function FormSettings(props: IFormSettings) {
   return (
@@ -78,7 +79,7 @@ function FormSettings(props: IFormSettings) {
             ]}
           />
           {props.minecraftVersion === 'java' && (
-            <>
+            <Hint text='Minecraft changed its syntax for several commands in 1.20.5. If you are using a older version, pick the old syntax.'>
               <div className='mb-2' />
               <MultiChoice
                 name='java-version'
@@ -97,7 +98,7 @@ function FormSettings(props: IFormSettings) {
                   },
                 ]}
               />
-            </>
+            </Hint>
           )}
         </>
       )}

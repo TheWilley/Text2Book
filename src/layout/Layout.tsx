@@ -1,3 +1,4 @@
+import Changelog from '../views/Changelog';
 import Footer from './Footer';
 import Header from './Header';
 
@@ -9,6 +10,7 @@ function Layout(props: Props) {
   return (
     <>
       <Header />
+      <Changelog />
       <div className='flex flex-col items-center bg-white'>
         <div className='max-w-3xl w-full bg-gray-100 p-6 rounded-lg shadow-md'>
           {props.children}

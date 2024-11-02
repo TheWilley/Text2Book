@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className='fixed bottom-0 p-2 left-0 w-full bg-white'>
+    <footer className='fixed bottom-0 p-2 left-0 w-full bg-white z-10'>
       <div className='text-center w-full font-bold'>
         Made with ❤️ by{' '}
         <a

@@ -2,19 +2,10 @@
   {
     "date": "2024/11/02",
     "features": [
-      "Older version of Java Minecraft is supported when generating commands",
-      "Added hints (?) to explain certain option",
+      "Older version of Java Minecraft is now supported when generating commands",
+      "Added hints (?) to explain certain options",
       "Added changelogs"
     ],
-    "fixes": ["Multiple subsequent spaces are handled correctly"]
-  },
-  {
-    "date": "2024/11/02",
-    "features": [
-      "Older version of Java Minecraft is supported when generating commands",
-      "Added hints (?) to explain certain option",
-      "Added changelogs"
-    ],
-    "fixes": ["Multiple subsequent spaces are handled correctly"]
+    "fixes": ["Multiple subsequent spaces are now handled correctly"]
   }
 ]

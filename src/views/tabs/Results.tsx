@@ -1,12 +1,13 @@
-import copy from '../assets/copy-icon.png';
-import Pagination from '../components/Pagination.tsx';
-import blink from '../css/blink.module.css';
-import fadein from '../css/fadein.module.css';
-import { IFormData } from '../global/types.ts';
-import useResults from '../hooks/useResults.ts';
+import copy from '../../assets/copy-icon.png';
+import Pagination from '../../components/Pagination.tsx';
+import blink from '../../css/blink.module.css';
+import fadein from '../../css/fadein.module.css';
+import { IFormData } from '../../global/types.ts';
+import useResults from '../../hooks/useResults.ts';
+import { BookOutput } from '../../utils/MinecraftBook.ts';
 
 type Props = {
-  results: string[];
+  results: BookOutput;
   setFadeIn: React.Dispatch<React.SetStateAction<number>>;
   fadeinProps: { fadein: number };
   timeToGenerate: number;
@@ -30,7 +31,7 @@ function Results(props: Props) {
     <div className='mt-3'>
       {truncatedResults.length > 0 && (
         <div className='text-center text-gray-500 mb-2'>
-          Generated {props.results.length} lines in {props.timeToGenerate}s
+          Generated {props.results.book.length} lines in {props.timeToGenerate}s
         </div>
       )}
       {props.outputFormat === 'file' && truncatedResults.length > 0 ? (
@@ -86,10 +87,10 @@ function Results(props: Props) {
               </li>
             ))}
           </ol>
-          {props.results.length / 10 > 1 && (
+          {props.results.book.length / 10 > 1 && (
             <Pagination
               previousDisabled={page === 1}
-              nextDisabled={page === Math.ceil(props.results.length / 10)}
+              nextDisabled={page === Math.ceil(props.results.book.length / 10)}
               page={page}
               onPrevious={prevPage}
               onNext={nextPage}

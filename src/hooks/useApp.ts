@@ -4,7 +4,10 @@ import { BookOutput, BookParameters } from '../utils/MinecraftBook.ts';
 import useLocalStorage from 'use-local-storage';
 
 export default function useApp(): IApp {
-  const [results, setResults] = useState<BookOutput>([]);
+  const [results, setResults] = useState<BookOutput>({
+    book: [],
+    removedCharacters: [],
+  });
   const [loading, setLoading] = useState(false);
   const [fadeIn, setFadeIn] = useState(0);
   const [timeToGenerate, setTimeToGenerate] = useState(0);

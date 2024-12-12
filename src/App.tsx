@@ -1,7 +1,7 @@
 import Layout from './layout/Layout.tsx';
 import useApp from './hooks/useApp.ts';
 import Form from './views/form/Form.tsx';
-import Results from './views/Results.tsx';
+import Output from './views/Output.tsx';
 
 function App() {
   const {
@@ -23,7 +23,7 @@ function App() {
         outputFormat={outputFormat}
         setOutputFormat={setOutputFormat}
       />
-      <Results
+      <Output
         results={results}
         fadeinProps={fadeinProps}
         timeToGenerate={timeToGenerate}

@@ -1,6 +1,7 @@
 import { FormEvent, useCallback, useEffect, useState } from 'react';
+import { BookOutput } from '../utils/MinecraftBook';
 
-export default function useResults(results: string[]) {
+export default function useResults(results: BookOutput) {
   const [page, setPage] = useState(1);
   const [truncatedResults, setTruncatedResults] = useState<
     { value: string; index: number }[]
@@ -21,7 +22,7 @@ export default function useResults(results: string[]) {
    */
   useEffect(() => {
     setTruncatedResults(
-      results
+      results.book
         .slice(page * 10 - 10, page * 10)
         .map((value, index) => ({ value, index: page * 10 - 10 + index }))
     );
@@ -37,7 +38,9 @@ export default function useResults(results: string[]) {
    */
   const nextPage = () =>
     setPage((prevPage) =>
-      prevPage + 1 > results.length / 10 ? Math.ceil(results.length / 10) : prevPage + 1
+      prevPage + 1 > results.book.length / 10
+        ? Math.ceil(results.book.length / 10)
+        : prevPage + 1
     );
 
   /**
@@ -100,7 +103,7 @@ export default function useResults(results: string[]) {
    * Download the commands as a text file.
    */
   const download = useCallback(() => {
-    const file = new Blob([results.join('\n')], { type: 'text/plain' });
+    const file = new Blob([results.book.join('\n')], { type: 'text/plain' });
     const url = URL.createObjectURL(file);
     const a = document.createElement('a');
     a.href = url;

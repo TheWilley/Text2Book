@@ -10,7 +10,7 @@ export type BookParameters = {
   linesPerPage?: number;
   nameSuffix?: string;
 };
-export type BookOutput = string[];
+export type BookOutput = { book: string[]; removedCharacters: string[] };
 type PixelsOfWord = { word: string; value: number }[];
 
 class MinecraftCharacter {
@@ -54,10 +54,12 @@ class CharacterLexicon {
 }
 
 class Calculator {
+  public removedCharacters: string[];
   private _text: string;
 
   constructor(text: string) {
     this._text = text;
+    this.removedCharacters = [];
   }
 
   private convertTextToPixels(text: string) {
@@ -76,8 +78,17 @@ class Calculator {
 
       // If the character is not found, remove it and break the loop
       if (!minecraftCharacter) {
-        text = text.substring(0, i) + text.substring(i + 1);
+        const beforeRemovedCharacter = text.substring(0, i);
+        const removedCharacter = text.substring(i, i + 1);
+        const afterRemovedCharacter = text.substring(i + 1);
+
+        text = beforeRemovedCharacter + afterRemovedCharacter;
+
+        // Since we removed a character we need to reduce length here
         i--;
+
+        this.removedCharacters.push(removedCharacter);
+
         continue;
       }
 
@@ -180,7 +191,8 @@ class BookGenerator {
   private _linesPerPage: number;
   private _nameSuffix: string;
   private _booksCounter = 0;
-  public book: BookOutput = [];
+  public book: string[] = [];
+  public removedCharacters: string[] = [];
 
   constructor({
     generationFormat,
@@ -207,6 +219,7 @@ class BookGenerator {
     this._calculator = new Calculator(text);
     this._lines = this._calculator.convertTextToLines();
     this.book = this.createOutput();
+    this.removedCharacters = [...new Set(this._calculator.removedCharacters)];
   }
 
   /**
@@ -352,7 +365,11 @@ export default class MinecraftBook {
   }
 
   generateBook() {
-    return new BookGenerator(this._bookParameters).book;
+    const bookGenerator = new BookGenerator(this.bookParameters);
+    return {
+      book: bookGenerator.book,
+      removedCharacters: bookGenerator.removedCharacters,
+    };
   }
 
   get bookParameters() {
@@ -361,5 +378,6 @@ export default class MinecraftBook {
 }
 
 export function generateBook(bookParameters: BookParameters) {
-  return new BookGenerator(bookParameters).book;
+  const bookGenerator = new BookGenerator(bookParameters);
+  return { book: bookGenerator.book, removedCharacters: bookGenerator.removedCharacters };
 }

@@ -11,7 +11,6 @@ export type BookParameters = {
   nameSuffix?: string;
 };
 export type BookOutput = { book: string[]; removedCharacters: string[] };
-type PixelsOfWord = { word: string; value: number }[];
 
 class MinecraftCharacter {
   private _char: string;
@@ -54,128 +53,122 @@ class CharacterLexicon {
 }
 
 class Calculator {
+  private _charLexicon: MinecraftCharacter[];
   public removedCharacters: string[];
-  private _text: string;
 
-  constructor(text: string) {
-    this._text = text;
+  constructor() {
+    this._charLexicon = new CharacterLexicon().characterLexicon;
     this.removedCharacters = [];
   }
 
-  private convertTextToPixels(text: string) {
-    const words: PixelsOfWord = [],
-      allCharacters = new CharacterLexicon().characterLexicon,
-      ms = 114;
-    let totalPixels = 0,
-      substringedWord = '';
+  private sizeStringToWidth(str: string, wrapWidth: number) {
+    const i = str.length;
+    let f = 0;
+    let j = 0;
+    let k = -1;
 
-    // Go through each letter
-    for (let i = 0; i < text.length; i++) {
-      // Get the character
-      const minecraftCharacter = allCharacters.find(
-        (character) => character.letter == text.charAt(i)
-      );
+    for (let flag = false; j < i; ++j) {
+      const c0 = str.charAt(j);
 
-      // If the character is not found, remove it and break the loop
-      if (!minecraftCharacter) {
-        const beforeRemovedCharacter = text.substring(0, i);
-        const removedCharacter = text.substring(i, i + 1);
-        const afterRemovedCharacter = text.substring(i + 1);
-
-        text = beforeRemovedCharacter + afterRemovedCharacter;
-
-        // Since we removed a character we need to reduce length here
-        i--;
-
-        this.removedCharacters.push(removedCharacter);
-
-        continue;
-      }
-
-      // Add the pixels
-      // An additional pixel is added as the old list included the space in between characters
-      if (minecraftCharacter.letter === ' ') {
-        totalPixels += minecraftCharacter.pixels;
-      } else {
-        totalPixels += minecraftCharacter.pixels + 1;
-      }
-
-      // Set the substringed word
-      substringedWord = text.substring(0, i + 1);
-
-      // Check if the sum is bigger than the max sum
-      if (totalPixels > ms) {
-        // Remove the last letter
-        substringedWord = substringedWord.substring(0, substringedWord.length - 1);
-
-        // Add the word to the array
-        words.push({
-          word: substringedWord,
-          value: totalPixels - minecraftCharacter.pixels,
-        });
-
-        // Remove the word from the string including the last letter
-        text = text.substring(i);
-
-        // Reset the index and sum
-        totalPixels = 0;
-        i = -1;
-      }
-    }
-
-    // Add the last word
-    words.push({ word: text, value: totalPixels });
-
-    // Return the words
-    return words;
-  }
-
-  public convertTextToLines() {
-    let lines: string[] = [],
-      words: PixelsOfWord = [],
-      sum = 0;
-    const modifedLines = [];
-
-    // Removes all trailing spaces of new lines
-    // Splits the text into words to calculate their lengths separately
-    const splicedWords = this._text.replace(/ +\n/g, '\n').split(/(\s)/g);
-
-    // Go through each word
-    for (let i = 0; i < splicedWords.length; i++) {
-      // Get the sum of the words letters
-      words = this.convertTextToPixels(splicedWords[i]);
-
-      // Go through each word
-      for (let e = 0; e < words.length; e++) {
-        // Add the sum of the letters and the spaces
-        sum += words[e].value;
-
-        // If the sum is bigger than 114, reset the sum to the word which caused the overflow
-        // The reason we ignore the space is that it will not occupy a space if it's the very last word in the row
-        // I guess it has to do something with
-
-        // If the value is over 114 and the character is not a space, go to next
-        if (
-          words[e].word === '\n' ||
-          (words[e].word !== ' ' && sum > 114) ||
-          (words[e].word === ' ' && sum >= 119)
-        ) {
-          sum = words[e].value;
-
-          modifedLines.push(lines.join(''));
-          lines = [];
+      switch (c0) {
+        case '\n': {
+          --j;
+          break;
         }
 
-        // Add the letters to the lines
-        lines.push(words[e].word);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        case ' ': {
+          k = j;
+        }
+
+        // eslint-disable-next-line no-fallthrough
+        default: {
+          f += this.getCharWidth(c0);
+
+          if (flag) {
+            ++f;
+          }
+          break;
+        }
+
+        case '\u00a7':
+          if (j < i - 1) {
+            ++j;
+            const c1 = str.charAt(j);
+
+            if (c1 !== 'l' && c1 !== 'L') {
+              if (c1 === 'r' || c1 === 'R') {
+                flag = false;
+              }
+            } else {
+              flag = true;
+            }
+          }
+      }
+
+      if (c0 === '\n') {
+        ++j;
+        k = j;
+        break;
+      }
+
+      if (f > wrapWidth) {
+        break;
       }
     }
 
-    // Add the rest of the words to the lines
-    modifedLines.push(lines.join('').trim());
+    return j !== i && k !== -1 && k < j ? k : j;
+  }
 
-    // Return the lines and remove empty lines
-    return modifedLines.filter((r) => r != '');
+  private getCharWidth(c: string) {
+    const minecraftCharacter = this._charLexicon.find(
+      (character) => character.letter == c
+    );
+
+    if (!minecraftCharacter) {
+      this.removedCharacters.push(c);
+    }
+
+    if (minecraftCharacter) {
+      if (minecraftCharacter.letter === ' ') {
+        return minecraftCharacter.pixels;
+      } else {
+        return minecraftCharacter.pixels + 1;
+      }
+    } else {
+      return 0;
+    }
+  }
+
+  private wrapFormattedStringToWidth(str: string, wrapWidth: number): string {
+    const i = this.sizeStringToWidth(str, wrapWidth);
+
+    if (str.length <= i) {
+      return str;
+    } else {
+      const s = str.substring(0, i);
+      const c0 = str.charAt(i);
+      const flag = c0 == ' ' || c0 == '\n';
+      const s1 = str.substring(i + (flag ? 1 : 0));
+      return s + '\n' + this.wrapFormattedStringToWidth(s1, wrapWidth);
+    }
+  }
+
+  private listFormattedStringToWidth(str: string, wrapWidth: number) {
+    return this.wrapFormattedStringToWidth(str, wrapWidth).split('\n');
+  }
+
+  private trimStringNewline(text: string) {
+    while (text && text.endsWith('\n')) {
+      text = text.substring(0, text.length - 1);
+    }
+    return text;
+  }
+
+  public getSplitString(str: string) {
+    str = this.trimStringNewline(str);
+    return this.listFormattedStringToWidth(str, 114);
   }
 }
 
@@ -216,8 +209,8 @@ class BookGenerator {
     this._javaVersion = javaVersion;
 
     // Create the book
-    this._calculator = new Calculator(text);
-    this._lines = this._calculator.convertTextToLines();
+    this._calculator = new Calculator();
+    this._lines = this._calculator.getSplitString(text);
     this.book = this.createOutput();
     this.removedCharacters = [...new Set(this._calculator.removedCharacters)];
   }
@@ -289,7 +282,7 @@ class BookGenerator {
 
     this._pages = lines
       .map((line) => {
-        workerLine += line;
+        workerLine += line + '\n';
         counter++;
 
         if (counter == this._linesPerPage) {

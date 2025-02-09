@@ -246,7 +246,7 @@ class BookGenerator {
   }
 
   private finalizeBook(): string {
-    const suffix = this._nameSuffix.replace('n', this._booksCounter.toString());
+    const suffix = this._nameSuffix.replace('[n]', this._booksCounter.toString());
 
     if (this._generationFormat === 'commands') {
       if (this._minecraftVersion === 'java') {

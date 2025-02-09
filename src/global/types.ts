@@ -87,7 +87,7 @@ export type IChangelog = {
   features?: ICommit[];
   changes?: ICommit[];
   fixes?: ICommit[];
-  notes?: ICommit[];
+  notes?: string[];
 };
 
 type ICommit = {

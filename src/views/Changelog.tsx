@@ -77,7 +77,12 @@ function Changelog() {
                 <td className='p-2 align-top border'>
                   <ul>
                     {log.notes?.map((note, noteIndex) => (
-                      <Commit key={noteIndex} commit={note} />
+                      <li
+                        key={noteIndex}
+                        className='bg-gray-100 p-2 rounded-lg group mb-2'
+                      >
+                        {note}
+                      </li>
                     ))}
                   </ul>
                 </td>

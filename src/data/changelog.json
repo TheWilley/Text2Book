@@ -2,10 +2,51 @@
   {
     "date": "2024/11/02",
     "features": [
-      "Older version of Java Minecraft is now supported when generating commands",
-      "Added hints (?) to explain certain options",
-      "Added changelogs"
+      {
+        "message": "Older version of Java Minecraft is now supported when generating commands",
+        "hashes": ["b2ddf10931458d7adaa5d2b6407fd5cdd9fb88a2"]
+      },
+      {
+        "message": "Added hints (?) to explain certain options",
+        "hashes": [
+          "1895fe6cc23a2a1d48504b2b5f4de2dde641df61",
+          "ce50f881495b2f46b1d3fe4a49a6bcc6e690f8d3",
+          "4e1ad258b7fe917acfa2046ee8ec253b7c16ec04",
+          "4ee7b0211d591eff8f8094d51a4658ce3b20ea3d",
+          "08f59240517bd35033661a221caf44487dcfe575"
+        ]
+      },
+      {
+        "message": "Added changelogs",
+        "hashes": ["606ef55fbed0b1f52422e80d3d5d234d4d143655"]
+      }
     ],
-    "fixes": ["Multiple subsequent spaces are now handled correctly"]
+    "fixes": [
+      {
+        "message": "Multiple subsequent spaces are not handled correctly",
+        "hashes": ["e5ec3418fa635230b215e5f910e57914f3c0529d"]
+      }
+    ]
+  },
+  {
+    "date": "2025/02/09",
+    "features": [
+      {
+        "message": "Replaced the old generation algorithm with one based on Minecraft's actual source code",
+        "hashes": ["16152f103ea6b77c3c280d98e088e2ea54c1d7c9"]
+      }
+    ],
+    "fixes": [
+      {
+        "message": "Fixed bug where changing the pagination page to any value higher then 1 could cause no results to be shown after generating commands",
+        "hashes": ["16152f103ea6b77c3c280d98e088e2ea54c1d7c9"]
+      }
+    ],
+    "changes": [
+      {
+        "message": "The changelog has been converted into a collapsible table instead of a popup",
+        "hashes": ["4ca92f05bb5d58741de110bdf0b984e03502fbb7"]
+      }
+    ]
   }
 ]

@@ -81,3 +81,11 @@ export type IResults = (
   linesPerPage: IFormData['linesPerPage'],
   nameSuffix: IFormData['nameSuffix']
 ) => void;
+
+export type IChangelog = {
+  date: string;
+  features?: string[];
+  changes?: string[];
+  fixes?: string[];
+  notes?: string[];
+};

@@ -1,9 +1,10 @@
 import changelog from '../data/changelog.json';
 import Accordion from '../components/Accordion';
+import { IChangelog } from '../global/types';
 
 function Changelog() {
   return (
-    <div className='mb-2'>
+    <div className='mb-2 w-full overflow-x-auto'>
       <Accordion label='📜 Changelog' id='changelog'>
         <table className='w-full border-collapse bg-white rounded-xl border-blue-200'>
           <thead>
@@ -17,26 +18,42 @@ function Changelog() {
               <th className='text-left p-2 border'>
                 <span className='bg-black rounded-lg text-white p-1'>Fixes</span>
               </th>
+              <th className='text-left p-2 border'>
+                <span className='bg-yellow-700 rounded-lg text-white p-1'>Changes</span>
+              </th>
+              <th className='text-left p-2 border'>
+                <span className='bg-blue-700 rounded-lg text-white p-1'>Notes</span>
+              </th>
             </tr>
           </thead>
           <tbody className='text-left border'>
-            {changelog.map((log, logIndex) => (
+            {(changelog as IChangelog[]).map((log, logIndex) => (
               <tr key={logIndex}>
                 <td className='p-2 align-top border'>
                   <h3 className='mb-2'>{log.date}</h3>
                 </td>
                 <td className='p-2 align-top border'>
                   <ul className='list-disc list-inside'>
-                    {log.features.map((feature, featureIndex) => (
+                    {log.features?.map((feature, featureIndex) => (
                       <li key={featureIndex}>{feature}</li>
                     ))}
                   </ul>
                 </td>
                 <td className='p-2 align-top border'>
                   <ul className='list-disc list-inside'>
-                    {log.fixes.map((fix, fixIndex) => (
-                      <li key={fixIndex}>{fix}</li>
+                    {log.fixes?.map((fix, fixIndex) => <li key={fixIndex}>{fix}</li>)}
+                  </ul>
+                </td>
+                <td className='p-2 align-top border'>
+                  <ul className='list-disc list-inside'>
+                    {log.changes?.map((note, noteIndex) => (
+                      <li key={noteIndex}>{note}</li>
                     ))}
+                  </ul>
+                </td>
+                <td className='p-2 align-top border'>
+                  <ul className='list-disc list-inside'>
+                    {log.notes?.map((note, noteIndex) => <li key={noteIndex}>{note}</li>)}
                   </ul>
                 </td>
               </tr>

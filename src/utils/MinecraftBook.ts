@@ -142,17 +142,19 @@ class StringWrapper {
   }
 
   private wrapFormattedStringToWidth(str: string, wrapWidth: number): string {
-    const i = this.sizeStringToWidth(str, wrapWidth);
+    const result: string[] = [];
+    let remainingStr = str;
 
-    if (str.length <= i) {
-      return str;
-    } else {
-      const s = str.substring(0, i);
-      const c0 = str.charAt(i);
+    while (remainingStr.length > 0) {
+      const i = this.sizeStringToWidth(remainingStr, wrapWidth);
+      const s = remainingStr.substring(0, i);
+      const c0 = remainingStr.charAt(i);
       const flag = c0 == ' ' || c0 == '\n';
-      const s1 = str.substring(i + (flag ? 1 : 0));
-      return s + '\n' + this.wrapFormattedStringToWidth(s1, wrapWidth);
+      remainingStr = remainingStr.substring(i + (flag ? 1 : 0));
+      result.push(s);
     }
+
+    return result.join('\n');
   }
 
   private listFormattedStringToWidth(str: string, wrapWidth: number) {

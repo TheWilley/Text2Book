@@ -15,6 +15,7 @@ export default function useResults(results: BookOutput) {
    */
   useEffect(() => {
     clearCheckedRows();
+    setPage(1);
   }, [results]);
 
   /**

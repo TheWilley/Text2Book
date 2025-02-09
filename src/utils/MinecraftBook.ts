@@ -52,7 +52,7 @@ class CharacterLexicon {
   }
 }
 
-class Calculator {
+class StringWrapper {
   private _charLexicon: MinecraftCharacter[];
   public removedCharacters: string[];
 
@@ -173,7 +173,7 @@ class Calculator {
 }
 
 class BookGenerator {
-  private _calculator: Calculator;
+  private _stringWrapper: StringWrapper;
   private _title: string;
   private _author: string;
   private _minecraftVersion: 'java' | 'bedrock';
@@ -209,10 +209,10 @@ class BookGenerator {
     this._javaVersion = javaVersion;
 
     // Create the book
-    this._calculator = new Calculator();
-    this._lines = this._calculator.getSplitString(text);
+    this._stringWrapper = new StringWrapper();
+    this._lines = this._stringWrapper.getSplitString(text);
     this.book = this.createOutput();
-    this.removedCharacters = [...new Set(this._calculator.removedCharacters)];
+    this.removedCharacters = [...new Set(this._stringWrapper.removedCharacters)];
   }
 
   /**
@@ -322,18 +322,14 @@ class BookGenerator {
     let lineLimit = 0;
 
     if (this._generationFormat === 'commands') {
-      // x lines * 50 characters per line = 650 characters
-      // x lines * 100 characters per line = 1300 characters
       lineLimit =
         this._minecraftVersion === 'bedrock'
           ? this._linesPerPage * 50
           : this._linesPerPage * 100;
     } else if (this._generationFormat === 'text') {
-      // 14 lines for each page
       lineLimit = this._linesPerPage || 14;
     }
 
-    // Go through each line
     for (let i = 0; i <= this._lines.length; i++) {
       numberOfLines++;
 
@@ -368,9 +364,4 @@ export default class MinecraftBook {
   get bookParameters() {
     return this._bookParameters;
   }
-}
-
-export function generateBook(bookParameters: BookParameters) {
-  const bookGenerator = new BookGenerator(bookParameters);
-  return { book: bookGenerator.book, removedCharacters: bookGenerator.removedCharacters };
 }

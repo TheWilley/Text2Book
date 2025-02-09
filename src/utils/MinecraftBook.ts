@@ -223,10 +223,10 @@ class BookGenerator {
     switch (this._generationFormat) {
       case 'commands':
         return text
-          .replace(/"/g, '\\"') // Escape double quotes (")
-          .replace(/'/g, "\\'") // Escape single quotes (')
-          .replace(/\n/g, '\\\\n') // Escape newlines
-          .trim(); // Trim surrounding whitespaces
+          .replace(/"/g, '\\\\' + '"') // Escape double quotes (")
+          .replace(/'/g, '\\' + "'") // Escape single quotes (')
+          .trim() // Remove whitespace from both ends of the string ( )
+          .replace(/\n/g, '\\\\n'); // Escape new lines (\n)
       case 'text':
         return text.trim(); // For 'text' format, just trim the string
       default:

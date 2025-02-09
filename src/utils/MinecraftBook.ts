@@ -197,63 +197,56 @@ class BookGenerator {
     javaVersion = '1.20.4',
     text,
   }: BookParameters) {
-    // Required parameters
+    // Destructure required parameters
     this._generationFormat = generationFormat;
     this._minecraftVersion = minecraftVersion;
     this._title = title;
     this._author = author;
 
-    // Optional parameters
-    this._linesPerPage = linesPerPage > 14 ? 14 : linesPerPage;
+    // Handle optional parameters and enforce validation
+    this._linesPerPage = Math.min(linesPerPage, 14); // Ensure linesPerPage does not exceed 14
     this._nameSuffix = nameSuffix;
     this._javaVersion = javaVersion;
 
-    // Create the book
+    // Initialize the string wrapper and split the input text into lines
     this._stringWrapper = new StringWrapper();
     this._lines = this._stringWrapper.getSplitString(text);
+
+    // Generate the book and track removed characters
     this.book = this.createOutput();
     this.removedCharacters = [...new Set(this._stringWrapper.removedCharacters)];
   }
 
-  /**
-   * Escapes characters or trims the line based on the output format.
-   */
-  private escapeCharacters(text: string) {
-    if (this._generationFormat === 'commands') {
-      return text
-        .replace(/"/g, '\\\\' + '"') // Escape double quotes (")
-        .replace(/'/g, '\\' + "'") // Escape single quotes (')
-        .trim() // Remove whitespace from both ends of the string ( )
-        .replace(/\n/g, '\\\\n'); // Escape new lines (\n)
-    } else if (this._generationFormat === 'text') {
-      return text.trim();
-    } else {
-      return '';
+  private escapeCharacters(text: string): string {
+    switch (this._generationFormat) {
+      case 'commands':
+        return text
+          .replace(/"/g, '\\"') // Escape double quotes (")
+          .replace(/'/g, "\\'") // Escape single quotes (')
+          .replace(/\n/g, '\\\\n') // Escape newlines
+          .trim(); // Trim surrounding whitespaces
+      case 'text':
+        return text.trim(); // For 'text' format, just trim the string
+      default:
+        return text; // Return the original string if no format is specified
     }
   }
 
-  /**
-   * Encapsulates the text with the correct format based on the output format.
-   * @returns The encapsulated text based on the output format.
-   */
-  private encapsuleText(text: string) {
-    if (this._generationFormat === 'commands') {
-      return `'{"text":"${text}"}'`;
-    } else if (this._generationFormat === 'text') {
-      return text;
-    } else {
-      return '';
+  private encapsulateText(text: string): string {
+    switch (this._generationFormat) {
+      case 'commands':
+        return `'{"text":"${text}"}'`;
+      case 'text':
+        return text;
+      default:
+        return '';
     }
   }
 
-  /**
-   * Finalizes the book based on the output format.
-   * @returns The finalized book based on the output format.
-   */
-  private finalizeBook() {
-    if (this._generationFormat === 'commands') {
-      const suffix = this._nameSuffix.replace('n', this._booksCounter.toString());
+  private finalizeBook(): string {
+    const suffix = this._nameSuffix.replace('n', this._booksCounter.toString());
 
+    if (this._generationFormat === 'commands') {
       if (this._minecraftVersion === 'java') {
         if (this._javaVersion === '1.20.5') {
           return `/give @p written_book[written_book_content={title:"${this._title + suffix}",author:"${this._author}",pages:[${this._pages.toString()}]}] 1`;
@@ -265,75 +258,53 @@ class BookGenerator {
         return `/give @p written_book[written_book_content={title:"${this._title + suffix}",author:"${this._author}",pages:[${this._pages.toString()}]}] 1`;
       }
     } else if (this._generationFormat === 'text') {
-      return this._pages.toString();
-    } else {
-      return '';
+      return this._pages.join('\n');
     }
 
     return '';
   }
 
-  /**
-   * Creates a book item based on the output format.
-   */
-  private createBook(lines: string[]) {
+  private createBook(lines: string[]): string {
     let counter = 0;
     let workerLine = '';
 
-    this._pages = lines
-      .map((line) => {
-        workerLine += line + '\n';
-        counter++;
+    this._pages = lines.reduce<string[]>((pages, line) => {
+      workerLine += line + '\n';
+      counter++;
 
-        if (counter == this._linesPerPage) {
-          // Create text string
-          const escapedText = this.escapeCharacters(workerLine);
-          const page = this.encapsuleText(escapedText);
+      if (counter === this._linesPerPage) {
+        const escapedText = this.escapeCharacters(workerLine);
+        const page = this.encapsulateText(escapedText);
 
-          // Reset lines and counter
-          workerLine = '';
-          counter = 0;
+        // Reset for the next page
+        workerLine = '';
+        counter = 0;
 
-          // Finally return the string
-          return page;
-        } else {
-          return null;
-        }
-      })
-      .filter((page) => page !== null) as string[];
+        pages.push(page);
+      }
+      return pages;
+    }, []);
 
-    // Add the remaining lines to the page strings
+    // Handle remaining lines if not empty
     if (workerLine.length > 0) {
       const escapedText = this.escapeCharacters(workerLine);
-      const page = this.encapsuleText(escapedText);
+      const page = this.encapsulateText(escapedText);
       this._pages.push(page);
     }
-
-    // Must reset, otherwise workerline will be preserved
-    workerLine = '';
 
     return this.finalizeBook();
   }
 
-  private createOutput() {
+  private createOutput(): string[] {
     const library: string[] = [];
     const copyOfLines = [...this._lines];
     let numberOfLines = 0;
-    let lineLimit = 0;
+    const lineLimit = this.calculateLineLimit();
 
-    if (this._generationFormat === 'commands') {
-      lineLimit =
-        this._minecraftVersion === 'bedrock'
-          ? this._linesPerPage * 50
-          : this._linesPerPage * 100;
-    } else if (this._generationFormat === 'text') {
-      lineLimit = this._linesPerPage || 14;
-    }
-
-    for (let i = 0; i <= this._lines.length; i++) {
+    for (let i = 0; i < copyOfLines.length; i++) {
       numberOfLines++;
 
-      if (numberOfLines == lineLimit || i == this._lines.length) {
+      if (numberOfLines >= lineLimit || i === copyOfLines.length - 1) {
         const splicedLines = copyOfLines.splice(0, numberOfLines);
         const book = this.createBook(splicedLines);
         numberOfLines = 0;
@@ -343,6 +314,17 @@ class BookGenerator {
     }
 
     return library;
+  }
+
+  private calculateLineLimit(): number {
+    if (this._generationFormat === 'commands') {
+      return this._minecraftVersion === 'bedrock'
+        ? this._linesPerPage * 50
+        : this._linesPerPage * 100;
+    } else if (this._generationFormat === 'text') {
+      return this._linesPerPage;
+    }
+    return 0;
   }
 }
 

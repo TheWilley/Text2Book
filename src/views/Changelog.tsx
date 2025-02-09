@@ -44,6 +44,7 @@ function Changelog() {
           </tbody>
         </table>
       </Accordion>
+      <hr className='my-4' />
     </div>
   );
 }

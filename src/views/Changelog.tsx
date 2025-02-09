@@ -2,6 +2,27 @@ import changelog from '../data/changelog.json';
 import Accordion from '../components/Accordion';
 import { IChangelog } from '../global/types';
 
+function Commit({ commit }: { commit: { hashes: string[]; message: string } }) {
+  return (
+    <li className='bg-gray-100 p-2 rounded-lg group mb-2'>
+      <div>{commit.message}</div>
+      <div className='max-h-0 group-hover:max-h-96 overflow-hidden transition-all duration-300'>
+        <hr className='my-2' />
+        {commit.hashes.map((hash, hashIndex) => (
+          <a
+            key={hashIndex}
+            href={`https://github.com/TheWilley/Text2Book/commit/${hash}`}
+            className='block text-blue-500 hover:underline'
+            target='_blank'
+          >
+            {hash.slice(0, 7)}
+          </a>
+        ))}
+      </div>
+    </li>
+  );
+}
+
 function Changelog() {
   return (
     <div className='mb-2 w-full overflow-x-auto'>
@@ -33,27 +54,31 @@ function Changelog() {
                   <h3 className='mb-2'>{log.date}</h3>
                 </td>
                 <td className='p-2 align-top border'>
-                  <ul className='list-disc list-inside'>
+                  <ul>
                     {log.features?.map((feature, featureIndex) => (
-                      <li key={featureIndex}>{feature}</li>
+                      <Commit key={featureIndex} commit={feature} />
                     ))}
                   </ul>
                 </td>
                 <td className='p-2 align-top border'>
-                  <ul className='list-disc list-inside'>
-                    {log.fixes?.map((fix, fixIndex) => <li key={fixIndex}>{fix}</li>)}
+                  <ul>
+                    {log.fixes?.map((fix, fixIndex) => (
+                      <Commit key={fixIndex} commit={fix} />
+                    ))}
                   </ul>
                 </td>
                 <td className='p-2 align-top border'>
-                  <ul className='list-disc list-inside'>
+                  <ul>
                     {log.changes?.map((note, noteIndex) => (
-                      <li key={noteIndex}>{note}</li>
+                      <Commit key={noteIndex} commit={note} />
                     ))}
                   </ul>
                 </td>
                 <td className='p-2 align-top border'>
-                  <ul className='list-disc list-inside'>
-                    {log.notes?.map((note, noteIndex) => <li key={noteIndex}>{note}</li>)}
+                  <ul>
+                    {log.notes?.map((note, noteIndex) => (
+                      <Commit key={noteIndex} commit={note} />
+                    ))}
                   </ul>
                 </td>
               </tr>

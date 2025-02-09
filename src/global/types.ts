@@ -84,8 +84,13 @@ export type IResults = (
 
 export type IChangelog = {
   date: string;
-  features?: string[];
-  changes?: string[];
-  fixes?: string[];
-  notes?: string[];
+  features?: ICommit[];
+  changes?: ICommit[];
+  fixes?: ICommit[];
+  notes?: ICommit[];
+};
+
+type ICommit = {
+  hashes: string[];
+  message: string;
 };

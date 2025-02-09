@@ -39,7 +39,7 @@
     "fixes": [
       {
         "message": "Fixed bug where changing the pagination page to any value higher then 1 could cause no results to be shown after generating commands",
-        "hashes": ["16152f103ea6b77c3c280d98e088e2ea54c1d7c9"]
+        "hashes": ["cb008f8df891c3c234eafcd1e5698facc7d2fb70"]
       }
     ],
     "changes": [
@@ -47,6 +47,9 @@
         "message": "The changelog has been converted into a collapsible table instead of a popup",
         "hashes": ["4ca92f05bb5d58741de110bdf0b984e03502fbb7"]
       }
+    ],
+    "notes": [
+      "The new generation algorithm is more accurate and should provide better results"
     ]
   }
 ]

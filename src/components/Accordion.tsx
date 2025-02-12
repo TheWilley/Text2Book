@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 function Accordion(props: {
   children: React.ReactNode | React.ReactNode[];
   id: string;
-  label: string;
+  label: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
 

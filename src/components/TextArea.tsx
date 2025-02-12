@@ -1,5 +1,7 @@
+import { ReactNode } from 'react';
+
 function TextArea(props: {
-  label: string;
+  label: ReactNode;
   id: string;
   placeholder: string;
   value: string;

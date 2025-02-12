@@ -1,9 +1,10 @@
+import { ReactNode } from 'react';
 import useFileUpload from '../hooks/useFileUpload.ts';
 
 function FileUpload(props: {
   callback: (text: string) => void;
   useFileUpload: boolean;
-  label: string;
+  label: ReactNode;
 }) {
   const { fileName, handleFileChange } = useFileUpload(props.callback);
 

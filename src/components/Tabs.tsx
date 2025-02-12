@@ -2,7 +2,7 @@ import { ReactNode, useState } from 'react';
 
 interface TabItem {
   id: string;
-  label: string;
+  label: ReactNode;
   element: ReactNode;
 }
 

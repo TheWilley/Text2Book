@@ -1,5 +1,7 @@
+import { ReactNode } from 'react';
+
 function NumberInput(props: {
-  label: string;
+  label: ReactNode;
   id: string;
   placeholder: string;
   value: number;

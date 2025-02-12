@@ -1,6 +1,8 @@
+import { ReactNode } from 'react';
+
 function MultiChoice(props: {
   name: string;
-  items: { id: string; label: string; checked: boolean; callback: () => void }[];
+  items: { id: string; label: ReactNode; checked: boolean; callback: () => void }[];
 }) {
   return (
     <div

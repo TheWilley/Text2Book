@@ -1,6 +1,8 @@
+import { ReactNode } from 'react';
+
 function RadioInput(props: {
   id: string;
-  label: string;
+  label: ReactNode;
   name?: string;
   checked: boolean;
   callback: () => void;

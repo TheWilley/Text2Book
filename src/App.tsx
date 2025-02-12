@@ -3,6 +3,7 @@ import useApp from './hooks/useApp.ts';
 import Form from './views/form/Form.tsx';
 import Output from './views/Output.tsx';
 import Changelog from './views/Changelog.tsx';
+import ImportExport from './views/ImportExport.tsx';
 
 function App() {
   const {
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <Layout>
+      <ImportExport />
       <Changelog />
       <Form
         showResults={showResults}

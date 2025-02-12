@@ -1,3 +1,5 @@
+import { faInfo, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
 type Props = {
@@ -26,9 +28,8 @@ function Hint(props: Props) {
       {props.children}
       <div style={hintStyle}>
         <div className='relative group'>
-          <div className='w-5 h-5 rounded-full bg-gray-800 text-white flex justify-center items-center cursor-help opacity-40 hover:opacity-100 transition-opacity'>
-            {' '}
-            ?{' '}
+          <div className='w-5 h-5 flex justify-center items-center cursor-help opacity-40 hover:opacity-100 transition-opacity'>
+            <FontAwesomeIcon icon={faInfoCircle} />
           </div>
           <span className='absolute md:w-32 left-1/2 transform -translate-x-1/2 top-7 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100 transition-transform ease-in-out'>
             {props.text}

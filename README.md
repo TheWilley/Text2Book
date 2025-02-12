@@ -11,7 +11,6 @@
 <p align="center">
   <a href="#introduction">Introduction</a> •
   <a href="#features">Features</a> •
-  <a href="#generation-modes">Generation Modes</a> •
   <a href="#usage">Usage</a> •
   <a href="#license">License</a>
 </p>
@@ -29,34 +28,9 @@ user-friendly.
 - **Text and File Input**: Enter the desired text content directly into the application or upload a text file.
 - **Command and Text Generation**: Generate the necessary commands or text section to create the Minecraft books with the desired content.
 - **File and Text output**: Save generated content as a file or display directly within the app in a list.
+- **Export and Import**: Save your progress and import it later to continue working on your Minecraft book.
+- **Minecraft Version Selection**: ~~Choose between Java and Bedrock versions to generate the appropriate commands.~~ (Only Java works for now — Bedrock is under development, see [#21](https://github.com/TheWilley/Text2Book/issues/21))
 - **Copy to Clipboard**: Easily copy the generated commands or text lines to your clipboard for quick in-game implementation.
-
-## Generation Modes
-
-There are two generation modes you can choose from: **Commands** or **Text**.
-
-### Text Generation:
-
-1. **Input Text**: Enter the content you wish to appear in your Minecraft book in the designated text box.
-
-2. **Generate Text**: Click the "Generate" button after entering your desired content. The application will process
-   your input and generate the necessary sections of text for your Minecraft book.
-
-3. **Copy Text**: Once the text sections are generated, they will be displayed on the screen. Click the "Copy" button next to a section to copy it to your clipboard.
-
-4. **Implement in Minecraft**: Open Minecraft and access the book interface. Paste the copied text sections into each page of the book manually.
-
-### Command Generation
-
-1. **Input Text**: Enter the content you wish to appear in your Minecraft book in the designated text box.
-
-2. **Generate Command**: Click the "Generate" button after entering your desired content. The application will process your input and generate the necessary commands for your Minecraft book.
-
-3. **Copy Commands**: Once the commands are generated, you will see them on the screen. Click the "Copy" button next to a command to copy it to your clipboard.
-
-4. **Choose Minecraft Version**: Pick either Java or Bedrock depending on which version you're using.
-
-4. **Implement in Minecraft**: Open your Minecraft world and access a command block. Paste the copied commands into the command block to create the Minecraft book. Activate the command block to add the book to your inventory.
 
 ## Usage
 
@@ -87,9 +61,3 @@ $ npm run dev
 Text2Book is licensed under the [MIT License](LICENSE), which allows you to use, modify, and distribute the code for
 personal and commercial purposes. However, it comes with no warranties or guarantees. If you use Text2Book, please
 provide attribution to the original repository and authors.
-
----
-
-I hope you find Text2Book useful for creating custom Minecraft books! Enjoy your Minecraft adventures with personalized
-in-game books! If you have any questions or encounter any issues, feel free to reach out to me through the repository's
-issue tracker. Happy gaming!

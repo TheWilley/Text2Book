@@ -30,6 +30,7 @@ user-friendly.
 - **File and Text output**: Save generated content as a file or display directly within the app in a list.
 - **Export and Import**: Save your progress and import it later to continue working on your Minecraft book.
 - **Minecraft Version Selection**: ~~Choose between Java and Bedrock versions to generate the appropriate commands.~~ (Only Java works for now — Bedrock is under development, see [#21](https://github.com/TheWilley/Text2Book/issues/21))
+- **Incredible Speed**: Generates entire books in seconds by using the very same algorithm implemented in Minecraft (_all Harry Potter books combined in 3 seconds!_).
 - **Copy to Clipboard**: Easily copy the generated commands or text lines to your clipboard for quick in-game implementation.
 
 ## Usage

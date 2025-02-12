@@ -104,7 +104,22 @@ export default function useResults(results: BookOutput) {
    * Download the commands as a text file.
    */
   const download = useCallback(() => {
-    const file = new Blob([results.book.join('\n')], { type: 'text/plain' });
+    const file = new Blob(
+      [
+        results.book.reduce(
+          (acc, curr, index) =>
+            acc +
+            `-----=========== ITEM ${index} ===========-----` +
+            '\n' +
+            curr +
+            '\n\n',
+          ''
+        ),
+      ],
+      {
+        type: 'text/plain',
+      }
+    );
     const url = URL.createObjectURL(file);
     const a = document.createElement('a');
     a.href = url;

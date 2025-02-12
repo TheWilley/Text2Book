@@ -2,7 +2,6 @@ import TextInput from '../../components/TextInput.tsx';
 import Accordion from '../../components/Accordion.tsx';
 import { IFormData } from '../../global/types.ts';
 import NumberInput from '../../components/NumberInput.tsx';
-import Banner from '../../layout/Banner.tsx';
 import Hint from '../../components/Hint.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
@@ -23,7 +22,6 @@ function FormSettingsAdvanced(
           </>
         }
       >
-        <Banner visisble />
         <div className='grid grid-cols-1 sm:grid-cols-2'>
           <div className='border bg-gray-300 rounded-xl p-2 relative'>
             <Hint

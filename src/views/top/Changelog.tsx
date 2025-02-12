@@ -1,6 +1,6 @@
-import changelog from '../data/changelog.json';
-import Accordion from '../components/Accordion';
-import { IChangelog } from '../global/types';
+import changelog from '../../data/changelog.json';
+import Accordion from '../../components/Accordion';
+import { IChangelog } from '../../global/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faScroll } from '@fortawesome/free-solid-svg-icons';
 

@@ -51,5 +51,28 @@
     "notes": [
       "The new generation algorithm is more accurate and should provide better results"
     ]
+  },
+  {
+    "date": "2025/02/12",
+    "features": [
+      {
+        "message": "Improved formatting when downloading files",
+        "hashes": ["ac0b80d1ea835635aed96c481572ade2036d761a"]
+      },
+      {
+        "message": "You can now export and import your progress",
+        "hashes": ["d7ad819e292da8d406b70b0d5a19fedad5a6e824"]
+      }
+    ],
+    "changes": [
+      {
+        "message": "Replaced icons with new ones",
+        "hashes": ["b38b064c7380938c29bb765f8456104857e2f40d"]
+      },
+      {
+        "message": "Hints are now smaller and have a different icon",
+        "hashes": ["b4b1032e54377e38e36e53cd538af5d8069d63bd"]
+      }
+    ]
   }
 ]

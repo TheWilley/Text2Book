@@ -1,6 +1,8 @@
 import changelog from '../data/changelog.json';
 import Accordion from '../components/Accordion';
 import { IChangelog } from '../global/types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faScroll } from '@fortawesome/free-solid-svg-icons';
 
 function Commit({ commit }: { commit: { hashes: string[]; message: string } }) {
   return (
@@ -26,7 +28,14 @@ function Commit({ commit }: { commit: { hashes: string[]; message: string } }) {
 function Changelog() {
   return (
     <div className='mb-2 w-full overflow-x-auto'>
-      <Accordion label='📜 Changelog' id='changelog'>
+      <Accordion
+        label={
+          <>
+            <FontAwesomeIcon icon={faScroll} /> Changelog
+          </>
+        }
+        id='changelog'
+      >
         <table className='w-full border-collapse bg-white rounded-xl border-blue-200'>
           <thead>
             <tr>

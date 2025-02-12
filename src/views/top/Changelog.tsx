@@ -60,7 +60,7 @@ function Changelog() {
             {(changelog as IChangelog[]).map((log, logIndex) => (
               <tr key={logIndex}>
                 <td className='p-2 align-top border'>
-                  <h3 className='mb-2'>{log.date}</h3>
+                  <h3 className='mb-2 font-semibold'>{log.date}</h3>
                 </td>
                 <td className='p-2 align-top border'>
                   <ul>

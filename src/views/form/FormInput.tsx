@@ -66,6 +66,10 @@ function FormInput(props: IFormInput) {
             setter={props.setText}
             required={props.inputFormat === 'text'}
           />
+          <span className='text-gray-500 text-sm'>
+            {props.text.length} characters,{' '}
+            {props.text.length > 0 ? props.text.trim().split(/\s+/).length : 0} words
+          </span>
         </div>
       </div>
       <button

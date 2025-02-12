@@ -1,8 +1,8 @@
-import Tabs from '../components/Tabs';
-import { IFormData } from '../global/types';
-import { BookOutput } from '../utils/MinecraftBook';
-import RemovedCharacters from './tabs/RemovedCharacters';
-import Results from './tabs/Results';
+import Tabs from '../../components/Tabs';
+import { IFormData } from '../../global/types';
+import { BookOutput } from '../../utils/MinecraftBook';
+import RemovedCharacters from './../tabs/RemovedCharacters';
+import Results from '../tabs/Results';
 
 type Props = {
   results: BookOutput;

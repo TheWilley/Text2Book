@@ -1,7 +1,7 @@
 import Layout from './layout/Layout.tsx';
 import useApp from './hooks/useApp.ts';
 import Form from './views/form/Form.tsx';
-import Output from './views/Output.tsx';
+import Output from './views/top/Output.tsx';
 import Changelog from './views/top/Changelog.tsx';
 import ImportExport from './views/ImportExport.tsx';
 

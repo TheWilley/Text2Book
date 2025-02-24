@@ -77,6 +77,12 @@
   },
   {
     "date": "2025/02/24",
+    "features": [
+      {
+        "message": "Number of characters and words are now displayed below the textarea",
+        "hashes": ["e9f3909e4eb452820f4728796877909141787e98"]
+      }
+    ],
     "fixes": [
       {
         "message": "Fixed bug where text output would be incorrectly cropped and sometimes appear merged",

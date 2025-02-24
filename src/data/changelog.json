@@ -74,5 +74,14 @@
         "hashes": ["b4b1032e54377e38e36e53cd538af5d8069d63bd"]
       }
     ]
+  },
+  {
+    "date": "2025/02/24",
+    "fixes": [
+      {
+        "message": "Fixed bug where text output would be incorrectly cropped and sometimes appear merged",
+        "hashes": ["436cca00404f4997a47b2180a6eb2e82e2cbf324"]
+      }
+    ]
   }
 ]

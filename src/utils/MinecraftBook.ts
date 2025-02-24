@@ -228,7 +228,7 @@ class BookGenerator {
           .trim() // Remove whitespace from both ends of the string ( )
           .replace(/\n/g, '\\\\n'); // Escape new lines (\n)
       case 'text':
-        return text.trim(); // For 'text' format, just trim the string
+        return text.trim().replace(/\n/g, ' '); // For 'text' format, just trim the string
       default:
         return text; // Return the original string if no format is specified
     }
@@ -260,7 +260,7 @@ class BookGenerator {
         return `/give @p written_book[written_book_content={title:"${this._title + suffix}",author:"${this._author}",pages:[${this._pages.toString()}]}] 1`;
       }
     } else if (this._generationFormat === 'text') {
-      return this._pages.join('\n');
+      return this._pages.toString();
     }
 
     return '';
@@ -299,20 +299,19 @@ class BookGenerator {
 
   private createOutput(): string[] {
     const library: string[] = [];
-    const copyOfLines = [...this._lines];
-    let numberOfLines = 0;
     const lineLimit = this.calculateLineLimit();
 
-    for (let i = 0; i < copyOfLines.length; i++) {
-      numberOfLines++;
+    let startIndex = 0;
 
-      if (numberOfLines >= lineLimit || i === copyOfLines.length - 1) {
-        const splicedLines = copyOfLines.splice(0, numberOfLines);
-        const book = this.createBook(splicedLines);
-        numberOfLines = 0;
-        this._booksCounter++;
-        library.push(book);
-      }
+    while (startIndex < this._lines.length) {
+      const endIndex = Math.min(startIndex + lineLimit, this._lines.length);
+      const splicedLines = this._lines.slice(startIndex, endIndex);
+
+      const book = this.createBook(splicedLines);
+      library.push(book);
+
+      startIndex = endIndex;
+      this._booksCounter++;
     }
 
     return library;

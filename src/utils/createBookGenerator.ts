@@ -1,4 +1,5 @@
 import {
+  CommandTarget,
   GenerationFormat,
   IBookParameters,
   JavaVersion,
@@ -199,6 +200,21 @@ function calculateLineLimit(
 }
 
 /**
+ * Gets the character limit based on the command target.
+ * @param target The target who will execute the command.
+ * @returns The character limit.
+ */
+function getCharacterLimitFromCommandTarget(target: CommandTarget) {
+  if (target === 'player') {
+    return 256;
+  } else if (target === 'commandblock') {
+    return 32500;
+  } else {
+    return 0;
+  }
+}
+
+/**
  * Generates a series of books based on the provided parameters. The input text
  * is split into pages, formatted according to the specified generation format,
  * and returned as a series of books.
@@ -224,22 +240,24 @@ function createBookGenerator({
   author,
   linesPerPage = 14,
   nameSuffix = '',
-  javaVersion = '1.20.4',
+  javaVersion,
   text,
+  commandTarget,
 }: IBookParameters) {
+  // Preparations
+  const lineLimit = calculateLineLimit(linesPerPage, generationFormat, minecraftVersion);
   const lexicon = createCharacterLexicon();
   const stringWrapper = createStringWrapper(lexicon);
   const lines = stringWrapper.getSplitString(text);
 
+  // Variables for the next couple of lines
   const library = [];
   let booksCounter = 0;
-
-  const lineLimit = calculateLineLimit(linesPerPage, generationFormat, minecraftVersion);
-
   let startIndex = 0;
+  let indexOffset = 0;
 
   while (startIndex < lines.length) {
-    const endIndex = Math.min(startIndex + lineLimit, lines.length);
+    const endIndex = Math.min(startIndex + lineLimit - indexOffset, lines.length);
     const splicedLines = lines.slice(startIndex, endIndex);
 
     const book = createBook(
@@ -253,9 +271,20 @@ function createBookGenerator({
       javaVersion,
       booksCounter
     );
+
+    // We check actively reduce the number of lines
+    // by increasing the offset until we are below the limit
+    if (book.length > getCharacterLimitFromCommandTarget(commandTarget)) {
+      indexOffset++;
+      continue;
+    }
+
+    // Only when the command is short enough do we add it
     library.push(book);
 
+    // Continue the loop
     startIndex = endIndex;
+    indexOffset = 0;
     booksCounter++;
   }
 

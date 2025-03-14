@@ -1,5 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { IApp, IResults } from '../global/types.ts';
+import {
+  CommandTarget,
+  GenerationFormat,
+  IApp,
+  IResults,
+  JavaVersion,
+  MinecraftVersion,
+} from '../global/types.ts';
 import { IBookParameters } from '../global/types.ts';
 import { IBookOutput } from '../global/types.ts';
 import useLocalStorage from 'use-local-storage';
@@ -29,11 +36,12 @@ export default function useApp(): IApp {
       text: string,
       title: string,
       author: string,
-      minecraftVersion: 'bedrock' | 'java',
-      generationFormat: 'commands' | 'text',
-      javaVersion: '1.20.4' | '1.20.5',
+      minecraftVersion: MinecraftVersion,
+      generationFormat: GenerationFormat,
+      javaVersion: JavaVersion,
       linesPerPage: number,
-      nameSuffix: string
+      nameSuffix: string,
+      commandTarget: CommandTarget
     ) => {
       generationTimes.current = [];
       generationTimes.current.push(Date.now());
@@ -46,6 +54,7 @@ export default function useApp(): IApp {
         javaVersion,
         linesPerPage,
         nameSuffix,
+        commandTarget,
       };
       if (window.Worker) {
         setLoading(true);

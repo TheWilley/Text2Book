@@ -7,14 +7,14 @@ type ICommit = {
 };
 
 export type IFormData = {
-  inputFormat: 'text' | 'file';
-  setInputFormat: LocalStorageSetter<'text' | 'file'>;
-  outputFormat: 'text' | 'file';
-  setOutputFormat: LocalStorageSetter<'text' | 'file'>;
-  generationFormat: 'text' | 'commands';
-  setGenerationFormat: LocalStorageSetter<'text' | 'commands'>;
-  minecraftVersion: 'bedrock' | 'java';
-  setMinecraftVersion: LocalStorageSetter<'bedrock' | 'java'>;
+  inputFormat: InputFormat;
+  setInputFormat: LocalStorageSetter<InputFormat>;
+  outputFormat: OutputFormat;
+  setOutputFormat: LocalStorageSetter<OutputFormat>;
+  generationFormat: GenerationFormat;
+  setGenerationFormat: LocalStorageSetter<GenerationFormat>;
+  minecraftVersion: MinecraftVersion;
+  setMinecraftVersion: LocalStorageSetter<MinecraftVersion>;
   text: string;
   setText: LocalStorageSetter<string>;
   linesPerPage: number;
@@ -24,9 +24,11 @@ export type IFormData = {
   author: string;
   setAuthor: LocalStorageSetter<string>;
   title: string;
-  javaVersion: '1.20.4' | '1.20.5';
-  setJavaVersion: LocalStorageSetter<'1.20.4' | '1.20.5'>;
+  javaVersion: JavaVersion;
+  setJavaVersion: LocalStorageSetter<JavaVersion>;
   setTitle: LocalStorageSetter<string>;
+  commandTarget: CommandTarget;
+  setCommandTarget: LocalStorageSetter<CommandTarget>;
   handleSubmit: (event: React.FormEvent) => void;
 };
 
@@ -72,6 +74,8 @@ export type IFormSettings = Pick<
   | 'javaVersion'
   | 'setJavaVersion'
   | 'setNameSuffix'
+  | 'commandTarget'
+  | 'setCommandTarget'
 >;
 
 export type IResults = (
@@ -82,7 +86,8 @@ export type IResults = (
   generationFormat: IFormData['generationFormat'],
   javaVersion: IFormData['javaVersion'],
   linesPerPage: IFormData['linesPerPage'],
-  nameSuffix: IFormData['nameSuffix']
+  nameSuffix: IFormData['nameSuffix'],
+  commandTarget: IFormData['commandTarget']
 ) => void;
 
 export type IChangelog = {
@@ -96,9 +101,12 @@ export type IChangelog = {
 export type MinecraftCharacter = { char: string; pixels: number };
 export type IBookOutput = { book: string[]; removedCharacters: string[] };
 
+export type InputFormat = 'text' | 'file';
+export type OutputFormat = 'text' | 'file';
 export type JavaVersion = '1.20.4' | '1.20.5';
 export type MinecraftVersion = 'java' | 'bedrock';
 export type GenerationFormat = 'commands' | 'text';
+export type CommandTarget = 'player' | 'commandblock';
 
 export type IBookParameters = {
   text: string;
@@ -107,6 +115,7 @@ export type IBookParameters = {
   minecraftVersion: MinecraftVersion;
   generationFormat: GenerationFormat;
   javaVersion: JavaVersion;
+  commandTarget: CommandTarget;
   linesPerPage?: number;
   nameSuffix?: string;
 };

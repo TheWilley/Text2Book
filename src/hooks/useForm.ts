@@ -1,4 +1,13 @@
-import { IFormData, IResults } from '../global/types.ts';
+import {
+  CommandTarget,
+  GenerationFormat,
+  IFormData,
+  InputFormat,
+  IResults,
+  JavaVersion,
+  MinecraftVersion,
+  OutputFormat,
+} from '../global/types.ts';
 import useLocalStorage from 'use-local-storage';
 
 export default function useForm(showResults: IResults): IFormData {
@@ -7,26 +16,30 @@ export default function useForm(showResults: IResults): IFormData {
   const [author, setAuthor] = useLocalStorage('author', '');
   const [title, setTitle] = useLocalStorage('title', '');
   const [nameSuffix, setNameSuffix] = useLocalStorage('nameSuffix', '');
-  const [inputFormat, setInputFormat] = useLocalStorage<'text' | 'file'>(
+  const [inputFormat, setInputFormat] = useLocalStorage<InputFormat>(
     'inputFormat',
     'text'
   );
-  const [outputFormat, setOutputFormat] = useLocalStorage<'text' | 'file'>(
+  const [outputFormat, setOutputFormat] = useLocalStorage<OutputFormat>(
     'outputFormat',
     'text'
   );
-  const [generationFormat, setGenerationFormat] = useLocalStorage<'commands' | 'text'>(
+  const [generationFormat, setGenerationFormat] = useLocalStorage<GenerationFormat>(
     'generationFormat',
     'commands'
   );
   const [linesPerPage, setLinesPerPage] = useLocalStorage('linesPerPage', 14);
-  const [minecraftVersion, setMinecraftVersion] = useLocalStorage<'bedrock' | 'java'>(
+  const [minecraftVersion, setMinecraftVersion] = useLocalStorage<MinecraftVersion>(
     'minecraftVersion',
     'java'
   );
-  const [javaVersion, setJavaVersion] = useLocalStorage<'1.20.4' | '1.20.5'>(
+  const [javaVersion, setJavaVersion] = useLocalStorage<JavaVersion>(
     'javaVersion',
     '1.20.5'
+  );
+  const [commandTarget, setCommandTarget] = useLocalStorage<CommandTarget>(
+    'commandTarget',
+    'commandblock'
   );
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -39,7 +52,8 @@ export default function useForm(showResults: IResults): IFormData {
       generationFormat,
       javaVersion,
       linesPerPage,
-      nameSuffix
+      nameSuffix,
+      commandTarget
     );
   };
 
@@ -64,6 +78,8 @@ export default function useForm(showResults: IResults): IFormData {
     setTitle,
     javaVersion,
     setJavaVersion,
+    commandTarget,
+    setCommandTarget,
     handleSubmit,
   };
 }

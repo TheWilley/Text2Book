@@ -28,6 +28,8 @@ function Form(props: Props) {
     title,
     javaVersion,
     setJavaVersion,
+    commandTarget,
+    setCommandTarget,
     setTitle,
     handleSubmit,
   } = useForm(props.showResults);
@@ -49,6 +51,8 @@ function Form(props: Props) {
         setNameSuffix={setNameSuffix}
         javaVersion={javaVersion}
         setJavaVersion={setJavaVersion}
+        commandTarget={commandTarget}
+        setCommandTarget={setCommandTarget}
       />
       <FormSettingsAdvanced
         nameSuffix={nameSuffix}

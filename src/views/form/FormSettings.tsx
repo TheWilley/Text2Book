@@ -12,6 +12,8 @@ import {
   faCube,
   faCalendarPlus,
   faCalendarMinus,
+  faPerson,
+  faCubes,
 } from '@fortawesome/free-solid-svg-icons';
 import { faJava } from '@fortawesome/free-brands-svg-icons';
 
@@ -97,6 +99,37 @@ function FormSettings(props: IFormSettings) {
       />
       {props.generationFormat === 'commands' && (
         <>
+          <div className='mb-2' />
+          <Hint
+            text='If a Player or Command Block runs the command. A Player has a 256-character limit, while a Command Block is larger at 32,500 characters.'
+            padding={-7}
+          >
+            <MultiChoice
+              name='command-target'
+              items={[
+                {
+                  id: 'player',
+                  label: (
+                    <>
+                      <FontAwesomeIcon icon={faPerson} /> Player Executable
+                    </>
+                  ),
+                  checked: props.commandTarget === 'player',
+                  callback: () => props.setCommandTarget('player'),
+                },
+                {
+                  id: 'commandblock',
+                  label: (
+                    <>
+                      <FontAwesomeIcon icon={faCubes} /> Command Block Executable
+                    </>
+                  ),
+                  checked: props.commandTarget === 'commandblock',
+                  callback: () => props.setCommandTarget('commandblock'),
+                },
+              ]}
+            />
+          </Hint>
           <div className='mb-2' />
           <MultiChoice
             name='minecraft-version'

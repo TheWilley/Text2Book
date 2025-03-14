@@ -1,11 +1,11 @@
 import Tabs from '../../components/Tabs';
 import { IFormData } from '../../global/types';
-import { BookOutput } from '../../utils/MinecraftBook';
+import { IBookOutput } from '../../global/types';
 import RemovedCharacters from './../tabs/RemovedCharacters';
 import Results from '../tabs/Results';
 
 type Props = {
-  results: BookOutput;
+  results: IBookOutput;
   setFadeIn: React.Dispatch<React.SetStateAction<number>>;
   fadeinProps: { fadein: number };
   timeToGenerate: number;

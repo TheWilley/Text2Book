@@ -1,5 +1,4 @@
 import React from 'react';
-import { BookOutput } from '../utils/MinecraftBook';
 type LocalStorageSetter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
 type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -28,7 +27,7 @@ export type IFormData = {
 };
 
 export type IApp = {
-  results: BookOutput;
+  results: IBookOutput;
   fadeinProps: { fadein: number };
   loading: boolean;
   timeToGenerate: number;
@@ -90,7 +89,22 @@ export type IChangelog = {
   notes?: string[];
 };
 
+export type IBookOutput = { book: string[]; removedCharacters: string[] };
+
+export type IBookParameters = {
+  text: string;
+  title: string;
+  author: string;
+  minecraftVersion: 'java' | 'bedrock';
+  generationFormat: 'commands' | 'text';
+  javaVersion: '1.20.4' | '1.20.5';
+  linesPerPage?: number;
+  nameSuffix?: string;
+};
+
 type ICommit = {
   hashes: string[];
   message: string;
 };
+
+export type MinecraftCharacter = { char: string; pixels: number };

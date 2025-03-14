@@ -1,7 +1,7 @@
 import { FormEvent, useCallback, useEffect, useState } from 'react';
-import { BookOutput } from '../utils/MinecraftBook';
+import { IBookOutput } from '../global/types';
 
-export default function useResults(results: BookOutput) {
+export default function useResults(results: IBookOutput) {
   const [page, setPage] = useState(1);
   const [truncatedResults, setTruncatedResults] = useState<
     { value: string; index: number }[]

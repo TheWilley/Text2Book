@@ -1,17 +1,5 @@
 import glyphs from '../data/glyphs.json';
-
-export type BookParameters = {
-  text: string;
-  title: string;
-  author: string;
-  minecraftVersion: 'java' | 'bedrock';
-  generationFormat: 'commands' | 'text';
-  javaVersion: '1.20.4' | '1.20.5';
-  linesPerPage?: number;
-  nameSuffix?: string;
-};
-export type BookOutput = { book: string[]; removedCharacters: string[] };
-type MinecraftCharacter = { char: string; pixels: number };
+import { IBookParameters, MinecraftCharacter } from '../global/types';
 
 /**
  * Creates a character lexicon of glyphs.
@@ -396,7 +384,7 @@ function createBookGenerator({
   nameSuffix = '',
   javaVersion = '1.20.4',
   text,
-}: BookParameters) {
+}: IBookParameters) {
   const lexicon = createCharacterLexicon();
   const stringWrapper = createStringWrapper(lexicon);
   const lines = stringWrapper.getSplitString(text);

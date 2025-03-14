@@ -4,10 +4,10 @@ import blink from '../../css/blink.module.css';
 import fadein from '../../css/fadein.module.css';
 import { IFormData } from '../../global/types.ts';
 import useResults from '../../hooks/useResults.ts';
-import { BookOutput } from '../../utils/MinecraftBook.ts';
+import { IBookOutput } from '../../global/types.ts';
 
 type Props = {
-  results: BookOutput;
+  results: IBookOutput;
   setFadeIn: React.Dispatch<React.SetStateAction<number>>;
   fadeinProps: { fadein: number };
   timeToGenerate: number;

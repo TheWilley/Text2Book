@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { IApp, IResults } from '../global/types.ts';
-import { BookOutput, BookParameters } from '../utils/MinecraftBook.ts';
+import { IBookParameters } from '../global/types.ts';
+import { IBookOutput } from '../global/types.ts';
 import useLocalStorage from 'use-local-storage';
 
 export default function useApp(): IApp {
-  const [results, setResults] = useState<BookOutput>({
+  const [results, setResults] = useState<IBookOutput>({
     book: [],
     removedCharacters: [],
   });
@@ -36,7 +37,7 @@ export default function useApp(): IApp {
     ) => {
       generationTimes.current = [];
       generationTimes.current.push(Date.now());
-      const inputParams: BookParameters = {
+      const inputParams: IBookParameters = {
         text,
         title,
         author,
@@ -62,7 +63,7 @@ export default function useApp(): IApp {
     if (window.Worker) {
       worker.onmessage = (e) => {
         generationTimes.current.push(Date.now());
-        setResults(e.data as BookOutput);
+        setResults(e.data as IBookOutput);
         setFadeIn(1);
         setLoading(false);
         setTimeToGenerate(

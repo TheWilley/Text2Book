@@ -1,4 +1,4 @@
-import createBookGenerator from './MinecraftBook';
+import createBookGenerator from './createBookGenerator';
 import { IBookParameters } from '../global/types';
 
 self.onmessage = (e: MessageEvent<IBookParameters>) => {

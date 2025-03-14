@@ -111,12 +111,21 @@ function finalizeBook(
 }
 
 /**
- * Creates a single page of the book by adding lines up to the `linesPerPage` limit.
+ * Creates a single book from the provided lines of text, splitting it into pages.
+ * Each page will contain up to the specified number of lines and will be formatted
+ * according to the specified generation format.
  *
- * @param lines The lines of text to add to the page.
- * @param linesPerPage The number of lines allowed per page.
- * @param generationFormat The format for the book generation (either 'commands' or 'text').
- * @returns An array of formatted pages.
+ * @param lines - The lines of text to include in the book.
+ * @param linesPerPage - The number of lines allowed per page in the book.
+ * @param title - The title of the book.
+ * @param author - The author of the book.
+ * @param nameSuffix - A suffix to be added to the book's name, typically for versioning.
+ * @param generationFormat - The format for generating the book ('commands' or 'text').
+ * @param minecraftVersion - The version of Minecraft the book is for ('java' or 'bedrock').
+ * @param javaVersion - The version of Java to target for Java Minecraft editions.
+ * @param booksCounter - A counter to track how many books have been generated.
+ *
+ * @returns The finalized book command or formatted text, depending on the generation format.
  */
 function createBook(
   lines: string[],
@@ -190,10 +199,23 @@ function calculateLineLimit(
 }
 
 /**
- * Generates the book content and splits it into pages based on the parameters.
+ * Generates a series of books based on the provided parameters. The input text
+ * is split into pages, formatted according to the specified generation format,
+ * and returned as a series of books.
  *
- * @param params The parameters for generating the book.
- * @returns The final book and any removed characters.
+ * @param params - The parameters for generating the books.
+ * @param params.generationFormat - The format for generating the book ('commands' or 'text').
+ * @param params.minecraftVersion - The version of Minecraft the book is for ('java' or 'bedrock').
+ * @param params.title - The title of the book.
+ * @param params.author - The author of the book.
+ * @param [params.linesPerPage=14] - The number of lines allowed per page in the book.
+ * @param [params.nameSuffix=''] - A suffix to be added to the book's name, typically for versioning.
+ * @param [params.javaVersion='1.20.4'] - The version of Java to target for Java Minecraft editions.
+ * @param params.text - The text content to be split into books and pages.
+ *
+ * @returns The generated book data and the removed characters.
+ * @returns.book - The array of generated books.
+ * @returns.removedCharacters - The list of characters that were removed during processing.
  */
 function createBookGenerator({
   generationFormat,

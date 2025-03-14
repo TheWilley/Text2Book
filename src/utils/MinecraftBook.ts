@@ -12,52 +12,24 @@ export type BookParameters = {
 };
 export type BookOutput = { book: string[]; removedCharacters: string[] };
 
-class MinecraftCharacter {
-  private _char: string;
-  private _pixels: number;
-
-  constructor(char: string, pixels: number) {
-    this._char = char;
-    this._pixels = pixels;
+/**
+ * Creates a character lexicon of glyphs.
+ * @returns The character lexicon.
+ */
+function createCharacterLexicon() {
+  const characterLexicon = [];
+  for (const glyph of glyphs) {
+    characterLexicon.push({ char: glyph.char, pixels: glyph.pixels });
   }
-
-  set letter(letter: string) {
-    this._char = letter;
-  }
-
-  get letter() {
-    return this._char;
-  }
-
-  set pixels(pixels: number) {
-    this._pixels = pixels;
-  }
-
-  get pixels() {
-    return this._pixels;
-  }
-}
-
-class CharacterLexicon {
-  private _characterLexicon: MinecraftCharacter[] = [new MinecraftCharacter('\n', 0)];
-
-  constructor() {
-    for (const glyph of glyphs) {
-      this._characterLexicon.push(new MinecraftCharacter(glyph.char, glyph.pixels));
-    }
-  }
-
-  get characterLexicon(): MinecraftCharacter[] {
-    return this._characterLexicon;
-  }
+  return characterLexicon;
 }
 
 class StringWrapper {
-  private _charLexicon: MinecraftCharacter[];
+  private _charLexicon: { char: string; pixels: number }[];
   public removedCharacters: string[];
 
   constructor() {
-    this._charLexicon = new CharacterLexicon().characterLexicon;
+    this._charLexicon = createCharacterLexicon();
     this.removedCharacters = [];
   }
 
@@ -122,16 +94,14 @@ class StringWrapper {
   }
 
   private getCharWidth(c: string) {
-    const minecraftCharacter = this._charLexicon.find(
-      (character) => character.letter == c
-    );
+    const minecraftCharacter = this._charLexicon.find((character) => character.char == c);
 
     if (!minecraftCharacter) {
       this.removedCharacters.push(c);
     }
 
     if (minecraftCharacter) {
-      if (minecraftCharacter.letter === ' ') {
+      if (minecraftCharacter.char === ' ') {
         return minecraftCharacter.pixels;
       } else {
         return minecraftCharacter.pixels + 1;

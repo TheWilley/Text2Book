@@ -1,4 +1,10 @@
-import { IBookParameters, MinecraftCharacter } from '../global/types';
+import {
+  GenerationFormat,
+  IBookParameters,
+  JavaVersion,
+  MinecraftCharacter,
+  MinecraftVersion,
+} from '../global/types';
 import glyphs from '../data/glyphs.json';
 import createStringWrapper from './createStringWrapper';
 
@@ -79,9 +85,9 @@ function finalizeBook(
   title: string,
   author: string,
   nameSuffix: string,
-  generationFormat: 'commands' | 'text',
-  minecraftVersion: 'java' | 'bedrock',
-  javaVersion: '1.20.4' | '1.20.5',
+  generationFormat: GenerationFormat,
+  minecraftVersion: MinecraftVersion,
+  javaVersion: JavaVersion,
   booksCounter: number
 ) {
   const suffix = nameSuffix.replace('[n]', booksCounter.toString()); // Use counter for book name suffix
@@ -94,7 +100,7 @@ function finalizeBook(
         return `/give @p minecraft:written_book{pages:[${pages.toString()}], title: "${title + suffix}", author: "${author}"}`;
       }
     } else if (minecraftVersion === 'bedrock') {
-      // FIXME: This is probably the incorrect format for bedrock
+      // FIXME: This is the incorrect format for bedrock (#21)
       return `/give @p written_book[written_book_content={title:"${title + suffix}",author:"${author}",pages:[${pages.toString()}]}] 1`;
     }
   } else if (generationFormat === 'text') {
@@ -115,8 +121,14 @@ function finalizeBook(
 function createBook(
   lines: string[],
   linesPerPage: number,
-  generationFormat: 'commands' | 'text'
-): string[] {
+  title: string,
+  author: string,
+  nameSuffix: string,
+  generationFormat: GenerationFormat,
+  minecraftVersion: MinecraftVersion,
+  javaVersion: JavaVersion,
+  booksCounter: number
+) {
   let counter = 0;
   let workerLine = '';
   const pages: string[] = [];
@@ -144,7 +156,16 @@ function createBook(
     pages.push(page);
   }
 
-  return pages;
+  return finalizeBook(
+    pages,
+    title,
+    author,
+    nameSuffix,
+    generationFormat,
+    minecraftVersion,
+    javaVersion,
+    booksCounter
+  );
 }
 
 /**
@@ -188,8 +209,7 @@ function createBookGenerator({
   const stringWrapper = createStringWrapper(lexicon);
   const lines = stringWrapper.getSplitString(text);
 
-  let book: string[] = [];
-  let pages: string[] = [];
+  const library = [];
   let booksCounter = 0;
 
   const lineLimit = calculateLineLimit(linesPerPage, generationFormat, minecraftVersion);
@@ -200,16 +220,9 @@ function createBookGenerator({
     const endIndex = Math.min(startIndex + lineLimit, lines.length);
     const splicedLines = lines.slice(startIndex, endIndex);
 
-    const pageContent = createBook(splicedLines, linesPerPage, generationFormat);
-    pages = [...pages, ...pageContent];
-
-    startIndex = endIndex;
-    booksCounter++;
-  }
-
-  book = [
-    finalizeBook(
-      pages,
+    const book = createBook(
+      splicedLines,
+      linesPerPage,
       title,
       author,
       nameSuffix,
@@ -217,11 +230,15 @@ function createBookGenerator({
       minecraftVersion,
       javaVersion,
       booksCounter
-    ),
-  ];
+    );
+    library.push(book);
+
+    startIndex = endIndex;
+    booksCounter++;
+  }
 
   return {
-    book: book,
+    book: library,
     removedCharacters: [...new Set(stringWrapper.removedCharacters)],
   };
 }

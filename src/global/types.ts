@@ -1,6 +1,10 @@
 import React from 'react';
 type LocalStorageSetter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
 type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>;
+type ICommit = {
+  hashes: string[];
+  message: string;
+};
 
 export type IFormData = {
   inputFormat: 'text' | 'file';
@@ -89,22 +93,20 @@ export type IChangelog = {
   notes?: string[];
 };
 
+export type MinecraftCharacter = { char: string; pixels: number };
 export type IBookOutput = { book: string[]; removedCharacters: string[] };
+
+export type JavaVersion = '1.20.4' | '1.20.5';
+export type MinecraftVersion = 'java' | 'bedrock';
+export type GenerationFormat = 'commands' | 'text';
 
 export type IBookParameters = {
   text: string;
   title: string;
   author: string;
-  minecraftVersion: 'java' | 'bedrock';
-  generationFormat: 'commands' | 'text';
-  javaVersion: '1.20.4' | '1.20.5';
+  minecraftVersion: MinecraftVersion;
+  generationFormat: GenerationFormat;
+  javaVersion: JavaVersion;
   linesPerPage?: number;
   nameSuffix?: string;
 };
-
-type ICommit = {
-  hashes: string[];
-  message: string;
-};
-
-export type MinecraftCharacter = { char: string; pixels: number };

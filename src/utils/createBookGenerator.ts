@@ -119,7 +119,7 @@ function finalizeBook(
  * @param linesPerPage - The number of lines allowed per page in the book.
  * @param title - The title of the book.
  * @param author - The author of the book.
- * @param nameSuffix - A suffix to be added to the book's name, typically for versioning.
+ * @param nameSuffix - A suffix to be added to the book's name.
  * @param generationFormat - The format for generating the book ('commands' or 'text').
  * @param minecraftVersion - The version of Minecraft the book is for ('java' or 'bedrock').
  * @param javaVersion - The version of Java to target for Java Minecraft editions.
@@ -209,7 +209,7 @@ function calculateLineLimit(
  * @param params.title - The title of the book.
  * @param params.author - The author of the book.
  * @param [params.linesPerPage=14] - The number of lines allowed per page in the book.
- * @param [params.nameSuffix=''] - A suffix to be added to the book's name, typically for versioning.
+ * @param [params.nameSuffix=''] - A suffix to be added to the book's name.
  * @param [params.javaVersion='1.20.4'] - The version of Java to target for Java Minecraft editions.
  * @param params.text - The text content to be split into books and pages.
  *

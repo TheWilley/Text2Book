@@ -1,6 +1,7 @@
-import MinecraftBook, { BookParameters } from './MinecraftBook';
+import createBookGenerator from './MinecraftBook';
+import { BookParameters } from './MinecraftBook';
 
 self.onmessage = (e: MessageEvent<BookParameters>) => {
-  const book = new MinecraftBook(e.data).generateBook();
+  const book = createBookGenerator(e.data);
   self.postMessage(book);
 };

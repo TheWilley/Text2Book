@@ -29,10 +29,7 @@ function createCharacterLexicon() {
  * @param generationFormat The format for the book generation (either 'commands' or 'text').
  * @returns The escaped text.
  */
-function escapeCharacters(
-  inputText: string,
-  generationFormat: 'commands' | 'text'
-): string {
+function escapeCharacters(inputText: string, generationFormat: GenerationFormat): string {
   switch (generationFormat) {
     case 'commands':
       return inputText
@@ -54,10 +51,7 @@ function escapeCharacters(
  * @param generationFormat The format for the book generation (either 'commands' or 'text').
  * @returns The formatted text.
  */
-function encapsulateText(
-  inputText: string,
-  generationFormat: 'commands' | 'text'
-): string {
+function encapsulateText(inputText: string, generationFormat: GenerationFormat): string {
   switch (generationFormat) {
     case 'commands':
       return `'{"text":"${inputText}"}'`;
@@ -188,8 +182,8 @@ function createBook(
  */
 function calculateLineLimit(
   linesPerPage: number,
-  generationFormat: 'commands' | 'text',
-  minecraftVersion: 'java' | 'bedrock'
+  generationFormat: GenerationFormat,
+  minecraftVersion: MinecraftVersion
 ): number {
   if (generationFormat === 'commands') {
     return minecraftVersion === 'bedrock' ? linesPerPage * 50 : linesPerPage * 100;
@@ -230,8 +224,6 @@ function getCharacterLimitFromCommandTarget(target: CommandTarget) {
  * @param params.text - The text content to be split into books and pages.
  *
  * @returns The generated book data and the removed characters.
- * @returns.book - The array of generated books.
- * @returns.removedCharacters - The list of characters that were removed during processing.
  */
 function createBookGenerator({
   generationFormat,

@@ -6,6 +6,7 @@ import {
   IResults,
   JavaVersion,
   MinecraftVersion,
+  OutputFormat,
 } from '../global/types.ts';
 import { IBookParameters } from '../global/types.ts';
 import { IBookOutput } from '../global/types.ts';
@@ -19,7 +20,7 @@ export default function useApp(): IApp {
   const [loading, setLoading] = useState(false);
   const [fadeIn, setFadeIn] = useState(0);
   const [timeToGenerate, setTimeToGenerate] = useState(0);
-  const [outputFormat, setOutputFormat] = useLocalStorage<'text' | 'file'>(
+  const [outputFormat, setOutputFormat] = useLocalStorage<OutputFormat>(
     'outputFormat',
     'text'
   );

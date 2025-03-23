@@ -5,26 +5,26 @@ import { MinecraftCharacter } from '../global/types';
  *
  * @param str The string to split.
  * @param lexicon The lexicon containing Minecraft character data.
- * @param removedCharacters The list of characters that were not found in the lexicon.
+ * @param unsupportedCharacters The list of characters that were not found in the lexicon.
  * @returns An array of strings representing the wrapped lines.
  */
 function getSplitString(
   str: string,
   lexicon: MinecraftCharacter[],
-  removedCharacters: string[]
+  unsupportedCharacters: string[]
 ): string[] {
   str = trimStringNewline(str);
-  return listFormattedStringToWidth(str, 114, lexicon, removedCharacters);
+  return listFormattedStringToWidth(str, 114, lexicon, unsupportedCharacters);
 }
 
 /**
  * Creates a string wrapper object, encapsulating functions to handle string formatting and character removal tracking.
  *
  * @param lexicon The lexicon containing Minecraft character data.
- * @returns The string wrapper object containing the `getSplitString` function and a list of removed characters.
+ * @returns The string wrapper object containing the `getSplitString` function and a list of unsupported characters.
  */
 function createStringWrapper(lexicon: MinecraftCharacter[]) {
-  const removedCharacters: string[] = [];
+  const unsupportedCharacters: string[] = [];
 
   return {
     /**
@@ -34,10 +34,10 @@ function createStringWrapper(lexicon: MinecraftCharacter[]) {
      * @returns An array of strings representing the wrapped lines.
      */
     getSplitString: (str: string): string[] =>
-      getSplitString(str, lexicon, removedCharacters),
+      getSplitString(str, lexicon, unsupportedCharacters),
 
-    // The list of characters that were removed from the lexicon.
-    removedCharacters,
+    // The list of characters that were unsupported from the lexicon.
+    unsupportedCharacters: unsupportedCharacters,
   };
 }
 
@@ -60,16 +60,16 @@ function trimStringNewline(text: string): string {
  * @param str The string to be formatted.
  * @param wrapWidth The width at which the string should wrap.
  * @param lexicon The lexicon containing Minecraft character data.
- * @param removedCharacters The list of characters that were not found in the lexicon.
+ * @param unsupportedCharacters The list of characters that were not found in the lexicon.
  * @returns An array of strings representing the wrapped text.
  */
 function listFormattedStringToWidth(
   str: string,
   wrapWidth: number,
   lexicon: MinecraftCharacter[],
-  removedCharacters: string[]
+  unsupportedCharacters: string[]
 ): string[] {
-  return wrapFormattedStringToWidth(str, wrapWidth, lexicon, removedCharacters).split(
+  return wrapFormattedStringToWidth(str, wrapWidth, lexicon, unsupportedCharacters).split(
     '\n'
   );
 }
@@ -80,7 +80,7 @@ function listFormattedStringToWidth(
  * @param str The string to be wrapped.
  * @param wrapWidth The width at which the string should wrap.
  * @param lexicon The lexicon containing Minecraft character data.
- * @param removedCharacters The list of characters that were not found in the lexicon.
+ * @param unsupportedCharacters The list of characters that were not found in the lexicon.
  * @returns The wrapped string.
  */
 
@@ -88,13 +88,13 @@ function wrapFormattedStringToWidth(
   str: string,
   wrapWidth: number,
   lexicon: MinecraftCharacter[],
-  removedCharacters: string[]
+  unsupportedCharacters: string[]
 ): string {
   const result: string[] = [];
   let remainingStr = str;
 
   while (remainingStr.length > 0) {
-    const i = sizeStringToWidth(remainingStr, wrapWidth, lexicon, removedCharacters);
+    const i = sizeStringToWidth(remainingStr, wrapWidth, lexicon, unsupportedCharacters);
     const s = remainingStr.substring(0, i);
     const c0 = remainingStr.charAt(i);
     const flag = c0 === ' ' || c0 === '\n';
@@ -106,22 +106,22 @@ function wrapFormattedStringToWidth(
 }
 
 /**
- * Retrieves the width of a character from the lexicon. If the character is not found, it's added to the removed characters list.
+ * Retrieves the width of a character from the lexicon. If the character is not found, it's added to the unsupported characters list.
  *
  * @param c The character whose width is to be calculated.
  * @param lexicon The lexicon containing Minecraft character data.
- * @param removedCharacters The list of characters that were not found in the lexicon.
+ * @param unsupportedCharacters The list of characters that were not found in the lexicon.
  * @returns The width of the character.
  */
 function getCharWidth(
   c: string,
   lexicon: MinecraftCharacter[],
-  removedCharacters: string[]
+  unsupportedCharacters: string[]
 ): number {
   const minecraftCharacter = lexicon.find((character) => character.char === c);
 
   if (!minecraftCharacter) {
-    removedCharacters.push(c);
+    unsupportedCharacters.push(c);
     return 0;
   }
 
@@ -138,7 +138,7 @@ function getCharWidth(
  * @param str The input string to be wrapped.
  * @param wrapWidth The width at which the string should wrap.
  * @param lexicon The lexicon containing Minecraft character data.
- * @param removedCharacters The list of characters that were not found in the lexicon.
+ * @param unsupportedCharacters The list of characters that were not found in the lexicon.
  * @returns The index where the string should wrap.
  */
 
@@ -146,7 +146,7 @@ function sizeStringToWidth(
   str: string,
   wrapWidth: number,
   lexicon: MinecraftCharacter[],
-  removedCharacters: string[]
+  unsupportedCharacters: string[]
 ): number {
   const i = str.length;
   let f = 0;
@@ -168,7 +168,7 @@ function sizeStringToWidth(
       }
       // eslint-disable-next-line no-fallthrough
       default: {
-        f += getCharWidth(c0, lexicon, removedCharacters);
+        f += getCharWidth(c0, lexicon, unsupportedCharacters);
 
         if (flag) {
           ++f;

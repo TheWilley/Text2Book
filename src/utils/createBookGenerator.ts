@@ -223,7 +223,7 @@ function getCharacterLimitFromCommandTarget(target: CommandTarget) {
  * @param [params.javaVersion='1.20.4'] - The version of Java to target for Java Minecraft editions.
  * @param params.text - The text content to be split into books and pages.
  *
- * @returns The generated book data and the removed characters.
+ * @returns The generated book data and the unsupported characters.
  */
 function createBookGenerator({
   generationFormat,
@@ -282,7 +282,7 @@ function createBookGenerator({
 
   return {
     book: library,
-    removedCharacters: [...new Set(stringWrapper.removedCharacters)],
+    unsupportedCharacters: [...new Set(stringWrapper.unsupportedCharacters)],
   };
 }
 

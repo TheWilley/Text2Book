@@ -1,12 +1,12 @@
-function RemovedCharacters(props: { removedCharacters: string[] }) {
+function UnsupportedCharacters(props: { unsupportedCharacters: string[] }) {
   return (
     <div>
       <div className='text-center text-gray-500 mb-2'>
-        The following characters were removed due to being incompatible
+        The following characters were removed due to being unsupported
       </div>
       <ul className='bg-white rounded-lg border border-gray-200 flex gap-2 justify-center flex-wrap p-3'>
-        {props.removedCharacters.length ? (
-          props.removedCharacters.map((character, index) => (
+        {props.unsupportedCharacters.length ? (
+          props.unsupportedCharacters.map((character, index) => (
             <li key={index}>{character}</li>
           ))
         ) : (
@@ -17,4 +17,4 @@ function RemovedCharacters(props: { removedCharacters: string[] }) {
   );
 }
 
-export default RemovedCharacters;
+export default UnsupportedCharacters;

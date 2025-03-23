@@ -15,7 +15,7 @@ import useLocalStorage from 'use-local-storage';
 export default function useApp(): IApp {
   const [results, setResults] = useState<IBookOutput>({
     book: [],
-    removedCharacters: [],
+    unsupportedCharacters: [],
   });
   const [loading, setLoading] = useState(false);
   const [fadeIn, setFadeIn] = useState(0);

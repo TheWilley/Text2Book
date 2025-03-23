@@ -1,7 +1,7 @@
 import Tabs from '../../components/Tabs';
 import { IFormData } from '../../global/types';
 import { IBookOutput } from '../../global/types';
-import RemovedCharacters from './../tabs/RemovedCharacters';
+import UnsupportedCharacters from '../tabs/UnsupportedCharacters';
 import Results from '../tabs/Results';
 
 type Props = {
@@ -32,10 +32,12 @@ function Output(props: Props) {
             ),
           },
           {
-            id: 'removedCharacters',
-            label: 'Removed Characters',
+            id: 'unsupportedCharacters',
+            label: 'Unsupported Characters',
             element: (
-              <RemovedCharacters removedCharacters={props.results.removedCharacters} />
+              <UnsupportedCharacters
+                unsupportedCharacters={props.results.unsupportedCharacters}
+              />
             ),
           },
         ]}

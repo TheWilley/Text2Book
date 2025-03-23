@@ -99,7 +99,7 @@ export type IChangelog = {
 };
 
 export type MinecraftCharacter = { char: string; pixels: number };
-export type IBookOutput = { book: string[]; removedCharacters: string[] };
+export type IBookOutput = { book: string[]; unsupportedCharacters: string[] };
 
 export type InputFormat = 'text' | 'file';
 export type OutputFormat = 'text' | 'file';

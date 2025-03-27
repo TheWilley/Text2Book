@@ -90,14 +90,6 @@ export type IResults = (
   commandTarget: IFormData['commandTarget']
 ) => void;
 
-export type IChangelog = {
-  date: string;
-  features?: ICommit[];
-  changes?: ICommit[];
-  fixes?: ICommit[];
-  notes?: string[];
-};
-
 export type MinecraftCharacter = { char: string; pixels: number };
 export type IBookOutput = { book: string[]; unsupportedCharacters: string[] };
 

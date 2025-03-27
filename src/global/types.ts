@@ -1,10 +1,6 @@
 import React from 'react';
 type LocalStorageSetter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
 type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>;
-type ICommit = {
-  hashes: string[];
-  message: string;
-};
 
 export type IFormData = {
   inputFormat: InputFormat;

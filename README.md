@@ -1,12 +1,18 @@
 <h1 align="center">
   <br>
-  <a href="https://thewilley.github.io/FruityDancitor/"><img src="text2book.png" alt="FruityDancitor" width="200"></a>
+  <a href="https://thewilley.github.io/Text2Book/"><img src="text2book.png" alt="Text2Book" width="200"></a>
   <br>
   Text2Book
   <br>
 </h1>
 
 <h4 align="center"> A tool to convert text to Minecraft books </h4>
+
+<p align="center">
+  <a href='https://github.com/TheWilley/Text2Book/releases/latest'><img alt="GitHub release (with filter)" src="https://img.shields.io/github/v/release/TheWilley/Text2Book"></a>
+  <a href='https://github.com/TheWilley/Text2Book/blob/main/LICENSE'><img src="https://img.shields.io/badge/license-MIT-blue" alt='license MIT' /></a>
+  <a href='https://github.com/TheWilley/Text2Book/issues'> <img src='https://img.shields.io/github/issues/TheWilley/Text2Book.svg' alt='Github Issues'></a>
+</p>
 
 <p align="center">
   <a href="#introduction">Introduction</a> •

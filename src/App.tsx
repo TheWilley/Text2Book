@@ -1,7 +1,7 @@
 import Layout from './layout/Layout.tsx';
 import useApp from './hooks/useApp.ts';
 import Form from './views/form/Form.tsx';
-import Output from './views/top/Output.tsx';
+import Output from './views/tabs/Output.tsx';
 import ImportExport from './views/ImportExport.tsx';
 
 function App() {

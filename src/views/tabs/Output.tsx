@@ -1,8 +1,8 @@
 import Tabs from '../../components/Tabs';
 import { IFormData } from '../../global/types';
 import { IBookOutput } from '../../global/types';
-import UnsupportedCharacters from '../tabs/UnsupportedCharacters';
-import Results from '../tabs/Results';
+import UnsupportedCharacters from './UnsupportedCharacters';
+import Results from './Results';
 
 type Props = {
   results: IBookOutput;

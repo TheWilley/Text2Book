@@ -29,14 +29,24 @@ function createCharacterLexicon() {
  * @param generationFormat The format for the book generation (either 'commands' or 'text').
  * @returns The escaped text.
  */
-function escapeCharacters(inputText: string, generationFormat: GenerationFormat): string {
+function escapeCharacters(
+  inputText: string,
+  generationFormat: GenerationFormat,
+  javaVersion: JavaVersion
+): string {
   switch (generationFormat) {
-    case 'commands':
-      return inputText
+    case 'commands': {
+      const escapedTrimmedText = inputText
         .replace(/"/g, '\\\\' + '"') // Escape double quotes (")
         .replace(/'/g, '\\' + "'") // Escape single quotes (')
-        .trim() // Remove whitespace from both ends of the string ( )
-        .replace(/\n/g, '\\\\n'); // Escape newlines (\n)
+        .trim(); // Remove whitespace from both ends of the string ( )
+
+      if (javaVersion === '1.20.4' || javaVersion === '1.20.5') {
+        return escapedTrimmedText.replace(/\n/g, '\\\\n'); // Escape newlines (\n)
+      } else {
+        return escapedTrimmedText.replace(/\n/g, '\\n'); // Escape newlines (\n)
+      }
+    }
     case 'text':
       return inputText.trim().replace(/\n/g, ' '); // For 'text' format, just trim the string
     default:
@@ -51,10 +61,18 @@ function escapeCharacters(inputText: string, generationFormat: GenerationFormat)
  * @param generationFormat The format for the book generation (either 'commands' or 'text').
  * @returns The formatted text.
  */
-function encapsulateText(inputText: string, generationFormat: GenerationFormat): string {
+function encapsulateText(
+  inputText: string,
+  generationFormat: GenerationFormat,
+  JavaVersion: JavaVersion
+): string {
   switch (generationFormat) {
     case 'commands':
-      return `'{"text":"${inputText}"}'`;
+      if (JavaVersion === '1.20.5' || JavaVersion === '1.21.5') {
+        return `"${inputText}"`;
+      } else {
+        return `'{"text":"${inputText}"}'`;
+      }
     case 'text':
       return inputText;
     default:
@@ -86,17 +104,19 @@ function finalizeBook(
   booksCounter: number
 ) {
   const suffix = nameSuffix.replace('[n]', booksCounter.toString()); // Use counter for book name suffix
+  const titleWithSuffix = title + suffix;
+  const stringifiedPages = pages.toString();
 
   if (generationFormat === 'commands') {
     if (minecraftVersion === 'java') {
-      if (javaVersion === '1.20.5') {
-        return `/give @p written_book[written_book_content={title:"${title + suffix}",author:"${author}",pages:[${pages.toString()}]}] 1`;
+      if (javaVersion === '1.20.5' || javaVersion === '1.21.5') {
+        return `/give @p written_book[written_book_content={title:"${titleWithSuffix}",author:"${author}",pages:[${stringifiedPages}]}] 1`;
       } else if (javaVersion === '1.20.4') {
-        return `/give @p minecraft:written_book{pages:[${pages.toString()}], title: "${title + suffix}", author: "${author}"}`;
+        return `/give @p minecraft:written_book{title: "${titleWithSuffix}", author: "${author}", pages:[${stringifiedPages}]}`;
       }
     } else if (minecraftVersion === 'bedrock') {
       // FIXME: This is the incorrect format for bedrock (#21)
-      return `/give @p written_book[written_book_content={title:"${title + suffix}",author:"${author}",pages:[${pages.toString()}]}] 1`;
+      return `/give @p written_book[written_book_content={title:"${titleWithSuffix}",author:"${author}",pages:[${stringifiedPages}]}] 1`;
     }
   } else if (generationFormat === 'text') {
     return pages.toString();
@@ -142,8 +162,8 @@ function createBook(
     counter++;
 
     if (counter === linesPerPage) {
-      const escapedText = escapeCharacters(workerLine, generationFormat);
-      const page = encapsulateText(escapedText, generationFormat);
+      const escapedText = escapeCharacters(workerLine, generationFormat, javaVersion);
+      const page = encapsulateText(escapedText, generationFormat, javaVersion);
 
       // Reset for the next page
       workerLine = '';
@@ -155,8 +175,8 @@ function createBook(
 
   // Handle any remaining lines
   if (workerLine.length > 0) {
-    const escapedText = escapeCharacters(workerLine, generationFormat);
-    const page = encapsulateText(escapedText, generationFormat);
+    const escapedText = escapeCharacters(workerLine, generationFormat, javaVersion);
+    const page = encapsulateText(escapedText, generationFormat, javaVersion);
     pages.push(page);
   }
 

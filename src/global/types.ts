@@ -91,7 +91,7 @@ export type IBookOutput = { book: string[]; unsupportedCharacters: string[] };
 
 export type InputFormat = 'text' | 'file';
 export type OutputFormat = 'text' | 'file';
-export type JavaVersion = '1.20.4' | '1.20.5';
+export type JavaVersion = '1.20.4' | '1.20.5' | '1.21.5';
 export type MinecraftVersion = 'java' | 'bedrock';
 export type GenerationFormat = 'commands' | 'text';
 export type CommandTarget = 'player' | 'commandblock';

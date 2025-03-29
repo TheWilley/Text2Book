@@ -14,6 +14,7 @@ import {
   faCalendarMinus,
   faPerson,
   faCubes,
+  faV,
 } from '@fortawesome/free-solid-svg-icons';
 import { faJava } from '@fortawesome/free-brands-svg-icons';
 
@@ -157,38 +158,32 @@ function FormSettings(props: IFormSettings) {
             ]}
           />
           {props.minecraftVersion === 'java' && (
-            <Hint
-              text='Minecraft changed its syntax for several commands in 1.20.5. If you are using a older version, pick the old syntax.'
-              padding={-7}
-            >
+            <>
               <div className='mb-2' />
               <MultiChoice
                 name='java-version'
                 items={[
                   {
                     id: '1205',
-                    label: (
-                      <>
-                        <FontAwesomeIcon icon={faCalendarPlus} /> New Syntax ({'>'}1.20.5)
-                      </>
-                    ),
+                    label: <>1.20.5</>,
                     checked: props.javaVersion === '1.20.5',
                     callback: () => props.setJavaVersion('1.20.5'),
                   },
                   {
                     id: '1204',
-                    label: (
-                      <>
-                        <FontAwesomeIcon icon={faCalendarMinus} /> Old Syntax ({'<'}
-                        1.20.4)
-                      </>
-                    ),
+                    label: <>1.20.4</>,
                     checked: props.javaVersion === '1.20.4',
                     callback: () => props.setJavaVersion('1.20.4'),
                   },
+                  {
+                    id: '1215',
+                    label: <>1.21.5</>,
+                    checked: props.javaVersion === '1.21.5',
+                    callback: () => props.setJavaVersion('1.21.5'),
+                  },
                 ]}
               />
-            </Hint>
+            </>
           )}
         </>
       )}

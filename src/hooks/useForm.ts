@@ -35,7 +35,7 @@ export default function useForm(showResults: IResults): IFormData {
   );
   const [javaVersion, setJavaVersion] = useLocalStorage<JavaVersion>(
     'javaVersion',
-    '1.20.5'
+    '1.20.5+'
   );
   const [commandTarget, setCommandTarget] = useLocalStorage<CommandTarget>(
     'commandTarget',

@@ -10,11 +10,8 @@ import {
   faComment,
   faTerminal,
   faCube,
-  faCalendarPlus,
-  faCalendarMinus,
   faPerson,
   faCubes,
-  faV,
 } from '@fortawesome/free-solid-svg-icons';
 import { faJava } from '@fortawesome/free-brands-svg-icons';
 

@@ -16,7 +16,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "prettier": "prettier src --write",
-    "prepare": "husky"
+    "prepare": "husky",
+    "release": "release-it"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -54,6 +55,7 @@
     "jsdom": "^26.0.0",
     "postcss": "^8.4.26",
     "prettier": "^3.2.4",
+    "release-it": "^18.1.2",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.0",

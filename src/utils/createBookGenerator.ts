@@ -34,50 +34,45 @@ function escapeCharacters(
   generationFormat: GenerationFormat,
   javaVersion: JavaVersion
 ): string {
-  switch (generationFormat) {
-    case 'commands': {
-      const escapedTrimmedText = inputText
-        .replace(/"/g, '\\\\' + '"') // Escape double quotes (")
-        .replace(/'/g, '\\' + "'") // Escape single quotes (')
-        .trim(); // Remove whitespace from both ends of the string ( )
-
-      if (javaVersion === '1.20.4' || javaVersion === '1.20.5') {
-        return escapedTrimmedText.replace(/\n/g, '\\\\n'); // Escape newlines (\n)
-      } else {
-        return escapedTrimmedText.replace(/\n/g, '\\n'); // Escape newlines (\n)
-      }
-    }
-    case 'text':
-      return inputText.trim().replace(/\n/g, ' '); // For 'text' format, just trim the string
-    default:
-      return inputText; // Return the original string if no format is specified
+  if (generationFormat === 'text') {
+    return inputText.trim().replace(/\n/g, ' '); // For 'text' format, just trim and replace newlines with space
   }
+
+  const escapedText = inputText
+    .replace(/"/g, '\\\\"') // Escape double quotes (")
+    .replace(/'/g, "\\'") // Escape single quotes (')
+    .trim(); // Trim whitespace
+
+  // Handle newlines differently based on Java version
+  const newlineEscape = javaVersion === '1.21.5+' ? '\\n' : '\\\\n';
+
+  return escapedText.replace(/\n/g, newlineEscape);
 }
 
 /**
- * Encapsulates the text with additional formatting based on the generation format.
+ * Encapsulates the text with additional formatting based on the generation format and Java version.
  *
  * @param inputText The text to encapsulate.
  * @param generationFormat The format for the book generation (either 'commands' or 'text').
+ * @param javaVersion The Java version to target.
  * @returns The formatted text.
  */
 function encapsulateText(
   inputText: string,
   generationFormat: GenerationFormat,
-  JavaVersion: JavaVersion
-): string {
-  switch (generationFormat) {
-    case 'commands':
-      if (JavaVersion === '1.20.5' || JavaVersion === '1.21.5') {
-        return `"${inputText}"`;
-      } else {
-        return `'{"text":"${inputText}"}'`;
-      }
-    case 'text':
-      return inputText;
-    default:
-      return '';
+  javaVersion: JavaVersion
+) {
+  if (generationFormat === 'text') return inputText;
+
+  if (javaVersion === '1.13+') {
+    return `"{\\"text\\":\\"${inputText}\\"}"`;
+  } else if (javaVersion === '1.14+' || javaVersion === '1.20.5+') {
+    return `'["${inputText}"]'`;
+  } else if (javaVersion === '1.21.5+') {
+    return `"${inputText}"`;
   }
+
+  return '';
 }
 
 /**
@@ -102,24 +97,23 @@ function finalizeBook(
   minecraftVersion: MinecraftVersion,
   javaVersion: JavaVersion,
   booksCounter: number
-) {
-  const suffix = nameSuffix.replace('[n]', booksCounter.toString()); // Use counter for book name suffix
+): string {
+  const suffix = nameSuffix.replace('[n]', booksCounter.toString());
   const titleWithSuffix = title + suffix;
-  const stringifiedPages = pages.toString();
 
   if (generationFormat === 'commands') {
     if (minecraftVersion === 'java') {
-      if (javaVersion === '1.20.5' || javaVersion === '1.21.5') {
-        return `/give @p written_book[written_book_content={title:"${titleWithSuffix}",author:"${author}",pages:[${stringifiedPages}]}] 1`;
-      } else if (javaVersion === '1.20.4') {
-        return `/give @p minecraft:written_book{title: "${titleWithSuffix}", author: "${author}", pages:[${stringifiedPages}]}`;
+      if (javaVersion === '1.13+' || javaVersion === '1.14+') {
+        return `/give @p written_book{pages:[${pages.join(',')}],title:"${titleWithSuffix}",author:"${author}"}`;
+      } else if (javaVersion === '1.20.5+' || javaVersion === '1.21.5+') {
+        return `/give @p written_book[minecraft:written_book_content={pages:[${pages.join(',')}],title:"${titleWithSuffix}",author:"${author}"}]`;
       }
     } else if (minecraftVersion === 'bedrock') {
-      // FIXME: This is the incorrect format for bedrock (#21)
-      return `/give @p written_book[written_book_content={title:"${titleWithSuffix}",author:"${author}",pages:[${stringifiedPages}]}] 1`;
+      // FIXME: Bedrock format is not yet supported
+      return `/give @p written_book[minecraft:written_book_content={pages:[${pages.join(',')}],title:"${titleWithSuffix}",author:"${author}"}]`;
     }
   } else if (generationFormat === 'text') {
-    return pages.toString();
+    return pages.join('\n');
   }
 
   return '';

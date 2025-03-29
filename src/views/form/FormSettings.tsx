@@ -164,22 +164,28 @@ function FormSettings(props: IFormSettings) {
                 name='java-version'
                 items={[
                   {
-                    id: '1205',
-                    label: <>1.20.5</>,
-                    checked: props.javaVersion === '1.20.5',
-                    callback: () => props.setJavaVersion('1.20.5'),
+                    id: 'v1.13+',
+                    label: <>1.13+</>,
+                    checked: props.javaVersion === '1.13+',
+                    callback: () => props.setJavaVersion('1.13+'),
                   },
                   {
-                    id: '1204',
-                    label: <>1.20.4</>,
-                    checked: props.javaVersion === '1.20.4',
-                    callback: () => props.setJavaVersion('1.20.4'),
+                    id: 'v1.14+',
+                    label: <>1.14+</>,
+                    checked: props.javaVersion === '1.14+',
+                    callback: () => props.setJavaVersion('1.14+'),
                   },
                   {
-                    id: '1215',
-                    label: <>1.21.5</>,
-                    checked: props.javaVersion === '1.21.5',
-                    callback: () => props.setJavaVersion('1.21.5'),
+                    id: 'v1.20.4+',
+                    label: <>1.20.5+</>,
+                    checked: props.javaVersion === '1.20.5+',
+                    callback: () => props.setJavaVersion('1.20.5+'),
+                  },
+                  {
+                    id: 'v1.21.5+',
+                    label: <>1.21.5+</>,
+                    checked: props.javaVersion === '1.21.5+',
+                    callback: () => props.setJavaVersion('1.21.5+'),
                   },
                 ]}
               />

@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Button from '../components/Button';
+import Button from '../../components/Button';
 import { faDownload, faUpload } from '@fortawesome/free-solid-svg-icons';
-import useImportExport from '../hooks/useImportExport';
+import useImportExport from '../../hooks/useImportExport';
 
 function ImportExport() {
   const [exportData, importData] = useImportExport();

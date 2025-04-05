@@ -20,6 +20,7 @@ function TextArea(props: {
         value={props.value}
         onChange={(e) => props.setter(e.target.value)}
         required={props.required}
+        data-testid='textarea'
       />
     </>
   );

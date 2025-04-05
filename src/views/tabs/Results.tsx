@@ -53,6 +53,7 @@ function Results(props: Props) {
             className={`list-decimal ${fadein.fadein}`}
             onAnimationEnd={() => props.setFadeIn(0)}
             {...props.fadeinProps}
+            data-testid='results-list'
           >
             {truncatedResults.map((result) => (
               <li

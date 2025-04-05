@@ -17,7 +17,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["vitest/globals", "@testing-library/react"],
+    "types": ["vitest/globals", "@testing-library/react", "@testing-library/jest-dom"],
   },
   "include": ["src"],
   "references": [

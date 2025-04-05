@@ -27,6 +27,7 @@ function FileUpload(props: {
           <button
             type='button'
             className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:cursor-pointer'
+            data-testid='file-upload-button'
           >
             Browse
           </button>

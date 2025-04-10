@@ -8,6 +8,7 @@ import {
 } from '../global/types';
 import glyphs from '../data/glyphs.json';
 import createStringWrapper from './createStringWrapper';
+import filterCharacters from './filterCharacters';
 
 /**
  * Creates a character lexicon of glyphs.
@@ -254,7 +255,11 @@ function createBookGenerator({
   const lineLimit = calculateLineLimit(linesPerPage, generationFormat, minecraftVersion);
   const lexicon = createCharacterLexicon();
   const stringWrapper = createStringWrapper(lexicon);
-  const lines = stringWrapper.getSplitString(text);
+  const [unsupportedCharacters, filteredText] = filterCharacters(
+    lexicon.map((char) => char.char),
+    text
+  );
+  const lines = stringWrapper.getSplitString(filteredText);
 
   // Variables for the next couple of lines
   const library = [];
@@ -296,7 +301,7 @@ function createBookGenerator({
 
   return {
     book: library,
-    unsupportedCharacters: [...new Set(stringWrapper.unsupportedCharacters)],
+    unsupportedCharacters,
   };
 }
 

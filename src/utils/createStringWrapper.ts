@@ -5,16 +5,11 @@ import { MinecraftCharacter } from '../global/types';
  *
  * @param str The string to split.
  * @param lexicon The lexicon containing Minecraft character data.
- * @param unsupportedCharacters The list of characters that were not found in the lexicon.
  * @returns An array of strings representing the wrapped lines.
  */
-function getSplitString(
-  str: string,
-  lexicon: MinecraftCharacter[],
-  unsupportedCharacters: string[]
-): string[] {
+function getSplitString(str: string, lexicon: MinecraftCharacter[]): string[] {
   str = trimStringNewline(str);
-  return listFormattedStringToWidth(str, 114, lexicon, unsupportedCharacters);
+  return listFormattedStringToWidth(str, 114, lexicon);
 }
 
 /**
@@ -24,8 +19,6 @@ function getSplitString(
  * @returns The string wrapper object containing the `getSplitString` function and a list of unsupported characters.
  */
 function createStringWrapper(lexicon: MinecraftCharacter[]) {
-  const unsupportedCharacters: string[] = [];
-
   return {
     /**
      * Splits the input string into lines of a maximum width, trimming trailing newlines.
@@ -33,11 +26,7 @@ function createStringWrapper(lexicon: MinecraftCharacter[]) {
      * @param str The string to split.
      * @returns An array of strings representing the wrapped lines.
      */
-    getSplitString: (str: string): string[] =>
-      getSplitString(str, lexicon, unsupportedCharacters),
-
-    // The list of characters that were unsupported from the lexicon.
-    unsupportedCharacters: unsupportedCharacters,
+    getSplitString: (str: string): string[] => getSplitString(str, lexicon),
   };
 }
 
@@ -60,18 +49,14 @@ function trimStringNewline(text: string): string {
  * @param str The string to be formatted.
  * @param wrapWidth The width at which the string should wrap.
  * @param lexicon The lexicon containing Minecraft character data.
- * @param unsupportedCharacters The list of characters that were not found in the lexicon.
  * @returns An array of strings representing the wrapped text.
  */
 function listFormattedStringToWidth(
   str: string,
   wrapWidth: number,
-  lexicon: MinecraftCharacter[],
-  unsupportedCharacters: string[]
+  lexicon: MinecraftCharacter[]
 ): string[] {
-  return wrapFormattedStringToWidth(str, wrapWidth, lexicon, unsupportedCharacters).split(
-    '\n'
-  );
+  return wrapFormattedStringToWidth(str, wrapWidth, lexicon).split('\n');
 }
 
 /**
@@ -87,14 +72,13 @@ function listFormattedStringToWidth(
 function wrapFormattedStringToWidth(
   str: string,
   wrapWidth: number,
-  lexicon: MinecraftCharacter[],
-  unsupportedCharacters: string[]
+  lexicon: MinecraftCharacter[]
 ): string {
   const result: string[] = [];
   let remainingStr = str;
 
   while (remainingStr.length > 0) {
-    const i = sizeStringToWidth(remainingStr, wrapWidth, lexicon, unsupportedCharacters);
+    const i = sizeStringToWidth(remainingStr, wrapWidth, lexicon);
     const s = remainingStr.substring(0, i);
     const c0 = remainingStr.charAt(i);
     const flag = c0 === ' ' || c0 === '\n';
@@ -110,18 +94,12 @@ function wrapFormattedStringToWidth(
  *
  * @param c The character whose width is to be calculated.
  * @param lexicon The lexicon containing Minecraft character data.
- * @param unsupportedCharacters The list of characters that were not found in the lexicon.
  * @returns The width of the character.
  */
-function getCharWidth(
-  c: string,
-  lexicon: MinecraftCharacter[],
-  unsupportedCharacters: string[]
-): number {
+function getCharWidth(c: string, lexicon: MinecraftCharacter[]): number {
   const minecraftCharacter = lexicon.find((character) => character.char === c);
 
   if (!minecraftCharacter) {
-    unsupportedCharacters.push(c);
     return 0;
   }
 
@@ -138,15 +116,13 @@ function getCharWidth(
  * @param str The input string to be wrapped.
  * @param wrapWidth The width at which the string should wrap.
  * @param lexicon The lexicon containing Minecraft character data.
- * @param unsupportedCharacters The list of characters that were not found in the lexicon.
  * @returns The index where the string should wrap.
  */
 
 function sizeStringToWidth(
   str: string,
   wrapWidth: number,
-  lexicon: MinecraftCharacter[],
-  unsupportedCharacters: string[]
+  lexicon: MinecraftCharacter[]
 ): number {
   const i = str.length;
   let f = 0;
@@ -168,7 +144,7 @@ function sizeStringToWidth(
       }
       // eslint-disable-next-line no-fallthrough
       default: {
-        f += getCharWidth(c0, lexicon, unsupportedCharacters);
+        f += getCharWidth(c0, lexicon);
 
         if (flag) {
           ++f;

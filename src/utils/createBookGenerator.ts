@@ -3,25 +3,11 @@ import {
   GenerationFormat,
   IBookParameters,
   JavaVersion,
-  MinecraftCharacter,
   MinecraftVersion,
 } from '../global/types';
 import glyphs from '../data/glyphs.json';
-import createStringWrapper from './createStringWrapper';
 import filterCharacters from './filterCharacters';
-
-/**
- * Creates a character lexicon of glyphs.
- *
- * @returns The character lexicon.
- */
-function createCharacterLexicon() {
-  const characterLexicon: MinecraftCharacter[] = [];
-  for (const glyph of glyphs) {
-    characterLexicon.push({ char: glyph.char, pixels: glyph.pixels });
-  }
-  return characterLexicon;
-}
+import { getLines } from './stringWrapper';
 
 /**
  * Escapes special characters in the text based on the format (commands or text).
@@ -36,7 +22,7 @@ function escapeCharacters(
   javaVersion: JavaVersion
 ): string {
   if (generationFormat === 'text') {
-    return inputText.trim().replace(/\n/g, ' '); // For 'text' format, just trim and replace newlines with space
+    return inputText.trim(); // For 'text' format, just trim
   }
 
   const escapedText = inputText
@@ -148,30 +134,14 @@ function createBook(
   javaVersion: JavaVersion,
   booksCounter: number
 ) {
-  let counter = 0;
-  let workerLine = '';
-  const pages: string[] = [];
+  const pages = [];
 
-  lines.forEach((line) => {
-    workerLine += line + '\n';
-    counter++;
+  for (let i = 0; i < lines.length; i += linesPerPage) {
+    const workerLine = lines.slice(i, i + linesPerPage).join('\n') + '\n';
 
-    if (counter === linesPerPage) {
-      const escapedText = escapeCharacters(workerLine, generationFormat, javaVersion);
-      const page = encapsulateText(escapedText, generationFormat, javaVersion);
-
-      // Reset for the next page
-      workerLine = '';
-      counter = 0;
-
-      pages.push(page);
-    }
-  });
-
-  // Handle any remaining lines
-  if (workerLine.length > 0) {
     const escapedText = escapeCharacters(workerLine, generationFormat, javaVersion);
     const page = encapsulateText(escapedText, generationFormat, javaVersion);
+
     pages.push(page);
   }
 
@@ -253,13 +223,11 @@ function createBookGenerator({
 }: IBookParameters) {
   // Preparations
   const lineLimit = calculateLineLimit(linesPerPage, generationFormat, minecraftVersion);
-  const lexicon = createCharacterLexicon();
-  const stringWrapper = createStringWrapper(lexicon);
   const [unsupportedCharacters, filteredText] = filterCharacters(
-    lexicon.map((char) => char.char),
+    glyphs.map((char) => char.char),
     text
   );
-  const lines = stringWrapper.getSplitString(filteredText);
+  const lines = getLines(filteredText);
 
   // Variables for the next couple of lines
   const library = [];

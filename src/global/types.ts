@@ -45,6 +45,8 @@ export type IFormInput = Pick<
   | 'setInputFormat'
   | 'generationFormat'
   | 'setGenerationFormat'
+  | 'minecraftVersion'
+  | 'setMinecraftVersion'
   | 'text'
   | 'setText'
   | 'author'

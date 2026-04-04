@@ -66,6 +66,8 @@ function Form(props: Props) {
         setInputFormat={setInputFormat}
         generationFormat={generationFormat}
         setGenerationFormat={setGenerationFormat}
+        minecraftVersion={minecraftVersion}
+        setMinecraftVersion={setMinecraftVersion}
         text={text}
         setText={setText}
         author={author}

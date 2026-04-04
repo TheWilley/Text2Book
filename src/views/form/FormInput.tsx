@@ -19,6 +19,9 @@ function FormInput(props: IFormInput) {
     }
   };
 
+  const TEMP_disableBedrock =
+    props.minecraftVersion === 'bedrock' && props.generationFormat === 'commands';
+
   return (
     <form onSubmit={props.handleSubmit}>
       <div
@@ -75,10 +78,27 @@ function FormInput(props: IFormInput) {
       <button
         type='submit'
         className='w-full h-10 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-        disabled={props.loading}
+        disabled={props.loading || TEMP_disableBedrock}
+        style={{
+          filter: TEMP_disableBedrock ? 'grayscale(100%)' : 'none',
+          cursor: TEMP_disableBedrock ? 'not-allowed' : 'pointer',
+        }}
       >
         <ButtonTitle />
       </button>
+      {TEMP_disableBedrock && (
+        <p className='bg-red-500 text-white text-sm mt-2 rounded-lg p-2'>
+          Bedrock is temporarily disabled due to a lack of testing and validation. See{' '}
+          <a
+            href='https://github.com/TheWilley/Text2Book/issues/21'
+            className='underline'
+          >
+            Github Issue #21
+          </a>{' '}
+          for more details. Use text generation in the meantime, or contribute to the
+          issue if you can!
+        </p>
+      )}
     </form>
   );
 }

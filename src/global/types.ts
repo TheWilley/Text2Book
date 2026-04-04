@@ -1,6 +1,5 @@
 import React from 'react';
 type LocalStorageSetter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
-type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export type IFormData = {
   inputFormat: InputFormat;
@@ -26,17 +25,6 @@ export type IFormData = {
   commandTarget: CommandTarget;
   setCommandTarget: LocalStorageSetter<CommandTarget>;
   handleSubmit: (event: React.FormEvent) => void;
-};
-
-export type IApp = {
-  results: IBookOutput;
-  fadeinProps: { fadein: number };
-  loading: boolean;
-  timeToGenerate: number;
-  outputFormat: 'text' | 'file';
-  showResults: IResults;
-  setOutputFormat: LocalStorageSetter<'text' | 'file'>;
-  setFadeIn: StateSetter<number>;
 };
 
 export type IFormInput = Pick<
@@ -88,7 +76,6 @@ export type IResults = (
   commandTarget: IFormData['commandTarget']
 ) => void;
 
-export type MinecraftCharacter = { char: string; pixels: number };
 export type IBookOutput = { book: string[]; unsupportedCharacters: string[] };
 
 export type InputFormat = 'text' | 'file';

@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   CommandTarget,
   GenerationFormat,
-  IApp,
   IResults,
   JavaVersion,
   MinecraftVersion,
@@ -12,7 +11,7 @@ import { IBookParameters } from '../global/types.ts';
 import { IBookOutput } from '../global/types.ts';
 import useLocalStorage from 'use-local-storage';
 
-export default function useApp(): IApp {
+export default function useApp() {
   const [results, setResults] = useState<IBookOutput>({
     book: [],
     unsupportedCharacters: [],

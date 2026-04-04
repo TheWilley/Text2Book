@@ -10,10 +10,10 @@ import filterCharacters from './filterCharacters';
 import { getLines } from './stringWrapper';
 
 /**
- * Escapes special characters in the text based on the format (commands or text).
+ * Escapes special characters in the text based on the format.
  *
  * @param inputText The text to escape.
- * @param generationFormat The format for the book generation (either 'commands' or 'text').
+ * @param generationFormat The format for the book generation.
  * @returns The escaped text.
  */
 function escapeCharacters(
@@ -40,7 +40,7 @@ function escapeCharacters(
  * Encapsulates the text with additional formatting based on the generation format and Java version.
  *
  * @param inputText The text to encapsulate.
- * @param generationFormat The format for the book generation (either 'commands' or 'text').
+ * @param generationFormat The format for the book generation.
  * @param javaVersion The Java version to target.
  * @returns The formatted text.
  */
@@ -49,33 +49,42 @@ function encapsulateText(
   generationFormat: GenerationFormat,
   javaVersion: JavaVersion
 ) {
+  // Handle non-command format
   if (generationFormat === 'text') return inputText;
 
-  if (javaVersion === '1.13+') {
-    return `"{\\"text\\":\\"${inputText}\\"}"`;
-  } else if (javaVersion === '1.14+' || javaVersion === '1.20.5+') {
-    return `'["${inputText}"]'`;
-  } else if (javaVersion === '1.21.5+') {
-    return `"${inputText}"`;
-  }
+  const versionMap = {
+    '1.13+': `"{\\"text\\":\\"${inputText}\\"}"`,
+    '1.14+': `'["${inputText}"]'`,
+    '1.20.5+': `'["${inputText}"]'`,
+    '1.21.5+': `"${inputText}"`,
+  };
 
-  return '';
+  return versionMap[javaVersion] || '';
+}
+
+function getTitleWithSuffix(
+  title: string,
+  nameSuffix: string,
+  booksCounter: number
+): string {
+  const suffix = nameSuffix.replace('[n]', booksCounter.toString());
+  return title + suffix;
 }
 
 /**
- * Finalizes the book content by generating the proper command or text format based on the selected options.
+ * Generates the proper command or text format based on the selected options.
  *
  * @param pages The pages of the book.
  * @param title The title of the book.
  * @param author The author of the book.
  * @param nameSuffix The suffix for the book name.
- * @param generationFormat The format for the book generation (either 'commands' or 'text').
- * @param minecraftVersion The Minecraft version ('java' or 'bedrock').
- * @param javaVersion The Java version ('1.20.4' or '1.20.5').
+ * @param generationFormat The format for the book generation.
+ * @param minecraftVersion The Minecraft version.
+ * @param javaVersion The Java version.
  * @param booksCounter The counter for generating multiple books.
  * @returns The final formatted book content.
  */
-function finalizeBook(
+function getCommand(
   pages: string[],
   title: string,
   author: string,
@@ -85,25 +94,66 @@ function finalizeBook(
   javaVersion: JavaVersion,
   booksCounter: number
 ): string {
-  const suffix = nameSuffix.replace('[n]', booksCounter.toString());
-  const titleWithSuffix = title + suffix;
+  const titleWithSuffix = getTitleWithSuffix(title, nameSuffix, booksCounter);
 
-  if (generationFormat === 'commands') {
-    if (minecraftVersion === 'java') {
-      if (javaVersion === '1.13+' || javaVersion === '1.14+') {
-        return `/give @p written_book{pages:[${pages.join(',')}],title:"${titleWithSuffix}",author:"${author}"}`;
-      } else if (javaVersion === '1.20.5+' || javaVersion === '1.21.5+') {
-        return `/give @p written_book[minecraft:written_book_content={pages:[${pages.join(',')}],title:"${titleWithSuffix}",author:"${author}"}]`;
-      }
-    } else if (minecraftVersion === 'bedrock') {
-      // FIXME: Bedrock format is not yet supported
-      return `/give @p written_book[minecraft:written_book_content={pages:[${pages.join(',')}],title:"${titleWithSuffix}",author:"${author}"}]`;
-    }
-  } else if (generationFormat === 'text') {
+  const pagesString = pages.join(',');
+
+  // Handle the simplest format first
+  if (generationFormat === 'text') {
     return pages.join('\n');
   }
 
-  return '';
+  // If it's not commands, we're done
+  if (generationFormat !== 'commands') {
+    return '';
+  }
+
+  // Handle Bedrock
+  if (minecraftVersion === 'bedrock') {
+    return `/give @p written_book[minecraft:written_book_content={pages:[${pagesString}],title:"${titleWithSuffix}",author:"${author}"}]`;
+  }
+
+  // For now I've named them legacy and mordern, but they should be renamed to account for other versions
+  const legacySyntax = `/give @p written_book{pages:[${pagesString}],title:"${titleWithSuffix}",author:"${author}"}`;
+  const modernSyntax = `/give @p written_book[minecraft:written_book_content={pages:[${pagesString}],title:"${titleWithSuffix}",author:"${author}"}]`;
+
+  const versionMap = {
+    '1.13+': legacySyntax,
+    '1.14+': legacySyntax,
+    '1.20.5+': modernSyntax,
+    '1.21.5+': modernSyntax,
+  };
+
+  return versionMap[javaVersion] || '';
+}
+
+/**
+ * Splits the input lines into pages based on the specified lines per page and formats them according to the generation format and Java version.
+ *
+ * @param lines The lines of text to split into pages.
+ * @param linesPerPage The number of lines allowed per page in the book.
+ * @param generationFormat The format for the book generation.
+ * @param javaVersion The Java version to target.
+ * @returns An array of formatted pages.
+ */
+function getPages(
+  lines: string[],
+  linesPerPage: number,
+  generationFormat: GenerationFormat,
+  javaVersion: JavaVersion
+) {
+  const pages = [];
+
+  for (let i = 0; i < lines.length; i += linesPerPage) {
+    const workerLine = lines.slice(i, i + linesPerPage).join('\n') + '\n';
+
+    const escapedText = escapeCharacters(workerLine, generationFormat, javaVersion);
+    const page = encapsulateText(escapedText, generationFormat, javaVersion);
+
+    pages.push(page);
+  }
+
+  return pages;
 }
 
 /**
@@ -134,18 +184,8 @@ function createBook(
   javaVersion: JavaVersion,
   booksCounter: number
 ) {
-  const pages = [];
-
-  for (let i = 0; i < lines.length; i += linesPerPage) {
-    const workerLine = lines.slice(i, i + linesPerPage).join('\n') + '\n';
-
-    const escapedText = escapeCharacters(workerLine, generationFormat, javaVersion);
-    const page = encapsulateText(escapedText, generationFormat, javaVersion);
-
-    pages.push(page);
-  }
-
-  return finalizeBook(
+  const pages = getPages(lines, linesPerPage, generationFormat, javaVersion);
+  const command = getCommand(
     pages,
     title,
     author,
@@ -155,13 +195,15 @@ function createBook(
     javaVersion,
     booksCounter
   );
+
+  return command;
 }
 
 /**
  * Calculates the line limit based on the Minecraft version and format (commands or text).
  *
  * @param linesPerPage The number of lines allowed per page.
- * @param generationFormat The format for the book generation (either 'commands' or 'text').
+ * @param generationFormat The format for the book generation.
  * @param minecraftVersion The Minecraft version ('java' or 'bedrock').
  * @returns The calculated line limit.
  */
@@ -170,12 +212,14 @@ function calculateLineLimit(
   generationFormat: GenerationFormat,
   minecraftVersion: MinecraftVersion
 ): number {
-  if (generationFormat === 'commands') {
-    return minecraftVersion === 'bedrock' ? linesPerPage * 50 : linesPerPage * 100;
-  } else if (generationFormat === 'text') {
-    return linesPerPage;
+  switch (generationFormat) {
+    case 'commands':
+      return minecraftVersion === 'bedrock' ? linesPerPage * 50 : linesPerPage * 100;
+    case 'text':
+      return linesPerPage;
+    default:
+      return 0;
   }
-  return 0;
 }
 
 /**
@@ -184,12 +228,13 @@ function calculateLineLimit(
  * @returns The character limit.
  */
 function getCharacterLimitFromCommandTarget(target: CommandTarget) {
-  if (target === 'player') {
-    return 256;
-  } else if (target === 'commandblock') {
-    return 32500;
-  } else {
-    return 0;
+  switch (target) {
+    case 'player':
+      return 256;
+    case 'commandblock':
+      return 32500;
+    default:
+      return 0;
   }
 }
 

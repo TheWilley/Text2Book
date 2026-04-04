@@ -1,16 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import {
-  CommandTarget,
-  GenerationFormat,
-  IResults,
-  JavaVersion,
-  MinecraftVersion,
-} from '../global/types.ts';
-import { IBookParameters } from '../global/types.ts';
-import { IBookOutput } from '../global/types.ts';
+import { ShowResults } from '../global/types.ts';
+import { BookParameters } from '../global/types.ts';
+import { BookOutput } from '../global/types.ts';
 
 export default function useApp() {
-  const [results, setResults] = useState<IBookOutput>({
+  const [results, setResults] = useState<BookOutput>({
     book: [],
     unsupportedCharacters: [],
   });
@@ -25,31 +19,22 @@ export default function useApp() {
 
   const fadeinProps = { fadein: fadeIn };
 
-  const showResults: IResults = useCallback(
-    (
-      text: string,
-      title: string,
-      author: string,
-      minecraftVersion: MinecraftVersion,
-      generationFormat: GenerationFormat,
-      javaVersion: JavaVersion,
-      linesPerPage: number,
-      nameSuffix: string,
-      commandTarget: CommandTarget
-    ) => {
+  const showResults: ShowResults = useCallback(
+    (args) => {
       generationTimes.current = [];
       generationTimes.current.push(Date.now());
-      const inputParams: IBookParameters = {
-        text,
-        title,
-        author,
-        minecraftVersion,
-        generationFormat,
-        javaVersion,
-        linesPerPage,
-        nameSuffix,
-        commandTarget,
+      const inputParams: BookParameters = {
+        text: args.text,
+        title: args.title,
+        author: args.author,
+        minecraftVersion: args.minecraftVersion,
+        generationFormat: args.generationFormat,
+        javaVersion: args.javaVersion,
+        linesPerPage: args.linesPerPage,
+        nameSuffix: args.nameSuffix,
+        commandTarget: args.commandTarget,
       };
+
       if (window.Worker) {
         setLoading(true);
 
@@ -66,7 +51,7 @@ export default function useApp() {
     if (window.Worker) {
       worker.onmessage = (e) => {
         generationTimes.current.push(Date.now());
-        setResults(e.data as IBookOutput);
+        setResults(e.data as BookOutput);
         setFadeIn(1);
         setLoading(false);
         setTimeToGenerate(

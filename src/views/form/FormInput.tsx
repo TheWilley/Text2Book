@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import FileUpload from '../../components/FileUpload.tsx';
 import loader from '../../assets/loader.svg';
-import { IFormInput } from '../../global/types.ts';
+import { FormInputProps } from '../../global/types.ts';
 import TextInput from '../../components/TextInput.tsx';
 import TextArea from '../../components/TextArea.tsx';
 
-function FormInput(props: IFormInput) {
+function FormInput(props: FormInputProps) {
   // Decides if load icon should be shown
   const ButtonTitle = () => {
     if (props.loading) {

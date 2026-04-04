@@ -1,7 +1,7 @@
 import {
   CommandTarget,
   GenerationFormat,
-  IBookParameters,
+  BookParameters,
   JavaVersion,
   MinecraftVersion,
 } from '../global/types';
@@ -265,7 +265,7 @@ function generateBooks({
   javaVersion,
   text,
   commandTarget,
-}: IBookParameters) {
+}: BookParameters) {
   // Preparations
   const lineLimit = calculateLineLimit(linesPerPage, generationFormat, minecraftVersion);
   const [unsupportedCharacters, filteredText] = filterCharacters(

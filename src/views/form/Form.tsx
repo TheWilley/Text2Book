@@ -1,9 +1,9 @@
 import FormSettings from './FormSettings.tsx';
 import FormInput from './FormInput.tsx';
 import FormSettingsAdvanced from './FormSettingsAdvanced.tsx';
-import { IForm } from '../../global/types.ts';
+import { FormProps } from '../../global/types.ts';
 
-function Form(props: IForm) {
+function Form(props: FormProps) {
   return (
     <>
       <FormSettings

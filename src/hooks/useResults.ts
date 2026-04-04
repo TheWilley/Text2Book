@@ -1,7 +1,7 @@
 import { FormEvent, useCallback, useEffect, useState } from 'react';
-import { IBookOutput } from '../global/types';
+import { BookOutput } from '../global/types';
 
-export default function useResults(results: IBookOutput) {
+export default function useResults(results: BookOutput) {
   const [page, setPage] = useState(1);
   const [truncatedResults, setTruncatedResults] = useState<
     { value: string; index: number }[]

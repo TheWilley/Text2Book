@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from 'react';
-import { Settings, IResults, SettingsAction } from '../global/types.ts';
-export default function useSettings(showResults: IResults) {
+import { Settings, ShowResults, SettingsAction } from '../global/types.ts';
+export default function useSettings(showResults: ShowResults) {
   const initialState: Settings = {
     text: '',
     author: '',
@@ -52,17 +52,17 @@ export default function useSettings(showResults: IResults) {
     event.preventDefault();
     dispatch({ type: 'SAVE_SUCCESS', field: 'settingsAdjusted' });
 
-    showResults(
-      state.text,
-      state.title,
-      state.author,
-      state.minecraftVersion,
-      state.generationFormat,
-      state.javaVersion,
-      state.linesPerPage,
-      state.nameSuffix,
-      state.commandTarget
-    );
+    showResults({
+      text: state.text,
+      title: state.title,
+      author: state.author,
+      minecraftVersion: state.minecraftVersion,
+      generationFormat: state.generationFormat,
+      javaVersion: state.javaVersion,
+      linesPerPage: state.linesPerPage,
+      nameSuffix: state.nameSuffix,
+      commandTarget: state.commandTarget,
+    });
   };
 
   return {

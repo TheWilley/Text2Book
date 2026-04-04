@@ -1,4 +1,4 @@
-import { IFormSettings } from '../../global/types.ts';
+import { FormSettingsProps } from '../../global/types.ts';
 import MultiChoice from '../../components/MultiChoice.tsx';
 import Hint from '../../components/Hint.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,7 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faJava } from '@fortawesome/free-brands-svg-icons';
 
-function FormSettings(props: IFormSettings) {
+function FormSettings(props: FormSettingsProps) {
   return (
     <>
       <MultiChoice

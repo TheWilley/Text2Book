@@ -1,12 +1,12 @@
 import TextInput from '../../components/TextInput.tsx';
 import Accordion from '../../components/Accordion.tsx';
-import { IFormSettingsAdvanced } from '../../global/types.ts';
+import { FormSettingsAdvancedProps } from '../../global/types.ts';
 import NumberInput from '../../components/NumberInput.tsx';
 import Hint from '../../components/Hint.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 
-function FormSettingsAdvanced(props: IFormSettingsAdvanced) {
+function FormSettingsAdvanced(props: FormSettingsAdvancedProps) {
   return (
     <>
       <Accordion

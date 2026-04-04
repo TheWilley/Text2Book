@@ -2,18 +2,10 @@ import copy from '../../assets/copy-icon.png';
 import Pagination from '../../components/Pagination.tsx';
 import blink from '../../css/blink.module.css';
 import fadein from '../../css/fadein.module.css';
-import { IFormData } from '../../global/types.ts';
+import { ResultsProps } from '../../global/types.ts';
 import useResults from '../../hooks/useResults.ts';
-import { IBookOutput } from '../../global/types.ts';
 
-type Props = {
-  results: IBookOutput;
-  setFadeIn: React.Dispatch<React.SetStateAction<number>>;
-  fadeinProps: { fadein: number };
-  timeToGenerate: number;
-} & Pick<IFormData, 'outputFormat'>;
-
-function Results(props: Props) {
+function Results(props: ResultsProps) {
   const {
     page,
     blinkProps,

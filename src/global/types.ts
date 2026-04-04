@@ -1,6 +1,20 @@
 import React from 'react';
-type LocalStorageSetter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
 
+// === Utility ===
+type HandleSubmit = (event: React.FormEvent) => void;
+
+type UpdateFieldFn<T> = <K extends keyof T>(field: K, value: T[K]) => void;
+
+type WithUpdater<T> = T & {
+  updateField: UpdateFieldFn<T>;
+};
+
+type FormBundle<T, K extends keyof T> = WithUpdater<Pick<T, K>>;
+
+// === Non component types ===
+
+// This is the settings type from which all other types are derived
+// A source of "truth", and should anything be changed here it should be reflected in all other types that use it
 export interface Settings {
   inputFormat: InputFormat;
   outputFormat: OutputFormat;
@@ -27,40 +41,32 @@ export interface SettingsAction {
   payload?: Settings[keyof Settings];
 }
 
-export type IFormData = {
-  inputFormat: InputFormat;
-  outputFormat: OutputFormat;
-  setOutputFormat: LocalStorageSetter<OutputFormat>;
-  generationFormat: GenerationFormat;
-  minecraftVersion: MinecraftVersion;
-  text: string;
-  linesPerPage: number;
-  nameSuffix: string;
-  author: string;
-  title: string;
-  javaVersion: JavaVersion;
-  commandTarget: CommandTarget;
-  handleSubmit: (event: React.FormEvent) => void;
+// === Component props types ===
+
+export type OutputProps = {
+  results: BookOutput;
+  setFadeIn: React.Dispatch<React.SetStateAction<number>>;
+  fadeinProps: { fadein: number };
+  timeToGenerate: number;
+} & Pick<Settings, 'outputFormat'>;
+
+export type FormProps = {
+  settings: Settings;
+  updateField: UpdateFielSettings;
+  handleSubmit: HandleSubmit;
+  showResults: ShowResults;
+  loading: boolean;
 };
 
-export type IFormInput = Pick<
+export type FormInputProps = FormBundle<
   Settings,
   'inputFormat' | 'generationFormat' | 'minecraftVersion' | 'text' | 'author' | 'title'
 > & {
   loading: boolean;
-  handleSubmit: (event: React.FormEvent) => void;
-  updateField: UpdateFielSettings;
+  handleSubmit: HandleSubmit;
 };
 
-export type IForm = {
-  settings: Settings;
-  updateField: UpdateFielSettings;
-  handleSubmit: (event: React.FormEvent) => void;
-  showResults: IResults;
-  loading: boolean;
-};
-
-export type IFormSettings = Pick<
+export type FormSettingsProps = FormBundle<
   Settings,
   | 'inputFormat'
   | 'outputFormat'
@@ -70,43 +76,57 @@ export type IFormSettings = Pick<
   | 'nameSuffix'
   | 'javaVersion'
   | 'commandTarget'
-> & {
-  updateField: UpdateFielSettings;
-};
+>;
 
-export type IFormSettingsAdvanced = Pick<Settings, 'linesPerPage' | 'nameSuffix'> & {
-  updateField: UpdateFielSettings;
-};
+export type FormSettingsAdvancedProps = FormBundle<
+  Settings,
+  'linesPerPage' | 'nameSuffix'
+>;
 
-export type IResults = (
-  text: IFormData['text'],
-  title: IFormData['title'],
-  author: IFormData['author'],
-  minecraftVersion: IFormData['minecraftVersion'],
-  generationFormat: IFormData['generationFormat'],
-  javaVersion: IFormData['javaVersion'],
-  linesPerPage: IFormData['linesPerPage'],
-  nameSuffix: IFormData['nameSuffix'],
-  commandTarget: IFormData['commandTarget']
+export type ResultsProps = {
+  results: BookOutput;
+  setFadeIn: React.Dispatch<React.SetStateAction<number>>;
+  fadeinProps: { fadein: number };
+  timeToGenerate: number;
+} & Pick<Settings, 'outputFormat'>;
+
+// === Function types ===
+
+export type ShowResults = (
+  args: Pick<
+    Settings,
+    | 'text'
+    | 'title'
+    | 'author'
+    | 'minecraftVersion'
+    | 'generationFormat'
+    | 'javaVersion'
+    | 'linesPerPage'
+    | 'nameSuffix'
+    | 'commandTarget'
+  >
 ) => void;
 
-export type IBookOutput = { book: string[]; unsupportedCharacters: string[] };
+// === Data types ===
 
+export type BookParameters = Pick<
+  Settings,
+  | 'text'
+  | 'title'
+  | 'author'
+  | 'minecraftVersion'
+  | 'generationFormat'
+  | 'javaVersion'
+  | 'commandTarget'
+  | 'linesPerPage'
+  | 'nameSuffix'
+>;
+export type BookOutput = { book: string[]; unsupportedCharacters: string[] };
+
+// === Enum types ===
 export type InputFormat = 'text' | 'file';
 export type OutputFormat = 'text' | 'file';
 export type JavaVersion = '1.13+' | '1.14+' | '1.20.5+' | '1.21.5+';
 export type MinecraftVersion = 'java' | 'bedrock';
 export type GenerationFormat = 'commands' | 'text';
 export type CommandTarget = 'player' | 'commandblock';
-
-export type IBookParameters = {
-  text: string;
-  title: string;
-  author: string;
-  minecraftVersion: MinecraftVersion;
-  generationFormat: GenerationFormat;
-  javaVersion: JavaVersion;
-  commandTarget: CommandTarget;
-  linesPerPage?: number;
-  nameSuffix?: string;
-};

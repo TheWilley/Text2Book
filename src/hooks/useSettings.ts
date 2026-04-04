@@ -59,7 +59,7 @@ export default function useSettings(showResults: ShowResults) {
       minecraftVersion: state.minecraftVersion,
       generationFormat: state.generationFormat,
       javaVersion: state.javaVersion,
-      linesPerPage: state.linesPerPage,
+      linesPerPage: state.linesPerPage || 14,
       nameSuffix: state.nameSuffix,
       commandTarget: state.commandTarget,
     });

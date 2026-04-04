@@ -5,11 +5,9 @@ import {
   IResults,
   JavaVersion,
   MinecraftVersion,
-  OutputFormat,
 } from '../global/types.ts';
 import { IBookParameters } from '../global/types.ts';
 import { IBookOutput } from '../global/types.ts';
-import useLocalStorage from 'use-local-storage';
 
 export default function useApp() {
   const [results, setResults] = useState<IBookOutput>({
@@ -19,10 +17,6 @@ export default function useApp() {
   const [loading, setLoading] = useState(false);
   const [fadeIn, setFadeIn] = useState(0);
   const [timeToGenerate, setTimeToGenerate] = useState(0);
-  const [outputFormat, setOutputFormat] = useLocalStorage<OutputFormat>(
-    'outputFormat',
-    'text'
-  );
   const worker: Worker = useMemo(
     () => new Worker(new URL('../utils/worker.ts', import.meta.url), { type: 'module' }),
     []
@@ -89,9 +83,7 @@ export default function useApp() {
     fadeinProps,
     loading,
     timeToGenerate,
-    outputFormat,
     showResults,
-    setOutputFormat,
     setFadeIn,
   };
 }

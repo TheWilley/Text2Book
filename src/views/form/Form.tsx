@@ -1,47 +1,38 @@
-import { IFormData, IResults } from '../../global/types.ts';
-import useForm from '../../hooks/useForm.ts';
 import FormSettings from './FormSettings.tsx';
 import FormInput from './FormInput.tsx';
 import FormSettingsAdvanced from './FormSettingsAdvanced.tsx';
+import { IForm } from '../../global/types.ts';
 
-type Props = {
-  showResults: IResults;
-  loading: boolean;
-} & Pick<IFormData, 'outputFormat' | 'setOutputFormat'>;
-
-function Form(props: Props) {
-  const { state, updateField, handleSubmit } = useForm(props.showResults);
-
+function Form(props: IForm) {
   return (
     <>
       <FormSettings
-        inputFormat={state.inputFormat}
-        outputFormat={props.outputFormat}
-        setOutputFormat={props.setOutputFormat}
-        generationFormat={state.generationFormat}
-        minecraftVersion={state.minecraftVersion}
-        linesPerPage={state.linesPerPage}
-        nameSuffix={state.nameSuffix}
-        javaVersion={state.javaVersion}
-        commandTarget={state.commandTarget}
-        updateField={updateField}
+        inputFormat={props.settings.inputFormat}
+        outputFormat={props.settings.outputFormat}
+        generationFormat={props.settings.generationFormat}
+        minecraftVersion={props.settings.minecraftVersion}
+        linesPerPage={props.settings.linesPerPage}
+        nameSuffix={props.settings.nameSuffix}
+        javaVersion={props.settings.javaVersion}
+        commandTarget={props.settings.commandTarget}
+        updateField={props.updateField}
       />
       <FormSettingsAdvanced
-        nameSuffix={state.nameSuffix}
-        linesPerPage={state.linesPerPage}
-        updateField={updateField}
+        nameSuffix={props.settings.nameSuffix}
+        linesPerPage={props.settings.linesPerPage}
+        updateField={props.updateField}
       />
       <hr className='mb-4 mt-4' />
       <FormInput
-        inputFormat={state.inputFormat}
-        generationFormat={state.generationFormat}
-        minecraftVersion={state.minecraftVersion}
-        text={state.text}
-        author={state.author}
-        title={state.title}
+        inputFormat={props.settings.inputFormat}
+        generationFormat={props.settings.generationFormat}
+        minecraftVersion={props.settings.minecraftVersion}
+        text={props.settings.text}
+        author={props.settings.author}
+        title={props.settings.title}
         loading={props.loading}
-        handleSubmit={handleSubmit}
-        updateField={updateField}
+        handleSubmit={props.handleSubmit}
+        updateField={props.updateField}
       />
     </>
   );

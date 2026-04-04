@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from 'react';
 import { Settings, IResults, SettingsAction } from '../global/types.ts';
-export default function useForm(showResults: IResults) {
+export default function useSettings(showResults: IResults) {
   const initialState: Settings = {
     text: '',
     author: '',

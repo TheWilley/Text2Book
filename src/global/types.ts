@@ -52,6 +52,14 @@ export type IFormInput = Pick<
   updateField: UpdateFielSettings;
 };
 
+export type IForm = {
+  settings: Settings;
+  updateField: UpdateFielSettings;
+  handleSubmit: (event: React.FormEvent) => void;
+  showResults: IResults;
+  loading: boolean;
+};
+
 export type IFormSettings = Pick<
   Settings,
   | 'inputFormat'
@@ -63,7 +71,6 @@ export type IFormSettings = Pick<
   | 'javaVersion'
   | 'commandTarget'
 > & {
-  setOutputFormat: LocalStorageSetter<OutputFormat>;
   updateField: UpdateFielSettings;
 };
 

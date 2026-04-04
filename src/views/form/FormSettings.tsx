@@ -55,7 +55,7 @@ function FormSettings(props: IFormSettings) {
               </>
             ),
             checked: props.outputFormat === 'text',
-            callback: () => props.setOutputFormat('text'),
+            callback: () => props.updateField('outputFormat', 'text'),
           },
           {
             id: 'use-file-output',
@@ -65,7 +65,7 @@ function FormSettings(props: IFormSettings) {
               </>
             ),
             checked: props.outputFormat === 'file',
-            callback: () => props.setOutputFormat('file'),
+            callback: () => props.updateField('outputFormat', 'file'),
           },
         ]}
       />

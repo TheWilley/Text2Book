@@ -1,7 +1,7 @@
-import createBookGenerator from './createBookGenerator';
+import generateBooks from './generateBooks';
 import { IBookParameters } from '../global/types';
 
 self.onmessage = (e: MessageEvent<IBookParameters>) => {
-  const book = createBookGenerator(e.data);
+  const book = generateBooks(e.data);
   self.postMessage(book);
 };

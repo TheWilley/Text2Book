@@ -255,7 +255,7 @@ function getCharacterLimitFromCommandTarget(target: CommandTarget) {
  *
  * @returns The generated book data and the unsupported characters.
  */
-function createBookGenerator({
+function generateBooks({
   generationFormat,
   minecraftVersion,
   title,
@@ -318,4 +318,4 @@ function createBookGenerator({
   };
 }
 
-export default createBookGenerator;
+export default generateBooks;

@@ -1,17 +1,12 @@
 import TextInput from '../../components/TextInput.tsx';
 import Accordion from '../../components/Accordion.tsx';
-import { IFormData } from '../../global/types.ts';
+import { IFormSettingsAdvanced } from '../../global/types.ts';
 import NumberInput from '../../components/NumberInput.tsx';
 import Hint from '../../components/Hint.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 
-function FormSettingsAdvanced(
-  props: Pick<
-    IFormData,
-    'nameSuffix' | 'setNameSuffix' | 'linesPerPage' | 'setLinesPerPage'
-  >
-) {
+function FormSettingsAdvanced(props: IFormSettingsAdvanced) {
   return (
     <>
       <Accordion
@@ -33,7 +28,7 @@ function FormSettingsAdvanced(
                 id='format'
                 placeholder='Enter Suffix'
                 value={props.nameSuffix}
-                setter={props.setNameSuffix}
+                setter={props.updateField.bind(null, 'nameSuffix')}
                 maxLength={15}
                 centerText
               />
@@ -44,7 +39,7 @@ function FormSettingsAdvanced(
               id='lines-per-page'
               label='Number of lines per page'
               placeholder='14'
-              setter={props.setLinesPerPage}
+              setter={props.updateField.bind(null, 'linesPerPage')}
               value={props.linesPerPage}
               required
               max={14}

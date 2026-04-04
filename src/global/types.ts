@@ -1,68 +1,75 @@
 import React from 'react';
 type LocalStorageSetter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
 
+export interface Settings {
+  inputFormat: InputFormat;
+  outputFormat: OutputFormat;
+  generationFormat: GenerationFormat;
+  minecraftVersion: MinecraftVersion;
+  javaVersion: JavaVersion;
+  commandTarget: CommandTarget;
+  text: string;
+  author: string;
+  title: string;
+  linesPerPage: number;
+  nameSuffix: string;
+  settingsAdjusted: boolean;
+}
+
+export type UpdateFielSettings = (
+  field: keyof Settings,
+  value: SettingsAction['payload']
+) => void;
+
+export interface SettingsAction {
+  type: 'UPDATE_FIELD' | 'SAVE_SUCCESS';
+  field: keyof Settings;
+  payload?: Settings[keyof Settings];
+}
+
 export type IFormData = {
   inputFormat: InputFormat;
-  setInputFormat: LocalStorageSetter<InputFormat>;
   outputFormat: OutputFormat;
   setOutputFormat: LocalStorageSetter<OutputFormat>;
   generationFormat: GenerationFormat;
-  setGenerationFormat: LocalStorageSetter<GenerationFormat>;
   minecraftVersion: MinecraftVersion;
-  setMinecraftVersion: LocalStorageSetter<MinecraftVersion>;
   text: string;
-  setText: LocalStorageSetter<string>;
   linesPerPage: number;
-  setLinesPerPage: LocalStorageSetter<number>;
   nameSuffix: string;
-  setNameSuffix: LocalStorageSetter<string>;
   author: string;
-  setAuthor: LocalStorageSetter<string>;
   title: string;
   javaVersion: JavaVersion;
-  setJavaVersion: LocalStorageSetter<JavaVersion>;
-  setTitle: LocalStorageSetter<string>;
   commandTarget: CommandTarget;
-  setCommandTarget: LocalStorageSetter<CommandTarget>;
   handleSubmit: (event: React.FormEvent) => void;
 };
 
 export type IFormInput = Pick<
-  IFormData,
-  | 'inputFormat'
-  | 'setInputFormat'
-  | 'generationFormat'
-  | 'setGenerationFormat'
-  | 'minecraftVersion'
-  | 'setMinecraftVersion'
-  | 'text'
-  | 'setText'
-  | 'author'
-  | 'setAuthor'
-  | 'title'
-  | 'setTitle'
-  | 'handleSubmit'
-> & { loading: boolean };
+  Settings,
+  'inputFormat' | 'generationFormat' | 'minecraftVersion' | 'text' | 'author' | 'title'
+> & {
+  loading: boolean;
+  handleSubmit: (event: React.FormEvent) => void;
+  updateField: UpdateFielSettings;
+};
 
 export type IFormSettings = Pick<
-  IFormData,
+  Settings,
   | 'inputFormat'
-  | 'setInputFormat'
   | 'outputFormat'
-  | 'setOutputFormat'
   | 'generationFormat'
-  | 'setGenerationFormat'
   | 'minecraftVersion'
-  | 'setMinecraftVersion'
   | 'linesPerPage'
-  | 'setLinesPerPage'
   | 'nameSuffix'
   | 'javaVersion'
-  | 'setJavaVersion'
-  | 'setNameSuffix'
   | 'commandTarget'
-  | 'setCommandTarget'
->;
+> & {
+  setOutputFormat: LocalStorageSetter<OutputFormat>;
+  updateField: UpdateFielSettings;
+};
+
+export type IFormSettingsAdvanced = Pick<Settings, 'linesPerPage' | 'nameSuffix'> & {
+  updateField: UpdateFielSettings;
+};
 
 export type IResults = (
   text: IFormData['text'],

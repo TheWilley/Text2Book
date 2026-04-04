@@ -29,7 +29,7 @@ function FormSettings(props: IFormSettings) {
               </>
             ),
             checked: props.inputFormat === 'text',
-            callback: () => props.setInputFormat('text'),
+            callback: () => props.updateField('inputFormat', 'text'),
           },
           {
             id: 'use-file-input',
@@ -39,7 +39,7 @@ function FormSettings(props: IFormSettings) {
               </>
             ),
             checked: props.inputFormat === 'file',
-            callback: () => props.setInputFormat('file'),
+            callback: () => props.updateField('inputFormat', 'file'),
           },
         ]}
       />
@@ -81,7 +81,7 @@ function FormSettings(props: IFormSettings) {
               </>
             ),
             checked: props.generationFormat === 'text',
-            callback: () => props.setGenerationFormat('text'),
+            callback: () => props.updateField('generationFormat', 'text'),
           },
           {
             id: 'use-command-generation',
@@ -91,7 +91,7 @@ function FormSettings(props: IFormSettings) {
               </>
             ),
             checked: props.generationFormat === 'commands',
-            callback: () => props.setGenerationFormat('commands'),
+            callback: () => props.updateField('generationFormat', 'commands'),
           },
         ]}
       />
@@ -113,7 +113,7 @@ function FormSettings(props: IFormSettings) {
                     </>
                   ),
                   checked: props.commandTarget === 'player',
-                  callback: () => props.setCommandTarget('player'),
+                  callback: () => props.updateField('commandTarget', 'player'),
                 },
                 {
                   id: 'commandblock',
@@ -123,7 +123,7 @@ function FormSettings(props: IFormSettings) {
                     </>
                   ),
                   checked: props.commandTarget === 'commandblock',
-                  callback: () => props.setCommandTarget('commandblock'),
+                  callback: () => props.updateField('commandTarget', 'commandblock'),
                 },
               ]}
             />
@@ -140,7 +140,7 @@ function FormSettings(props: IFormSettings) {
                   </>
                 ),
                 checked: props.minecraftVersion === 'bedrock',
-                callback: () => props.setMinecraftVersion('bedrock'),
+                callback: () => props.updateField('minecraftVersion', 'bedrock'),
               },
               {
                 id: 'java',
@@ -150,7 +150,7 @@ function FormSettings(props: IFormSettings) {
                   </>
                 ),
                 checked: props.minecraftVersion === 'java',
-                callback: () => props.setMinecraftVersion('java'),
+                callback: () => props.updateField('minecraftVersion', 'java'),
               },
             ]}
           />
@@ -164,25 +164,25 @@ function FormSettings(props: IFormSettings) {
                     id: 'v1.13+',
                     label: <>1.13+</>,
                     checked: props.javaVersion === '1.13+',
-                    callback: () => props.setJavaVersion('1.13+'),
+                    callback: () => props.updateField('javaVersion', '1.13+'),
                   },
                   {
                     id: 'v1.14+',
                     label: <>1.14+</>,
                     checked: props.javaVersion === '1.14+',
-                    callback: () => props.setJavaVersion('1.14+'),
+                    callback: () => props.updateField('javaVersion', '1.14+'),
                   },
                   {
                     id: 'v1.20.4+',
                     label: <>1.20.5+</>,
                     checked: props.javaVersion === '1.20.5+',
-                    callback: () => props.setJavaVersion('1.20.5+'),
+                    callback: () => props.updateField('javaVersion', '1.20.5+'),
                   },
                   {
                     id: 'v1.21.5+',
                     label: <>1.21.5+</>,
                     checked: props.javaVersion === '1.21.5+',
-                    callback: () => props.setJavaVersion('1.21.5+'),
+                    callback: () => props.updateField('javaVersion', '1.21.5+'),
                   },
                 ]}
               />

@@ -1,85 +1,74 @@
-import {
-  CommandTarget,
-  GenerationFormat,
-  IFormData,
-  InputFormat,
-  IResults,
-  JavaVersion,
-  MinecraftVersion,
-  OutputFormat,
-} from '../global/types.ts';
-import useLocalStorage from 'use-local-storage';
+import { useEffect, useReducer } from 'react';
+import { Settings, IResults, SettingsAction } from '../global/types.ts';
+export default function useForm(showResults: IResults) {
+  const initialState: Settings = {
+    text: '',
+    author: '',
+    title: '',
+    nameSuffix: '',
+    inputFormat: 'text',
+    outputFormat: 'text',
+    generationFormat: 'commands',
+    linesPerPage: 14,
+    minecraftVersion: 'java',
+    javaVersion: '1.20.5+',
+    commandTarget: 'commandblock',
+    settingsAdjusted: false,
+  };
 
-export default function useForm(showResults: IResults): IFormData {
-  // Normal states
-  const [text, setText] = useLocalStorage('text', '');
-  const [author, setAuthor] = useLocalStorage('author', '');
-  const [title, setTitle] = useLocalStorage('title', '');
-  const [nameSuffix, setNameSuffix] = useLocalStorage('nameSuffix', '');
-  const [inputFormat, setInputFormat] = useLocalStorage<InputFormat>(
-    'inputFormat',
-    'text'
-  );
-  const [outputFormat, setOutputFormat] = useLocalStorage<OutputFormat>(
-    'outputFormat',
-    'text'
-  );
-  const [generationFormat, setGenerationFormat] = useLocalStorage<GenerationFormat>(
-    'generationFormat',
-    'commands'
-  );
-  const [linesPerPage, setLinesPerPage] = useLocalStorage('linesPerPage', 14);
-  const [minecraftVersion, setMinecraftVersion] = useLocalStorage<MinecraftVersion>(
-    'minecraftVersion',
-    'java'
-  );
-  const [javaVersion, setJavaVersion] = useLocalStorage<JavaVersion>(
-    'javaVersion',
-    '1.20.5+'
-  );
-  const [commandTarget, setCommandTarget] = useLocalStorage<CommandTarget>(
-    'commandTarget',
-    'commandblock'
-  );
+  function settingsReducer(state: Settings, action: SettingsAction) {
+    switch (action.type) {
+      case 'UPDATE_FIELD':
+        return {
+          ...state,
+          [action.field]: action.payload,
+          settingsAdjusted: true,
+        };
+      case 'SAVE_SUCCESS':
+        return {
+          ...state,
+          settingsAdjusted: false,
+        };
+      default:
+        return state;
+    }
+  }
+
+  const STORAGE_KEY = 'mc_book_settings';
+
+  const [state, dispatch] = useReducer(settingsReducer, initialState, (defaultState) => {
+    // We try to load from LocalStorage first, and if it doesn't exist, we use the default state
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? (JSON.parse(saved) as Settings) : defaultState;
+  });
+
+  // Sync to LocalStorage whenever state changes
+  useEffect(() => {
+    const { ...dataToSave } = state;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+  }, [state]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    dispatch({ type: 'SAVE_SUCCESS', field: 'settingsAdjusted' });
+
     showResults(
-      text,
-      title,
-      author,
-      minecraftVersion,
-      generationFormat,
-      javaVersion,
-      linesPerPage,
-      nameSuffix,
-      commandTarget
+      state.text,
+      state.title,
+      state.author,
+      state.minecraftVersion,
+      state.generationFormat,
+      state.javaVersion,
+      state.linesPerPage,
+      state.nameSuffix,
+      state.commandTarget
     );
   };
 
   return {
-    inputFormat,
-    setInputFormat,
-    outputFormat,
-    setOutputFormat,
-    generationFormat,
-    setGenerationFormat,
-    minecraftVersion,
-    setMinecraftVersion,
-    text,
-    setText,
-    linesPerPage,
-    setLinesPerPage,
-    nameSuffix,
-    setNameSuffix,
-    author,
-    setAuthor,
-    title,
-    setTitle,
-    javaVersion,
-    setJavaVersion,
-    commandTarget,
-    setCommandTarget,
+    state,
+    updateField: (field: keyof Settings, value: SettingsAction['payload']) =>
+      dispatch({ type: 'UPDATE_FIELD', field, payload: value }),
     handleSubmit,
   };
 }

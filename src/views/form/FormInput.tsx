@@ -35,7 +35,7 @@ function FormInput(props: IFormInput) {
             id='author'
             placeholder='Lewis Carroll'
             value={props.author}
-            setter={props.setAuthor}
+            setter={props.updateField.bind(null, 'author')}
             maxLength={50}
             required={props.generationFormat === 'commands'}
           />
@@ -46,7 +46,7 @@ function FormInput(props: IFormInput) {
             id='title'
             placeholder='Alice in Wonderland'
             value={props.title}
-            setter={props.setTitle}
+            setter={props.updateField.bind(null, 'title')}
             maxLength={15}
             required={props.generationFormat === 'commands'}
           />
@@ -56,7 +56,7 @@ function FormInput(props: IFormInput) {
         <div className={classNames({ hidden: props.inputFormat === 'text' })}>
           <FileUpload
             label='Text'
-            callback={(text) => props.setText(text)}
+            callback={(text) => props.updateField('text', text)}
             useFileUpload={props.inputFormat === 'file'}
           />
         </div>
@@ -66,7 +66,7 @@ function FormInput(props: IFormInput) {
             id='text'
             placeholder='Once upon a time, there was a girl...'
             value={props.text}
-            setter={props.setText}
+            setter={props.updateField.bind(null, 'text')}
             required={props.inputFormat === 'text'}
           />
           <span className='text-gray-500 text-sm'>

@@ -79,10 +79,11 @@ function Results(props: Props) {
                 </div>
                 {checkRowIsCopied(result.index) && (
                   <div
-                    className='text-xl p-2 bg-green-300 hover:bg-red-300 select-none cursor-pointer'
+                    className='text-xl p-2 bg-green-300 hover:bg-red-300 select-none cursor-pointer group'
                     onClick={() => removeCopiedRow(result.index)}
                   >
-                    ✓
+                    <span className='block group-hover:hidden w-5'>✓</span>
+                    <span className='hidden group-hover:block w-5'>✕</span>
                   </div>
                 )}
               </li>

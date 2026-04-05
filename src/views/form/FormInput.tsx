@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import FileUpload from '../../components/FileUpload.tsx';
 import loader from '../../assets/loader.svg';
 import { FormInputProps } from '../../global/types.ts';
@@ -24,56 +23,55 @@ function FormInput(props: FormInputProps) {
 
   return (
     <form onSubmit={props.handleSubmit}>
-      <div
-        className={classNames('flex flex-wrap mb-4', {
-          hidden: props.generationFormat === 'text',
-        })}
-      >
-        <div className='w-full sm:w-1/2 px-2'>
-          <TextInput
-            label='Author'
-            id='author'
-            placeholder='Lewis Carroll'
-            value={props.author}
-            setter={props.updateField.bind(null, 'author')}
-            maxLength={50}
-            required={props.generationFormat === 'commands'}
-          />
+      {props.generationFormat === 'commands' && (
+        <div className='flex flex-wrap mb-4'>
+          <div className='w-full sm:w-1/2 px-2'>
+            <TextInput
+              label='Author'
+              id='author'
+              placeholder='Lewis Carroll'
+              value={props.author}
+              setter={props.updateField.bind(null, 'author')}
+              maxLength={50}
+              required={props.generationFormat === 'commands'}
+            />
+          </div>
+          <div className='w-full sm:w-1/2 px-2'>
+            <TextInput
+              label='Title'
+              id='title'
+              placeholder='Alice in Wonderland'
+              value={props.title}
+              setter={props.updateField.bind(null, 'title')}
+              maxLength={15}
+              required={props.generationFormat === 'commands'}
+            />
+          </div>
         </div>
-        <div className='w-full sm:w-1/2 px-2'>
-          <TextInput
-            label='Title'
-            id='title'
-            placeholder='Alice in Wonderland'
-            value={props.title}
-            setter={props.updateField.bind(null, 'title')}
-            maxLength={15}
-            required={props.generationFormat === 'commands'}
-          />
-        </div>
-      </div>
+      )}
       <div className='mb-4'>
-        <div className={classNames({ hidden: props.inputFormat === 'text' })}>
+        {props.inputFormat === 'file' ? (
           <FileUpload
             label='Text'
             callback={(text) => props.updateField('text', text)}
             useFileUpload={props.inputFormat === 'file'}
           />
-        </div>
-        <div className={classNames({ hidden: props.inputFormat === 'file' })}>
-          <TextArea
-            label='Text'
-            id='text'
-            placeholder='Once upon a time, there was a girl...'
-            value={props.text}
-            setter={props.updateField.bind(null, 'text')}
-            required={props.inputFormat === 'text'}
-          />
-          <span className='text-gray-500 text-sm'>
-            {props.text.length} characters,{' '}
-            {props.text.length > 0 ? props.text.trim().split(/\s+/).length : 0} words
-          </span>
-        </div>
+        ) : (
+          <>
+            <TextArea
+              label='Text'
+              id='text'
+              placeholder='Once upon a time, there was a girl...'
+              value={props.text}
+              setter={props.updateField.bind(null, 'text')}
+              required={props.inputFormat === 'text'}
+            />
+            <span className='text-gray-500 text-sm'>
+              {props.text.length} characters,{' '}
+              {props.text.length > 0 ? props.text.trim().split(/\s+/).length : 0} words
+            </span>
+          </>
+        )}
       </div>
       <button
         type='submit'

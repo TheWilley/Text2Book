@@ -90,6 +90,10 @@ export type ResultsProps = {
   timeToGenerate: number;
 } & Pick<Settings, 'outputFormat'>;
 
+export type ImportExportProps = {
+  settings: Settings;
+};
+
 // === Function types ===
 
 export type ShowResults = (

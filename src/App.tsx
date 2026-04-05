@@ -12,7 +12,7 @@ function App() {
 
   return (
     <Layout>
-      <ImportExport />
+      <ImportExport settings={settings} />
       <Form
         showResults={showResults}
         loading={loading}

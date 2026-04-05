@@ -49,6 +49,11 @@ export default function useSettings(showResults: ShowResults) {
     localStorage.setItem(SETTINGS_LOCALSTORAGE_KEY, JSON.stringify(dataToSave));
   }, [state]);
 
+  // Onload be set changed to false
+  useEffect(() => {
+    dispatch({ type: 'SAVE_SUCCESS', field: 'settingsAdjusted' });
+  }, []);
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     firstGeneration.current = true;

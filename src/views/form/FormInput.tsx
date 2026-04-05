@@ -90,7 +90,7 @@ function FormInput(props: FormInputProps) {
         <ButtonTitle />
       </button>
       {TEMP_disableBedrock && (
-        <p className='bg-red-500 text-white text-sm mt-2 rounded-lg p-2'>
+        <p className='bg-red-100 text-red-800 text-sm mt-2 rounded-lg p-2'>
           Bedrock is temporarily disabled due to a lack of testing and validation. See{' '}
           <a
             href='https://github.com/TheWilley/Text2Book/issues/21'

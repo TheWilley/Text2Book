@@ -1,3 +1,4 @@
+import { SETTINGS_LOCALSTORAGE_KEY } from '../global/constants';
 import { Settings } from '../global/types';
 
 export default function useImportExport(settings: Settings) {
@@ -45,7 +46,7 @@ export default function useImportExport(settings: Settings) {
             alert('JSON file is not a valid text2book export.');
             return;
           }
-          localStorage.setItem('mc_book_settings', JSON.stringify(data));
+          localStorage.setItem(SETTINGS_LOCALSTORAGE_KEY, JSON.stringify(data));
           window.location.reload();
         };
         reader.readAsText(file);

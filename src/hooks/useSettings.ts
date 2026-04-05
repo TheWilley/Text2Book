@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from 'react';
 import { Settings, ShowResults, SettingsAction } from '../global/types.ts';
+import { SETTINGS_LOCALSTORAGE_KEY } from '../global/constants.ts';
 export default function useSettings(showResults: ShowResults) {
   const initialState: Settings = {
     text: '',
@@ -34,18 +35,16 @@ export default function useSettings(showResults: ShowResults) {
     }
   }
 
-  const STORAGE_KEY = 'mc_book_settings';
-
   const [state, dispatch] = useReducer(settingsReducer, initialState, (defaultState) => {
     // We try to load from LocalStorage first, and if it doesn't exist, we use the default state
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved = localStorage.getItem(SETTINGS_LOCALSTORAGE_KEY);
     return saved ? (JSON.parse(saved) as Settings) : defaultState;
   });
 
   // Sync to LocalStorage whenever state changes
   useEffect(() => {
     const { ...dataToSave } = state;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+    localStorage.setItem(SETTINGS_LOCALSTORAGE_KEY, JSON.stringify(dataToSave));
   }, [state]);
 
   const handleSubmit = (event: React.FormEvent) => {

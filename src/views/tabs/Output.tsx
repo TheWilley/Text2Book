@@ -25,7 +25,7 @@ function Output(props: OutputProps) {
           },
           {
             id: 'unsupportedCharacters',
-            label: 'Unsupported Characters',
+            label: `Unsupported Characters (${props.results.unsupportedCharacters.length})`,
             element: (
               <UnsupportedCharacters
                 unsupportedCharacters={props.results.unsupportedCharacters}

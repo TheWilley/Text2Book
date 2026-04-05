@@ -1,7 +1,9 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import { Settings, ShowResults, SettingsAction } from '../global/types.ts';
 import { SETTINGS_LOCALSTORAGE_KEY } from '../global/constants.ts';
 export default function useSettings(showResults: ShowResults) {
+  const firstGeneration = useRef(false);
+
   const initialState: Settings = {
     text: '',
     author: '',
@@ -23,7 +25,7 @@ export default function useSettings(showResults: ShowResults) {
         return {
           ...state,
           [action.field]: action.payload,
-          settingsAdjusted: true,
+          settingsAdjusted: firstGeneration.current ? true : state.settingsAdjusted, // Only set to true if it's not the first generation
         };
       case 'SAVE_SUCCESS':
         return {
@@ -49,6 +51,7 @@ export default function useSettings(showResults: ShowResults) {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    firstGeneration.current = true;
     dispatch({ type: 'SAVE_SUCCESS', field: 'settingsAdjusted' });
 
     showResults({

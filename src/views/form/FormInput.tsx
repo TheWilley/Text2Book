@@ -78,19 +78,8 @@ function FormInput(props: FormInputProps) {
           Settings has been adjusted since last generation
         </p>
       )}
-      <button
-        type='submit'
-        className='w-full h-10 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-        disabled={props.loading || TEMP_disableBedrock}
-        style={{
-          filter: TEMP_disableBedrock ? 'grayscale(100%)' : 'none',
-          cursor: TEMP_disableBedrock ? 'not-allowed' : 'pointer',
-        }}
-      >
-        <ButtonTitle />
-      </button>
       {TEMP_disableBedrock && (
-        <p className='bg-red-100 text-red-800 text-sm mt-2 rounded-lg p-2'>
+        <p className='bg-red-100 text-red-800 text-sm mt-2 mb-4 rounded-lg p-2'>
           Bedrock is temporarily disabled due to a lack of testing and validation. See{' '}
           <a
             href='https://github.com/TheWilley/Text2Book/issues/21'
@@ -102,6 +91,17 @@ function FormInput(props: FormInputProps) {
           issue if you can!
         </p>
       )}
+      <button
+        type='submit'
+        className='w-full h-10 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+        disabled={props.loading || TEMP_disableBedrock}
+        style={{
+          filter: TEMP_disableBedrock ? 'grayscale(100%)' : 'none',
+          cursor: TEMP_disableBedrock ? 'not-allowed' : 'pointer',
+        }}
+      >
+        <ButtonTitle />
+      </button>
     </form>
   );
 }

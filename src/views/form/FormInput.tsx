@@ -73,6 +73,11 @@ function FormInput(props: FormInputProps) {
           </>
         )}
       </div>
+      {props.settingsAdjusted && (
+        <p className='bg-yellow-100 text-yellow-800 text-sm mb-4 rounded-lg p-2'>
+          Settings has been adjusted since last generation
+        </p>
+      )}
       <button
         type='submit'
         className='w-full h-10 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'

@@ -31,6 +31,7 @@ function Form(props: FormProps) {
         author={props.settings.author}
         title={props.settings.title}
         loading={props.loading}
+        settingsAdjusted={props.settings.settingsAdjusted}
         handleSubmit={props.handleSubmit}
         updateField={props.updateField}
       />

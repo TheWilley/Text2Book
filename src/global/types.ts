@@ -60,7 +60,13 @@ export type FormProps = {
 
 export type FormInputProps = FormBundle<
   Settings,
-  'inputFormat' | 'generationFormat' | 'minecraftVersion' | 'text' | 'author' | 'title'
+  | 'inputFormat'
+  | 'generationFormat'
+  | 'minecraftVersion'
+  | 'text'
+  | 'author'
+  | 'title'
+  | 'settingsAdjusted'
 > & {
   loading: boolean;
   handleSubmit: HandleSubmit;

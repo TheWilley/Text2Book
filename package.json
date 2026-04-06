@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "test": "vitest run",
+    "test": "vitest run --reporter=verbose",
     "pretest": "npm run lint",
     "test:watch": "vitest",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

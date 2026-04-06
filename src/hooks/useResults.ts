@@ -53,7 +53,7 @@ export default function useResults(results: BookOutput) {
   const copyAndNotify = (event: FormEvent, index: number, result: string) => {
     // Make parent linkable
     const target = (event.target as HTMLElement).closest('.listitem');
-    target && target.classList.remove('noblink');
+    target?.classList.remove('noblink');
 
     // Add to list of copied rows
     addCopiedRow(index);
@@ -73,7 +73,7 @@ export default function useResults(results: BookOutput) {
     setBlink(0);
     // Make parent nonblinkable
     const target = (event.target as HTMLElement).closest('.listitem');
-    target && target.classList.add('noblink');
+    target?.classList.add('noblink');
   };
 
   /**

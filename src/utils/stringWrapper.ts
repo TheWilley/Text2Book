@@ -198,11 +198,11 @@ function getCharWidthFloat(charInput: string): number {
     if (charCode > 0 && i !== -1 && !unicodeFlag) {
       // We do +1 because we account for spacing between each character
       return i + 1;
-    } 
+    }
     // In theory we should never land here
     else if (glyphWidth[charCode] !== 0) {
       // Extracting bit-packed width data
-      const j = glyphWidth[charCode]! & 255;
+      const j = glyphWidth[charCode] & 255;
       const k = j >>> 4; // High nibble
       const l = j & 15; // Low nibble
       return (l + 1 - k) / 2 + 1;
